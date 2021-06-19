@@ -6,6 +6,7 @@ class ResponsiveWidget extends StatelessWidget {
   final AppBar? appBar;
   final Drawer? drawer;
   final bool resizeToAvoidBottomInset;
+  final Function? onWillPop;
 
   const ResponsiveWidget(
       {Key? key,
@@ -13,21 +14,30 @@ class ResponsiveWidget extends StatelessWidget {
       this.appBar,
       this.drawer,
       this.backgroundColor,
-      this.resizeToAvoidBottomInset = false})
+      this.resizeToAvoidBottomInset = true,
+      this.onWillPop})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraint) {
       Size constraints = Size(constraint.maxWidth, constraint.maxHeight);
-      return Scaffold(
-        backgroundColor: backgroundColor ?? Theme.of(context).backgroundColor,
-        resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-        appBar: appBar,
-        drawer: drawer,
-        body: Builder(
-          builder: (context) => builder(context, constraints),
-        ),
-      );
+      return WillPopScope(
+          onWillPop: () {
+            if (onWillPop != null) {
+              onWillPop!();
+            }
+            return Future.value(false);
+          },
+          child: Scaffold(
+            backgroundColor:
+                backgroundColor ?? Theme.of(context).backgroundColor,
+            resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+            appBar: appBar,
+            drawer: drawer,
+            body: Builder(
+              builder: (context) => builder(context, constraints),
+            ),
+          ));
     });
   }
 }

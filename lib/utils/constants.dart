@@ -1,1 +1,2 @@
-const SplashScreen = '/';
+const SplashScreenViewRoute = '/';
+const LoginViewRoute = 'login';
