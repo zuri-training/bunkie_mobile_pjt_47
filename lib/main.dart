@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  setupLocator();
   runApp(BunkieApp());
 }
 
@@ -22,6 +23,7 @@ class BunkieApp extends StatelessWidget {
               onGenerateRoute: RouteGenerator.onGenerateRoute,
               navigatorKey: locator<NavigationService>().navigatorKey,
               initialRoute: LoginViewRoute,
+              debugShowCheckedModeBanner: false,
             )));
   }
 }
