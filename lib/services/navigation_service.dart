@@ -27,9 +27,11 @@ abstract class AppNavigationService {
   void exitApp();
 }
 
+/// Handles navigation
 class NavigationService implements AppNavigationService {
   late GlobalKey<NavigatorState> navigatorKey;
 
+  /// Constructs a NavigationService instance
   NavigationService({GlobalKey<NavigatorState>? navigatorKey}) {
     this.navigatorKey = navigatorKey ?? GlobalKey<NavigatorState>();
   }
