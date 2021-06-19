@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bunkie_mobile_pjt_47/utils/utils.dart';
+import 'package:bunkie/utils/utils.dart';
 
 class RouteGenerator {
   ///Generates routes, extracts and passes navigation arguments.
