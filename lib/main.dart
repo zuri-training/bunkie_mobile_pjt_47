@@ -1,3 +1,4 @@
+import 'package:bunkie_mobile_pjt_47/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,6 +13,7 @@ class BunkieApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
+      onGenerateRoute: RouteGenerator.onGenerateRoute,
     );
   }
 }
