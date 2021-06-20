@@ -1,4 +1,5 @@
 import 'package:bunkie/views/login_view.dart';
+import 'package:bunkie/views/profile_create.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/utils/utils.dart';
@@ -13,6 +14,8 @@ class RouteGenerator {
       case LoginViewRoute:
         //TODO: Replace with actual SplashScreen widget
         return _getPageRoute(LoginView());
+      case ProfileCreateView:
+        return _getPageRoute(ProfileCreate());
       default:
         return _getPageRoute(_errorPage);
     }
@@ -22,7 +25,7 @@ class RouteGenerator {
   static CupertinoPageRoute _getPageRoute(
     Widget child, [
     String? routeName,
-    dynamic? args,
+    dynamic args,
   ]) =>
       CupertinoPageRoute(
         builder: (context) => child,
