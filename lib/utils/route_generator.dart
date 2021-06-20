@@ -14,6 +14,14 @@ class RouteGenerator {
         return _getPageRoute(LoginView());
       case LandingViewRoute:
         return _getPageRoute(LandingPageView());
+      case SignUpViewRoute:
+        return _getPageRoute(SignUpView());
+      case VerifyEmailViewRoute:
+        return _getPageRoute(VerifyEmailView());
+      case VerifyNumberViewRoute:
+        return _getPageRoute(VerifyNumberView());
+      case CodeVerificationViewRoute:
+        return _getPageRoute(CodeVerificationView());
       default:
         return _getPageRoute(_errorPage);
     }

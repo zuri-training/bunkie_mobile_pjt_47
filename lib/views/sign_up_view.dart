@@ -3,8 +3,8 @@ import 'package:bunkie/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
 
-class LoginView extends StatelessWidget {
-  const LoginView({Key? key}) : super(key: key);
+class SignUpView extends StatelessWidget {
+  const SignUpView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +27,17 @@ class LoginView extends StatelessWidget {
                     CustomSpacer(flex: 8),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: Container(
-                        child: Text('Log In to Continue',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16.sp,
-                            )),
-                      ),
+                      child: Text('Create an account',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16.sp,
+                          )),
                     ),
                     CustomSpacer(flex: 4),
+                    CustomTextField(
+                      hintText: 'Full Name',
+                    ),
+                    CustomSpacer(flex: 5),
                     CustomTextField(
                       hintText: 'Enter Email',
                     ),
@@ -43,55 +45,33 @@ class LoginView extends StatelessWidget {
                     CustomTextField(
                       hintText: 'Enter Password',
                     ),
-                    CustomSpacer(flex: 12),
+                    CustomSpacer(flex: 10),
                     CustomButton(
-                        text: 'Log In',
+                        text: 'Sign Up',
                         onPressed: () {
                           locator<NavigationService>()
-                              .pushNamed(VerifyNumberViewRoute);
+                              .pushNamed(VerifyEmailViewRoute);
                         }),
                     CustomSpacer(flex: 4),
-                    Text('Or continue with:',
+                    Text('Or register with:',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16.sp,
                         )),
-                    CustomSpacer(flex: 5),
+                    CustomSpacer(flex: 3),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SocialMediaButton(
-                          label: 'Facebook',
-                          imagePath: 'assets/images/logo-facebook.png',
-                        ),
+                            label: 'Facebook',
+                            imagePath: 'assets/images/logo-facebook.png'),
                         CustomSpacer(horizontal: true, flex: 3),
                         SocialMediaButton(
-                            label: 'Google',
+                            label: 'Facebook',
                             imagePath: 'assets/images/logo-google.png'),
                       ],
                     ),
-                    CustomSpacer(flex: 7),
-                    Container(
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Don't have an account?  ",
-                              style: TextStyle(fontSize: 17.sp),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                locator<NavigationService>()
-                                    .pushNamed(SignUpViewRoute);
-                              },
-                              child: Text(
-                                'Sign Up',
-                                style: TextStyle(
-                                    color: Colors.lightBlue, fontSize: 17.sp),
-                              ),
-                            )
-                          ]),
-                    )
+                    CustomSpacer(flex: 3),
                   ],
                 )),
           ),
