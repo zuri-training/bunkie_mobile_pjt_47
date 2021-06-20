@@ -67,7 +67,7 @@ class SignUpView extends StatelessWidget {
                             imagePath: 'assets/images/logo-facebook.png'),
                         CustomSpacer(horizontal: true, flex: 3),
                         SocialMediaButton(
-                            label: 'Facebook',
+                            label: 'Google',
                             imagePath: 'assets/images/logo-google.png'),
                       ],
                     ),
