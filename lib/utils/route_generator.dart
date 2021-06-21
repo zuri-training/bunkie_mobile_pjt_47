@@ -22,6 +22,14 @@ class RouteGenerator {
         return _getPageRoute(VerifyNumberView());
       case CodeVerificationViewRoute:
         return _getPageRoute(CodeVerificationView());
+      case AmenitiesViewRoute:
+        return _getPageRoute(AmenitiesView());
+      case InterestsAndLifestyleViewRoute:
+        return _getPageRoute(InterestsAndLifeStyleView());
+      case LookingForApartmentViewRoute:
+        return _getPageRoute(LookingForApartmentView());
+      case LookingForRoommateViewRoute:
+        return _getPageRoute(LookingForRoomateView());
       default:
         return _getPageRoute(_errorPage);
     }

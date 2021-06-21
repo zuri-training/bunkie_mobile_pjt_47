@@ -30,4 +30,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/apartments/
+    - assets/images/bunkie-logos/
+    - assets/images/roommates/
+    - assets/images/verification/
     - google_fonts/

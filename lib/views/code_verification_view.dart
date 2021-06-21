@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
+import 'package:bunkie/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -53,7 +54,8 @@ class _CodeVerificationViewState extends State<CodeVerificationView> {
                   height: 230.h,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/images/verify-phone.png'),
+                        image: AssetImage(
+                            'assets/images/verification/verify-phone.png'),
                         fit: BoxFit.cover),
                   ),
                 ),
@@ -115,7 +117,8 @@ class _CodeVerificationViewState extends State<CodeVerificationView> {
                     width: size.width,
                     text: 'Verify',
                     onPressed: () {
-                      locator<NavigationService>().pushNamed(LandingViewRoute);
+                      locator<NavigationService>()
+                          .pushNamed(LookingForApartmentViewRoute);
                     }),
               ]),
             ),

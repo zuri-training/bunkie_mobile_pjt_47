@@ -26,7 +26,8 @@ class VerifyNumberView extends StatelessWidget {
                   height: 234.h,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/images/verify-man.png'),
+                        image: AssetImage(
+                            'assets/images/verification/verify-man.png'),
                         fit: BoxFit.cover),
                   ),
                 ),

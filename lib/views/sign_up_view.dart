@@ -21,8 +21,8 @@ class SignUpView extends StatelessWidget {
                     Container(
                       width: 180.w,
                       height: 120.h,
-                      child:
-                          Image.asset('assets/images/gradient-bunkie-logo.png'),
+                      child: Image.asset(
+                          'assets/images/bunkie-logos/gradient-bunkie-logo.png'),
                     ),
                     CustomSpacer(flex: 8),
                     Align(
@@ -34,15 +34,15 @@ class SignUpView extends StatelessWidget {
                           )),
                     ),
                     CustomSpacer(flex: 4),
-                    CustomTextField(
+                    CustomTextFormField(
                       hintText: 'Full Name',
                     ),
                     CustomSpacer(flex: 5),
-                    CustomTextField(
+                    CustomTextFormField(
                       hintText: 'Enter Email',
                     ),
                     CustomSpacer(flex: 5),
-                    CustomTextField(
+                    CustomTextFormField(
                       hintText: 'Enter Password',
                     ),
                     CustomSpacer(flex: 10),

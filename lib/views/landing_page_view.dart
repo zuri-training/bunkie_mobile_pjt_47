@@ -43,7 +43,8 @@ class LandingPageView extends StatelessWidget {
             Container(
               width: 180.w,
               height: 120.h,
-              child: Image.asset('assets/images/white-bunkie-logo.png'),
+              child: Image.asset(
+                  'assets/images/bunkie-logos/white-bunkie-logo.png'),
             ),
             CustomSpacer(flex: size.height / 18),
             Padding(

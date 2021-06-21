@@ -1,37 +1,42 @@
 import 'package:flutter/material.dart';
 
+import 'package:bunkie/utils/utils.dart';
+
 class CustomTextField extends StatelessWidget {
-  final String? hintText;
+  final Widget? suffixIcon;
+  final int? maxLines;
   const CustomTextField({
     Key? key,
-    this.hintText: '',
+    this.suffixIcon,
+    this.maxLines,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Material(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(28),
+    return TextField(
+        cursorColor: Colors.green.shade900,
+        maxLines: maxLines ?? maxLines,
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xff027A63), width: 1),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
           ),
-        ),
-        elevation: 20,
-        shadowColor: Colors.grey,
-        child: TextFormField(
-          decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(28),
-                ),
-              ),
-              fillColor: Colors.white,
-              filled: true,
-              hintText: hintText ?? '',
-              hintStyle: TextStyle(color: Colors.grey)),
-        ),
-      ),
-    );
+          suffixIcon: suffixIcon ?? suffixIcon,
+          contentPadding: EdgeInsets.symmetric(vertical: 3.h),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xff027A63), width: 3),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xff027A63), width: 1),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+        ));
   }
 }
