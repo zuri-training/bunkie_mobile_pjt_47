@@ -1,3 +1,4 @@
 const SplashScreenViewRoute = '/';
 const LoginViewRoute = 'login';
-const ProfileCreateView = '/create-profile';
+const ProfileCreateViewRoute = '/create-profile';
+const SelectionViewRoute = '/select';
