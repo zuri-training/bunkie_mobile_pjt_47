@@ -20,6 +20,7 @@ dependencies:
   provider: ^5.0.0
   get_it: ^7.1.3
   flutter_screenutil: ^5.0.0+2
+  pin_code_fields: ^7.2.0
 
 dev_dependencies:
   flutter_test:
@@ -29,4 +30,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/apartments/
+    - assets/images/bunkie-logos/
+    - assets/images/roommates/
+    - assets/images/verification/
     - google_fonts/

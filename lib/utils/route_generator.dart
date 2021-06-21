@@ -1,4 +1,4 @@
-import 'package:bunkie/views/login_view.dart';
+import 'package:bunkie/views/views.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/utils/utils.dart';
@@ -11,8 +11,25 @@ class RouteGenerator {
         //TODO: Replace with actual SplashScreen widget
         return _getPageRoute(Container());
       case LoginViewRoute:
-        //TODO: Replace with actual SplashScreen widget
         return _getPageRoute(LoginView());
+      case LandingViewRoute:
+        return _getPageRoute(LandingPageView());
+      case SignUpViewRoute:
+        return _getPageRoute(SignUpView());
+      case VerifyEmailViewRoute:
+        return _getPageRoute(VerifyEmailView());
+      case VerifyNumberViewRoute:
+        return _getPageRoute(VerifyNumberView());
+      case CodeVerificationViewRoute:
+        return _getPageRoute(CodeVerificationView());
+      case AmenitiesViewRoute:
+        return _getPageRoute(AmenitiesView());
+      case InterestsAndLifestyleViewRoute:
+        return _getPageRoute(InterestsAndLifeStyleView());
+      case LookingForApartmentViewRoute:
+        return _getPageRoute(LookingForApartmentView());
+      case LookingForRoommateViewRoute:
+        return _getPageRoute(LookingForRoomateView());
       default:
         return _getPageRoute(_errorPage);
     }
