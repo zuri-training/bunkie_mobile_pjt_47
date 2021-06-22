@@ -21,6 +21,7 @@ dependencies:
   get_it: ^7.1.3
   flutter_screenutil: ^5.0.0+2
   carousel_slider: ^4.0.0
+  pin_code_fields: ^7.2.0
 
 dev_dependencies:
   flutter_test:
@@ -30,7 +31,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/images/roommates/
     - assets/images/apartments/
-    - assets/images/misc/
+    - assets/images/bunkie-logos/
+    - assets/images/roommates/
+    - assets/images/verification/
     - google_fonts/
