@@ -336,8 +336,11 @@ class _ProfileCreateState extends State<ProfileCreate> {
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
-                        )
-                      )
+                        ),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(
+                        Color(0xff027A63),
+                      ),
                     ),
                     child: Text(
                       'Submit',
@@ -358,6 +361,7 @@ class _ProfileCreateState extends State<ProfileCreate> {
     Widget _buildRadioButton({String? title, int? value, var onChanged}) {
       return RadioListTile(
         value: value,
+        activeColor: Color(0xff027A63),
         groupValue: _groupValue,
         onChanged: onChanged,
         title: Text(

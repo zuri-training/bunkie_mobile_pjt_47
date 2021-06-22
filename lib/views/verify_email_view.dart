@@ -58,7 +58,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                         fit: BoxFit.cover),
                   ),
                 ),
-                CustomSpacer(flex: 2),
+                CustomSpacer(flex: 0),
                 Text('Verify your Email',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -97,16 +97,19 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                           "Didn't Receive the Code?  ",
                           style: TextStyle(fontSize: 17.sp),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            locator<NavigationService>()
-                                .pushNamed(SignUpViewRoute);
-                          },
-                          child: Text(
-                            'Resend Code',
-                            style: TextStyle(
-                                color: Colors.lightGreen, fontSize: 17.sp),
-                          ),
+                        Flexible(
+                          fit: FlexFit.loose,
+                            child: GestureDetector(
+                            onTap: () {
+                              locator<NavigationService>()
+                                  .pushNamed(SignUpViewRoute);
+                            },
+                            child: Text(
+                              'Resend Code',
+                              style: TextStyle(
+                                  color: Colors.lightGreen, fontSize: 17.sp),
+                            ),
+                          )
                         )
                       ]),
                 ),
