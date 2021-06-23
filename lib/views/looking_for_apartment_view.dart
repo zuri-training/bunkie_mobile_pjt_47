@@ -11,6 +11,9 @@ class LookingForApartmentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
+      onWillPop: () {
+        Navigator.pop(context);
+      },
       builder: (context, size) {
         return Scaffold(
             body: Container(
