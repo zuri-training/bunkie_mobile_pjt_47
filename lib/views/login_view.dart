@@ -24,7 +24,7 @@ class LoginView extends StatelessWidget {
                       child: Image.asset(
                           'assets/images/bunkie-logos/gradient-bunkie-logo.png'),
                     ),
-                    CustomSpacer(flex: 8),
+                    CustomSpacer(flex: 4,),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
@@ -43,7 +43,7 @@ class LoginView extends StatelessWidget {
                     CustomTextFormField(
                       hintText: 'Enter Password',
                     ),
-                    CustomSpacer(flex: 12),
+                    CustomSpacer(flex: 8),
                     CustomButton(
                         text: 'Log In',
                         onPressed: () {

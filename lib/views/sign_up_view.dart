@@ -14,7 +14,6 @@ class SignUpView extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.w),
             child: Container(
-                height: size.height,
                 width: size.width,
                 child: Column(
                   children: [
@@ -72,6 +71,7 @@ class SignUpView extends StatelessWidget {
                       ],
                     ),
                     CustomSpacer(flex: 3),
+                    SizedBox(height: 20),
                   ],
                 )),
           ),

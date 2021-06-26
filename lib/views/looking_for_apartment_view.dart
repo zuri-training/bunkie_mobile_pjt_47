@@ -43,7 +43,7 @@ class LookingForApartmentView extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         locator<NavigationService>()
-                            .pushNamed(LookingForRoommateViewRoute);
+                            .pushNamed(AmenitiesViewRoute);
                       },
                       child: Text('Next',
                           style: TextStyle(
