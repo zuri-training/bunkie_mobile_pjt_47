@@ -17,12 +17,9 @@ class BunkieApp extends StatelessWidget {
             providers: AppProvider.providers,
             child: MaterialApp(
               title: 'Bunkie',
-              theme: ThemeData(
-                primarySwatch: Colors.green,
-              ),
               onGenerateRoute: RouteGenerator.onGenerateRoute,
               navigatorKey: locator<NavigationService>().navigatorKey,
-              initialRoute: LoginViewRoute,
+              initialRoute: LandingViewRoute,
               debugShowCheckedModeBanner: false,
             )));
   }
