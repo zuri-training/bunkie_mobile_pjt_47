@@ -12,3 +12,4 @@ const SelectionViewRoute = 'select';
 const LookingForRoommateViewRoute = 'looking-for-roommate-view';
 const LookingForApartmentViewRoute = 'looking-for-apartment-view';
 const InterestsAndLifestyleViewRoute = 'interests-and-lifestyle-view';
+const RoommatePreferencesViewRoute = 'roomates-preferences';

@@ -1,3 +1,4 @@
+import 'package:bunkie/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -67,7 +68,8 @@ class SelectionView extends StatelessWidget {
                 ),
                 SizedBox(height: 40.h),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => locator<NavigationService>()
+                                .pushNamed(LookingForRoommateViewRoute),
                   child: Container(
                     height: 200.h,
                     decoration: BoxDecoration(
@@ -113,7 +115,10 @@ class SelectionView extends StatelessWidget {
                 ),
                 SizedBox(height: 30.h),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    locator<NavigationService>()
+                      .pushNamed(LookingForApartmentViewRoute);
+                  },
                   child: Container(
                     height: 200.h,
                     decoration: BoxDecoration(

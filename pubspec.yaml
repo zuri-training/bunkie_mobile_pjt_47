@@ -35,4 +35,5 @@ flutter:
     - assets/images/bunkie-logos/
     - assets/images/roommates/
     - assets/images/verification/
+    - assets/images/misc/
     - google_fonts/
