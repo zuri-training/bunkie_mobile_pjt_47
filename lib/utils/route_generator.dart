@@ -40,6 +40,14 @@ class RouteGenerator {
         return _getPageRoute(LookingForRoomateView());
       case RoommatePreferencesViewRoute:
         return _getPageRoute(RoommatePreferencesView());
+      case EditProfileViewRoute:
+        return _getPageRoute(EditProfileView());
+      case HelpViewRoute:
+        return _getPageRoute(HelpView());
+      case NotificationsSettingsViewRoute:
+        return _getPageRoute(NotificationsSettingsView());
+      case SettingsViewRoute:
+        return _getPageRoute(SettingsView());
       default:
         return _getPageRoute(_errorPage);
     }
