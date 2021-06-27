@@ -8,3 +8,8 @@ export 'package:bunkie/views/amenities_view.dart';
 export 'package:bunkie/views/interests_and_lifestyle_view.dart';
 export 'package:bunkie/views/looking_for_apartment_view.dart';
 export 'package:bunkie/views/looking_for_roommate_view.dart';
+export 'package:bunkie/views/selection_view.dart';
+export 'package:bunkie/views/edit_profile_view.dart';
+export 'package:bunkie/views/help_view.dart';
+export 'package:bunkie/views/notifications_settings_view.dart';
+export 'package:bunkie/views/settings_view.dart';
