@@ -20,6 +20,7 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
+      onWillPop: () => Navigator.pop(context),
       builder: (context, size) {
         return Scaffold(
           body: SingleChildScrollView(
@@ -50,7 +51,10 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
                         )
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          locator<NavigationService>()
+                            .pushNamed(RoommateSearchViewRoute);
+                        },
                         child: Text(
                           'Next',
                           style: GoogleFonts.cabin(

@@ -1,6 +1,7 @@
 import 'package:bunkie/views/login_view.dart';
 import 'package:bunkie/views/profile_create.dart';
 import 'package:bunkie/views/roommate_preferences.dart';
+import 'package:bunkie/views/roommate_search.dart';
 import 'package:bunkie/views/selection_view.dart';
 import 'package:bunkie/views/views.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,6 +41,8 @@ class RouteGenerator {
         return _getPageRoute(LookingForRoomateView());
       case RoommatePreferencesViewRoute:
         return _getPageRoute(RoommatePreferencesView());
+      case RoommateSearchViewRoute:
+        return _getPageRoute(RoommateSearchView());
       default:
         return _getPageRoute(_errorPage);
     }
@@ -62,13 +65,15 @@ class RouteGenerator {
   ///Error page shown when app attempts navigating to an unknown route
   static Widget _errorPage = Scaffold(
     appBar: AppBar(
-        title: Text(
-      'Page not found',
-      style: TextStyle(color: Colors.red),
-    )),
+      title: Text(
+        'Page not found',
+        style: TextStyle(color: Colors.red),
+      ),
+      backgroundColor: Colors.red,
+    ),
     body: Center(
       child: Text(
-        'Error! Page not found',
+        'Error! Page not found or not implemented yet',
         style: TextStyle(color: Colors.red),
       ),
     ),

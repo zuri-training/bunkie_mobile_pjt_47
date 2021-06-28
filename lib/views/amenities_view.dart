@@ -3,16 +3,24 @@ import 'package:bunkie/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'shared/amenities_grid.dart';
 import 'shared/custom_spacer.dart';
 import 'package:bunkie/utils/utils.dart';
 
 import 'shared/shared.dart';
 
-class AmenitiesView extends StatelessWidget {
-  
+
+class AmenitiesView extends StatefulWidget {
+  _AmenitiesViewState createState() => _AmenitiesViewState();
+}
+
+
+class _AmenitiesViewState extends State<AmenitiesView> {
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
+      onWillPop: () => Navigator.pop(context),
       builder: (context, size) {
         return Scaffold(
           body: SingleChildScrollView(
@@ -31,7 +39,7 @@ class AmenitiesView extends StatelessWidget {
                       GestureDetector(
                         onTap: () => Navigator.pop(context),
                         child: Container(
-                          height: 30.w,
+                          height: 35.w,
                           width: 40.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -40,7 +48,7 @@ class AmenitiesView extends StatelessWidget {
                           child: Icon(
                             Icons.arrow_back,
                             color: Colors.grey,
-                            size: 30.w
+                            size: 30
                           )
                         )
                       ),
@@ -53,14 +61,14 @@ class AmenitiesView extends StatelessWidget {
                           'Next',
                           style: GoogleFonts.cabin(
                             color: Color(0xff027A63),
-                            fontSize: 20.sp
+                            fontSize: 24.sp
                           ),
                         )
                       ),
                     ],
                   ),
                 ),
-                // CustomSpacer(flex: 10,),
+                CustomSpacer(flex: 4),
                 RichText(
                   text: TextSpan(
                     text: 'Hello ',
@@ -70,9 +78,10 @@ class AmenitiesView extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: 'James\u{1F600}',
+                        text: 'James😃',// \u{1F600}
                         style: GoogleFonts.cabin(
                           color: Colors.black,
+                          fontWeight: FontWeight.bold
                         )
                       )
                     ]
@@ -99,28 +108,28 @@ class AmenitiesView extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          _buildAmenitiesGrid('assets/images/misc/running_water_icon.png', 'Water'),
-                          _buildAmenitiesGrid('assets/images/misc/electricity_icon.png', 'Electricity'),
-                          _buildAmenitiesGrid('assets/images/misc/wardrobe_icon.png', 'Wardrobe'),
+                          AmenitiesGrid(icon: 'assets/images/misc/running_water_icon.png', amenity: 'Water'),
+                          AmenitiesGrid(icon: 'assets/images/misc/electricity_icon.png', amenity: 'Electricity'),
+                          AmenitiesGrid(icon: 'assets/images/misc/wardrobe_icon.png', amenity: 'Wardrobe'),
                         ],
                       ),
-                      CustomSpacer(flex: 1.3),
+                      
                       Row(
                         children: [
-                          _buildAmenitiesGrid('assets/images/misc/fan_icon.png', 'Fan'),
-                          _buildAmenitiesGrid('assets/images/misc/pot_icon.png', 'Kitchen'),
-                          _buildAmenitiesGrid(
-                            'assets/images/misc/toilet_bottom_icon.png', 
-                            'Toilet'
+                          AmenitiesGrid(icon: 'assets/images/misc/fan_icon.png', amenity: 'Fan'),
+                          AmenitiesGrid(icon: 'assets/images/misc/pot_icon.png', amenity: 'Kitchen'),
+                          AmenitiesGrid(
+                            icon: 'assets/images/misc/toilet_bottom_icon.png', 
+                            amenity: 'Toilet',
+                            spacer: 4,
                           ),
                         ]
                       ),
-                      CustomSpacer(flex: 1.3),
                       Row(
                         children: [
-                          _buildAmenitiesGrid('assets/images/misc/bathroom_icon.png', 'Bathroom'),
-                          _buildAmenitiesGrid('assets/images/misc/ac_icon.png', 'A/C'),
-                          _buildAmenitiesGrid('assets/images/misc/parking_icon.png', 'Parking'),
+                          AmenitiesGrid(icon: 'assets/images/misc/bathroom_icon.png', amenity: 'Bathroom'),
+                          AmenitiesGrid(icon: 'assets/images/misc/ac_icon.png', amenity: 'A/C'),
+                          AmenitiesGrid(icon: 'assets/images/misc/parking_icon.png', amenity: 'Parking'),
                         ]
                       )
                     ]
@@ -158,36 +167,5 @@ class AmenitiesView extends StatelessWidget {
       },
     );
   }
-
-  Widget _buildAmenitiesGrid(String photoUrl, String amenity) {
-    bool _tapped = false;
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        width: 110.w,
-        height: 115.h,
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black
-          )
-        ),
-        child: Column(
-          children: [
-            Image.asset(
-              photoUrl
-            ),
-            Text(
-              amenity,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.cabin(
-                fontSize: 15.sp,
-              )
-            )
-          ],
-        )
-      )
-    );
-    
-  }
+  
 }
