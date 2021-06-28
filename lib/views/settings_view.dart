@@ -35,7 +35,8 @@ class _SettingsViewState extends State<SettingsView> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              locator<NavigationService>().pushNamed(LookingForRoommateViewRoute);
+              locator<NavigationService>()
+                  .pushNamed(LookingForRoommateViewRoute);
             },
           ),
         ),
@@ -128,13 +129,19 @@ class _SettingsViewState extends State<SettingsView> {
                               alignment: Alignment.centerLeft,
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                child: Text(
-                                  'Verification',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 17.sp,
-                                    color: Colors.green[800],
-                                    fontWeight: FontWeight.bold,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    locator<NavigationService>()
+                                        .pushNamed(UserVerificationViewRoute);
+                                  },
+                                  child: Text(
+                                    'Verification',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 17.sp,
+                                      color: Colors.green[800],
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),

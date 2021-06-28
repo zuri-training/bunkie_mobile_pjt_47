@@ -1,7 +1,7 @@
 import 'package:bunkie/views/login_view.dart';
 import 'package:bunkie/views/profile_create.dart';
 import 'package:bunkie/views/roommate_preferences.dart';
-import 'package:bunkie/views/roommate_search.dart';
+
 import 'package:bunkie/views/selection_view.dart';
 import 'package:bunkie/views/views.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,8 +41,7 @@ class RouteGenerator {
         return _getPageRoute(LookingForRoomateView());
       case RoommatePreferencesViewRoute:
         return _getPageRoute(RoommatePreferencesView());
-      case RoommateSearchViewRoute:
-        return _getPageRoute(RoommateSearchView());
+
       case EditProfileViewRoute:
         return _getPageRoute(EditProfileView());
       case HelpViewRoute:
@@ -51,6 +50,12 @@ class RouteGenerator {
         return _getPageRoute(NotificationsSettingsView());
       case SettingsViewRoute:
         return _getPageRoute(SettingsView());
+      case UserVerificationViewRoute:
+        return _getPageRoute(UserVerificationView());
+      case UserDocumentVerificationViewRoute:
+        return _getPageRoute(UserDocumentVerificationView());
+      case LiveShotVerificationViewRoute:
+        return _getPageRoute(LiveShotVerificationView());
       default:
         return _getPageRoute(_errorPage);
     }

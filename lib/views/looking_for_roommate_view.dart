@@ -20,7 +20,7 @@ class LookingForRoomateView extends StatelessWidget {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                locator<NavigationService>().pushNamed(SelectionViewRoute);
               },
               child: Container(
                 height: 35.h,
@@ -37,8 +37,7 @@ class LookingForRoomateView extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                locator<NavigationService>()
-                    .pushNamed(AmenitiesViewRoute);
+                locator<NavigationService>().pushNamed(AmenitiesViewRoute);
               },
               child: Text('Next',
                   style: TextStyle(color: Color(0xff027A63), fontSize: 24.sp)),
