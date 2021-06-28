@@ -38,12 +38,11 @@ class LookingForRoomateView extends StatelessWidget {
             GestureDetector(
               onTap: () {
                 locator<NavigationService>()
-                  .pushNamed(AmenitiesViewRoute);
+                    .pushNamed(AmenitiesViewRoute);
               },
               child: Text('Next',
-                style: TextStyle(color: Color(0xff027A63), fontSize: 24.sp)),
-            )
-            
+                  style: TextStyle(color: Color(0xff027A63), fontSize: 24.sp)),
+            ),
           ]),
         ),
         CustomSpacer(
