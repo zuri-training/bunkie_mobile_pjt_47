@@ -48,6 +48,12 @@ class RouteGenerator {
         return _getPageRoute(NotificationsSettingsView());
       case SettingsViewRoute:
         return _getPageRoute(SettingsView());
+      case UserVerificationViewRoute:
+        return _getPageRoute(UserVerificationView());
+      case UserDocumentVerificationViewRoute:
+        return _getPageRoute(UserDocumentVerificationView());
+      case LiveShotVerificationViewRoute:
+        return _getPageRoute(LiveShotVerificationView());
       default:
         return _getPageRoute(_errorPage);
     }
