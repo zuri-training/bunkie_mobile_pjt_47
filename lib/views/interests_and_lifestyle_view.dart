@@ -20,6 +20,7 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
+      onWillPop: () => Navigator.pop(context),
       builder: (context, size) {
         return Scaffold(
           body: SingleChildScrollView(
