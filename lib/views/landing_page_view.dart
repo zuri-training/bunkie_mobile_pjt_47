@@ -4,8 +4,16 @@ import 'package:flutter/material.dart';
 
 import 'package:bunkie/views/shared/shared.dart';
 
-class LandingPageView extends StatelessWidget {
+
+class LandingPageView extends StatefulWidget {
   const LandingPageView({Key? key}) : super(key: key);
+
+  @override
+  _LandingPageViewState createState() => _LandingPageViewState();
+}
+
+
+class _LandingPageViewState extends State<LandingPageView> {  
 
   @override
   Widget build(BuildContext context) {

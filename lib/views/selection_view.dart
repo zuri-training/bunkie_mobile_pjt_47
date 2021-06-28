@@ -1,5 +1,6 @@
 import 'package:bunkie/services/services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'shared/responsive_widget.dart';
@@ -10,17 +11,17 @@ class SelectionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
+      // onWillPop: () => SystemNavigator.pop(),
       builder: (context, size) {
         return Scaffold(
           body: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: 50.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 80.w
-                  ),
+                Align(
+                  alignment: Alignment.center,
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       RichText(
                         text: TextSpan(
@@ -71,7 +72,7 @@ class SelectionView extends StatelessWidget {
                   onTap: () => locator<NavigationService>()
                                 .pushNamed(LookingForRoommateViewRoute),
                   child: Container(
-                    height: 200.h,
+                    height: 100.h,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [BoxShadow(
@@ -120,7 +121,7 @@ class SelectionView extends StatelessWidget {
                       .pushNamed(LookingForApartmentViewRoute);
                   },
                   child: Container(
-                    height: 200.h,
+                    height: 100.h,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.green,
@@ -165,10 +166,7 @@ class SelectionView extends StatelessWidget {
                   )
                 ),
 
-                SizedBox(height: 40.h,)
-                
-                
-                
+                SizedBox(height: 10.h,)              
                 
               ],
             ),
