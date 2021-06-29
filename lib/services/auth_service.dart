@@ -23,6 +23,18 @@ class AuthService{
         password: password
       );  
       User? user = result.user;
+      if (user != null && !user.emailVerified) {
+        /*var actionCodeSettings = ActionCodeSettings(
+          androidPackageName: 'com.example.bunkie_mobile_pjt_47',
+          androidMinimumVersion: '21',
+          androidInstallApp: true,
+          iOSBundleId: 'com.example.bunkieMobilePjt47',
+          handleCodeInApp: true,
+          url: ,
+          dynamicLinkDomain: 
+        )*/
+        await user.sendEmailVerification();
+      }
       await _fireStoreService.createUser(CustomUser(
         id: result.user!.uid,
         email: email,
@@ -84,6 +96,19 @@ class AuthService{
   Future<bool> isLoggedIn() async {
     var user = _auth.currentUser;
     return user != null;
+  }
+
+  User? currentUser() {
+    // Returns the currently signed in user
+    return _auth.currentUser;
+  }
+
+  User? reloadCurrentUser() {
+    // Reloads user profile
+    User? oldUser = _auth.currentUser;
+    oldUser?.reload();
+    User? newUser = _auth.currentUser;
+    return newUser;
   }
 
   /*Stream<QuerySnapshot> readItems() {

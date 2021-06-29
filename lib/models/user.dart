@@ -10,20 +10,25 @@ class CustomUser {
   String gender;
   final String avatar;
   final int age;
+  final String religion;
   final String ethnicity;
+  String faculty;
 
   CustomUser({
     this.id: '',
-    required this.firstName,
-    required this.lastName,
-    required this.email,
+    this.firstName: '',
+    this.lastName: '',
+    this.email: '',
     this.state: '',
     this.university: '',
     this.level: '',
     this.gender: '',
     this.age: 0,
     this.ethnicity: '',
-    this.avatar: ''
+    this.religion: '',
+    this.avatar: '',
+    this.faculty: '',
+
   });
 
   CustomUser.fromData(Map<String, dynamic>? data)
@@ -31,7 +36,9 @@ class CustomUser {
       lastName = data['lastName'], email = data['email'],
       state = data['state'], university = data['university'], 
       level = data['level'], gender = data['gender'], 
-      age = data['age'], ethnicity = data['ethnicity'], avatar = data['avatar'];
+      age = data['age'], ethnicity = data['ethnicity'], 
+      avatar = data['avatar'], religion = data['religion'],
+      faculty = data['faculty'];
 
   Map<String, dynamic>toJson() {
     return {
@@ -44,7 +51,10 @@ class CustomUser {
       'gender': gender,
       'age': age,
       'ethnicity': ethnicity,
-      'avatar': avatar
+      'avatar': avatar,
+      'email': email,
+      'religion': religion,
+      'faculty': faculty,
     };
   }
 }

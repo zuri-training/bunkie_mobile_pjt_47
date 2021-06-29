@@ -12,7 +12,13 @@ void main() {
   runApp(BunkieApp());
 }
 
-class BunkieApp extends StatelessWidget {
+
+class BunkieApp extends StatefulWidget {
+  @override 
+  _BunkieAppState createState() => _BunkieAppState();
+}
+
+class _BunkieAppState extends State<BunkieApp> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   bool _isLoggedIn = false;
@@ -38,7 +44,7 @@ class BunkieApp extends StatelessWidget {
                 print('User is currently signed out');
                 _isLoggedIn = false;
               } else {
-                print('User is is currently signed out');
+                print('User is currently signed in');
                 _isLoggedIn = true;
               }
           });

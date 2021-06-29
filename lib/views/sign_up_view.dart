@@ -1,7 +1,13 @@
+
+
 import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
+
+
 import 'package:flutter/material.dart';
+
+
 import 'package:bunkie/views/shared/shared.dart';
 
 
@@ -13,14 +19,16 @@ class SignUpView extends StatefulWidget {
 }
 
 
-class _SignUpViewState extends State<SignUpView> {
+class _SignUpViewState extends State<SignUpView> with WidgetsBindingObserver {
   
   AuthService _authService = AuthService();
+
 
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
   
   signUp() async {
     await _authService.signUpEmailAndPassword(
@@ -31,7 +39,7 @@ class _SignUpViewState extends State<SignUpView> {
     ).then((value) {
       if (value != null) {
         locator<NavigationService>()
-          .pushReplacementNamed(SelectionViewRoute); // TODO: Should direct to VerifyEmailRoute after email verification is fixed
+          .pushReplacementNamed(VerifyEmailViewRoute);
       } else return null;
     });
   }

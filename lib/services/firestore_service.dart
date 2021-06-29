@@ -12,6 +12,14 @@ class FireStoreService {
     }
   }
 
+  Future updateUserProfile(CustomUser user) async {
+    try {
+      await _users.doc(user.id).set(user.toJson());
+    } catch(e) {
+      return e.toString();
+    }
+  }
+
   Future<CustomUser?> getUser(String uid) async {
     try {
       var userData = await _users.doc(uid).get().then(

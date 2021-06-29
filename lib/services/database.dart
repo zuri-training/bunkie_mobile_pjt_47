@@ -120,7 +120,7 @@ class Database {
         .catchError((dynamic e) {
           print(e);
         });
-    }
+    }*/
 
   static void updateUserPresence(uid) async {
     Map<String, dynamic> presenceStatusTrue = {
@@ -139,5 +139,5 @@ class Database {
     };
 
     dbRef.child(uid).onDisconnect().update(presenceStatusFalse);
-  }*/
+  }
 }
