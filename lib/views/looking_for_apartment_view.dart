@@ -11,6 +11,7 @@ class LookingForApartmentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
+      onWillPop: () => Navigator.pop(context),
       builder: (context, size) {
         return Scaffold(
             body: Container(
@@ -43,7 +44,7 @@ class LookingForApartmentView extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         locator<NavigationService>()
-                            .pushNamed(LookingForRoommateViewRoute);
+                            .pushNamed('Not Implemented');
                       },
                       child: Text('Next',
                           style: TextStyle(
