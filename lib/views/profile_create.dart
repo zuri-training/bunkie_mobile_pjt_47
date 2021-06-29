@@ -1,6 +1,10 @@
+import 'package:bunkie/models/user.dart';
+import 'package:bunkie/services/auth_service.dart';
+import 'package:bunkie/services/firestore_service.dart';
 import 'package:bunkie/services/navigation_service.dart';
 import 'package:bunkie/utils/constants.dart';
 import 'package:bunkie/utils/locator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,14 +38,38 @@ class _ProfileCreateState extends State<ProfileCreate> {
     'University of Lagos',
     'University of Uyo',
   ];
-
-  var _currentSelectedValue;
+  
+   AuthService _authService = AuthService();
+   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+   FireStoreService _firestore = FireStoreService();
+   
+  var _currentSelectedState;
   var _currentSelectedUni;
 
   int _groupValue = -1;
 
   TextEditingController _controller = TextEditingController();
+  TextEditingController _facultyController = TextEditingController();
+  TextEditingController _levelController = TextEditingController();
+  TextEditingController _religionController = TextEditingController();
+  TextEditingController _ethnicityController = TextEditingController();
   String filter = '';
+
+
+  createProfile() async {
+    if (_firebaseAuth.currentUser != null) {
+      await _firestore.createUser(CustomUser(
+        faculty: _facultyController.text,
+        level: _levelController.text,
+        religion: _religionController.text,
+        ethnicity: _ethnicityController.text,
+        gender: _groupValue == 0 ? 'Male' : 'Female',
+        university: _currentSelectedUni,
+        state: _currentSelectedState
+      ));
+    }
+    
+  }
 
   @override
   void initState() {
@@ -97,7 +125,7 @@ class _ProfileCreateState extends State<ProfileCreate> {
                 Form(
                   child: Column(
                     children: [
-                      Row(
+                      /*Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
@@ -131,7 +159,7 @@ class _ProfileCreateState extends State<ProfileCreate> {
                             ),
                           )
                         ],
-                      ),
+                      ),*/
                       SizedBox(height: 10.h),
                       Padding(
                         padding: EdgeInsets.symmetric(
@@ -151,14 +179,14 @@ class _ProfileCreateState extends State<ProfileCreate> {
                                   borderSide: BorderSide(color: Colors.green),
                                 )
                               ),
-                              isEmpty: _currentSelectedValue == '',
+                              isEmpty: _currentSelectedState == '',
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton<String>(
-                                  value: _currentSelectedValue,
+                                  value: _currentSelectedState,
                                   isDense: true,
                                   onChanged: (newValue) {
                                     setState(() {
-                                      _currentSelectedValue = newValue;
+                                      _currentSelectedState = newValue;
                                       state.didChange(newValue);
                                     });
                                   },
@@ -231,6 +259,7 @@ class _ProfileCreateState extends State<ProfileCreate> {
                           vertical: 10.h
                         ),
                         child: TextFormField(
+                          controller: _facultyController,
                           decoration: InputDecoration(
                             labelText: 'Faculty',
                             labelStyle: GoogleFonts.cabin(
@@ -330,6 +359,7 @@ class _ProfileCreateState extends State<ProfileCreate> {
                   width: 200.w,
                   child: ElevatedButton(
                     onPressed: () {
+                      createProfile();
                       locator<NavigationService>().pushNamed(SelectionViewRoute);
                     },
                     style: ButtonStyle(
@@ -343,7 +373,7 @@ class _ProfileCreateState extends State<ProfileCreate> {
                       ),
                     ),
                     child: Text(
-                      'Submit',
+                      'Continue',
                       style: GoogleFonts.cabin(),
                     )
                   ),
