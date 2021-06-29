@@ -51,7 +51,7 @@ class _AmenitiesViewState extends State<AmenitiesView> {
                 ],
               ),
             ),
-            CustomSpacer(flex: 4),
+            CustomSpacer(flex: 3),
             RichText(
                 text: TextSpan(
                     text: 'Hello ',

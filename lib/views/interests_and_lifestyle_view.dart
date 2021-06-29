@@ -34,7 +34,7 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
                       GestureDetector(
                           onTap: () => Navigator.pop(context),
                           child: Container(
-                              height: 30.w,
+                              height: 35.w,
                               width: 40.w,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
@@ -49,10 +49,11 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
                           child: Text(
                             'Next',
                             style: GoogleFonts.cabin(
-                                color: Color(0xff027A63), fontSize: 20.sp),
+                                color: Color(0xff027A63), fontSize: 24.sp),
                           )),
                     ]),
               ),
+              CustomSpacer(flex: 3),
               Text('Almost there',
                   style:
                       GoogleFonts.cabin(fontSize: 25.sp, color: Colors.grey)),

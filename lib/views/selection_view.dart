@@ -1,7 +1,6 @@
-import 'package:bunkie/services/auth_service.dart';
+
 import 'package:bunkie/services/services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'shared/responsive_widget.dart';
@@ -9,7 +8,6 @@ import 'package:bunkie/utils/utils.dart';
 
 
 class SelectionView extends StatelessWidget {
-  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
