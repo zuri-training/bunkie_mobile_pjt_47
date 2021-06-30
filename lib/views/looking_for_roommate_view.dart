@@ -1,10 +1,29 @@
+import 'dart:developer';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
 import 'package:bunkie/views/shared/shared.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class LookingForRoomateView extends StatelessWidget {
+class LookingForRoomateView extends StatefulWidget {
   const LookingForRoomateView({Key? key}) : super(key: key);
+
+  @override
+  _LookingForRoomateViewState createState() => _LookingForRoomateViewState();
+}
+
+class _LookingForRoomateViewState extends State<LookingForRoomateView> {
+  AuthService _authService = AuthService();
+  FireStoreService _fireStoreService = FireStoreService();
+  User? loggedInUser;
+  String? firstname;
+  @override
+  void initState() {
+    loggedInUser = _authService.currentUser();
+    log(loggedInUser!.uid);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,17 +66,38 @@ class LookingForRoomateView extends StatelessWidget {
         CustomSpacer(
           flex: 4,
         ),
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-              text: 'Hello ',
-              style: TextStyle(color: Colors.grey, fontSize: 28.sp),
-              children: <TextSpan>[
-                TextSpan(
-                    text: 'James😃',
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold)),
-              ]),
+        Align(
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Hello ',
+                style: GoogleFonts.cabin(
+                    textStyle: TextStyle(
+                        fontSize: 28.sp,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.bold)),
+              ),
+              FutureBuilder<dynamic>(
+                  future: _fireStoreService.getUserFirstName(loggedInUser!.uid),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      log('User is null');
+                      return Text('');
+                    }
+                    firstname = snapshot.data.toString();
+                    return Text(
+                      '$firstname😃',
+                      style: GoogleFonts.cabin(
+                          textStyle: TextStyle(
+                              fontSize: 28.sp,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold)),
+                    );
+                  })
+            ],
+          ),
         ),
         Divider(
           color: Color(0xff027A63),
