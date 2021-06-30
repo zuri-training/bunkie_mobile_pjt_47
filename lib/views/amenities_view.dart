@@ -1,4 +1,9 @@
+import 'dart:developer';
+
+import 'package:bunkie/services/auth_service.dart';
+import 'package:bunkie/services/firestore_service.dart';
 import 'package:bunkie/services/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,6 +18,17 @@ class AmenitiesView extends StatefulWidget {
 }
 
 class _AmenitiesViewState extends State<AmenitiesView> {
+  AuthService _authService = AuthService();
+  FireStoreService _fireStoreService = FireStoreService();
+  User? loggedInUser;
+  String? firstname;
+  @override
+  void initState() {
+    loggedInUser = _authService.currentUser();
+    log(loggedInUser!.uid);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
@@ -52,19 +68,40 @@ class _AmenitiesViewState extends State<AmenitiesView> {
               ),
             ),
             CustomSpacer(flex: 4),
-            RichText(
-                text: TextSpan(
-                    text: 'Hello ',
+            Align(
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Hello ',
                     style: GoogleFonts.cabin(
-                      color: Colors.grey,
-                      fontSize: 28.sp,
-                    ),
-                    children: [
-                  TextSpan(
-                      text: 'James😃', // \u{1F600}
-                      style: GoogleFonts.cabin(
-                          color: Colors.black, fontWeight: FontWeight.bold))
-                ])),
+                        textStyle: TextStyle(
+                            fontSize: 28.sp,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                  FutureBuilder<dynamic>(
+                      future:
+                          _fireStoreService.getUserFirstName(loggedInUser!.uid),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          log('User is null');
+                          return Text('User is null');
+                        }
+                        firstname = snapshot.data.toString();
+                        return Text(
+                          '$firstname😃',
+                          style: GoogleFonts.cabin(
+                              textStyle: TextStyle(
+                                  fontSize: 28.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold)),
+                        );
+                      })
+                ],
+              ),
+            ),
             CustomSpacer(flex: 5),
             Container(
                 padding: EdgeInsets.only(right: 250.w, bottom: 10),

@@ -1,10 +1,10 @@
+import 'dart:developer';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:bunkie/views/edit_profile_view.dart';
-import 'package:bunkie/views/notifications_settings_view.dart';
-import 'package:bunkie/views/views.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'shared/custom_spacer.dart';
 
@@ -14,6 +14,17 @@ class SettingsView extends StatefulWidget {
 }
 
 class _SettingsViewState extends State<SettingsView> {
+  AuthService _authService = AuthService();
+  FireStoreService _fireStoreService = FireStoreService();
+  User? loggedInUser;
+  String? lastname;
+  @override
+  void initState() {
+    loggedInUser = _authService.currentUser();
+    log(loggedInUser!.uid);
+    super.initState();
+  }
+
   bool allow = true;
   bool sound = true;
   bool roommate = true;
@@ -62,17 +73,27 @@ class _SettingsViewState extends State<SettingsView> {
                             Container(
                               alignment: Alignment.topLeft,
                               child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                                child: Text(
-                                  'James Bond',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 20.sp,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  child: FutureBuilder<dynamic>(
+                                      future: _fireStoreService
+                                          .getUserFirstAndLastName(
+                                              loggedInUser!.uid),
+                                      builder: (context, snapshot) {
+                                        if (!snapshot.hasData) {
+                                          log('User is null');
+                                          return Text('User is null');
+                                        }
+                                        lastname = snapshot.data.toString();
+                                        return Text(
+                                          '$lastname',
+                                          style: GoogleFonts.cabin(
+                                              textStyle: TextStyle(
+                                                  fontSize: 28.sp,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold)),
+                                        );
+                                      })),
                             ),
                           ],
                         ),
