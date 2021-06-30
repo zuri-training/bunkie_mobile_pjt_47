@@ -1,13 +1,7 @@
-
-
 import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-
-
 import 'package:flutter/material.dart';
-
-
 import 'package:bunkie/views/shared/shared.dart';
 
 
