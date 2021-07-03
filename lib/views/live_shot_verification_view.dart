@@ -205,7 +205,7 @@ class _LiveShotVerificationViewState extends State<LiveShotVerificationView> {
                           Column(
                             children: [
                               Icon(
-                                Icons.remove_red_eye_outlined,
+                                Icons.visibility_off_outlined,
                                 size: 100,
                                 color: Colors.green[800],
                               ),

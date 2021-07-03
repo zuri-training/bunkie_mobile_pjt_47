@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:bunkie/views/roommate_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
@@ -9,12 +8,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'shared/custom_spacer.dart';
 
-class SettingsView extends StatefulWidget {
+class MenuView extends StatefulWidget {
   @override
-  _SettingsViewState createState() => _SettingsViewState();
+  _MenuViewState createState() => _MenuViewState();
 }
 
-class _SettingsViewState extends State<SettingsView> {
+class _MenuViewState extends State<MenuView> {
   AuthService _authService = AuthService();
   FireStoreService _fireStoreService = FireStoreService();
   User? loggedInUser;
@@ -36,7 +35,7 @@ class _SettingsViewState extends State<SettingsView> {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Settings',
+            'Menu',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18.sp,
@@ -47,8 +46,7 @@ class _SettingsViewState extends State<SettingsView> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              locator<NavigationService>()
-                  .pushNamed(MenuViewRoute);
+              locator<NavigationService>().pushNamed(SelectionViewRoute);
             },
           ),
         ),
@@ -99,15 +97,15 @@ class _SettingsViewState extends State<SettingsView> {
                           ],
                         ),
                       ),
-                      CustomSpacer(flex: 2),
+                      CustomSpacer(flex: 1),
                       Divider(color: Colors.black, thickness: 0.4),
-                      CustomSpacer(flex: 2),
+                      CustomSpacer(flex: 1),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: Row(
                           children: [
                             Icon(
-                              Icons.account_circle,
+                              Icons.home,
                               size: 27,
                               color: Colors.green[800],
                             ),
@@ -118,10 +116,10 @@ class _SettingsViewState extends State<SettingsView> {
                                 child: GestureDetector(
                                   onTap: () {
                                     locator<NavigationService>()
-                                        .pushNamed(EditProfileViewRoute);
+                                        .pushNamed(SelectionViewRoute);
                                   },
                                   child: Text(
-                                    'Update Profile',
+                                    'Home',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 17.sp,
@@ -135,87 +133,15 @@ class _SettingsViewState extends State<SettingsView> {
                           ],
                         ),
                       ),
-                      CustomSpacer(flex: 2),
+                      CustomSpacer(flex: 1),
                       Divider(color: Colors.black, thickness: 0.4),
-                      CustomSpacer(flex: 2),
+                      CustomSpacer(flex: 1),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: Row(
                           children: [
                             Icon(
-                              Icons.verified_user_rounded,
-                              size: 27,
-                              color: Colors.green[800],
-                            ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    locator<NavigationService>()
-                                        .pushNamed(UserVerificationViewRoute);
-                                  },
-                                  child: Text(
-                                    'Verification',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 17.sp,
-                                      color: Colors.green[800],
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      CustomSpacer(flex: 2),
-                      Divider(color: Colors.black, thickness: 0.4),
-                      CustomSpacer(flex: 2),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.addchart_rounded,
-                              size: 27,
-                              color: Colors.green[800],
-                            ),
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    locator<NavigationService>().pushNamed(
-                                        RoommatePreferencesViewRoute);
-                                  },
-                                  child: Text(
-                                    'Preferences, Interests & Lifestyle',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 17.sp,
-                                      color: Colors.green[800],
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      CustomSpacer(flex: 2),
-                      Divider(color: Colors.black, thickness: 0.4),
-                      CustomSpacer(flex: 2),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.security_rounded,
+                              Icons.question_answer,
                               size: 27,
                               color: Colors.green[800],
                             ),
@@ -224,7 +150,7 @@ class _SettingsViewState extends State<SettingsView> {
                               child: Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 10.w),
                                 child: Text(
-                                  'Privacy and Security',
+                                  'FAQs',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 17.sp,
@@ -237,15 +163,99 @@ class _SettingsViewState extends State<SettingsView> {
                           ],
                         ),
                       ),
-                      CustomSpacer(flex: 2),
+                      CustomSpacer(flex: 1),
                       Divider(color: Colors.black, thickness: 0.4),
-                      CustomSpacer(flex: 2),
+                      CustomSpacer(flex: 1),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                locator<NavigationService>()
+                                    .pushNamed(HelpViewRoute);
+                              },
+                              child: Icon(
+                                Icons.help_outline_outlined,
+                                size: 27,
+                                color: Colors.green[800],
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    locator<NavigationService>()
+                                        .pushNamed(HelpViewRoute);
+                                  },
+                                  child: Text(
+                                    'Help & Support',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 17.sp,
+                                      color: Colors.green[800],
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      CustomSpacer(flex: 1),
+                      Divider(color: Colors.black, thickness: 0.4),
+                      CustomSpacer(flex: 1),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                locator<NavigationService>()
+                                    .pushNamed(SettingsViewRoute);
+                              },
+                              child: Icon(
+                                Icons.settings,
+                                size: 27,
+                                color: Colors.green[800],
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    locator<NavigationService>()
+                                        .pushNamed(SettingsViewRoute);
+                                  },
+                                  child: Text(
+                                    'Settings',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 17.sp,
+                                      color: Colors.green[800],
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      CustomSpacer(flex: 1),
+                      Divider(color: Colors.black, thickness: 0.4),
+                      CustomSpacer(flex: 1),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: Row(
                           children: [
                             Icon(
-                              Icons.notifications_active,
+                              Icons.visibility_off_outlined,
                               size: 27,
                               color: Colors.green[800],
                             ),
@@ -259,7 +269,7 @@ class _SettingsViewState extends State<SettingsView> {
                                         NotificationsSettingsViewRoute);
                                   },
                                   child: Text(
-                                    'Notification Settings',
+                                    'TurnOff Visibility',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 17.sp,
@@ -273,7 +283,97 @@ class _SettingsViewState extends State<SettingsView> {
                           ],
                         ),
                       ),
-                      CustomSpacer(flex: 2),
+                      CustomSpacer(flex: 1),
+                      Divider(color: Colors.black, thickness: 0.4),
+                      CustomSpacer(flex: 1),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.supervised_user_circle,
+                              size: 27,
+                              color: Colors.green[800],
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: Text(
+                                  'Invite Friends',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 17.sp,
+                                    color: Colors.green[800],
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      CustomSpacer(flex: 1),
+                      Divider(color: Colors.black, thickness: 0.4),
+                      CustomSpacer(flex: 1),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.logout,
+                              size: 27,
+                              color: Colors.green[800],
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: Text(
+                                  'Log out',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 17.sp,
+                                    color: Colors.green[800],
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      CustomSpacer(flex: 1),
+                      Divider(color: Colors.black, thickness: 0.4),
+                      CustomSpacer(flex: 1),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.delete,
+                              size: 27,
+                              color: Colors.green[800],
+                            ),
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                child: Text(
+                                  'Delete Account',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 17.sp,
+                                    color: Colors.green[800],
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      CustomSpacer(flex: 1),
                       Divider(color: Colors.black, thickness: 0.4),
                     ],
                   ),

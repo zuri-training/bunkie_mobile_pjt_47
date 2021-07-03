@@ -8,12 +8,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'shared/custom_dropdown.dart';
 
-class RoommatePreferencesView extends StatefulWidget {
-  _RoommatePreferencesViewState createState() =>
-      _RoommatePreferencesViewState();
+class SearchView extends StatefulWidget {
+  _SearchViewState createState() => _SearchViewState();
 }
 
-class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
+class _SearchViewState extends State<SearchView> {
   var currentSelectedValue;
 
   @override
@@ -22,9 +21,10 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
         onWillPop: () => Navigator.pop(context),
         builder: (context, size) {
           return Scaffold(
+              backgroundColor: Colors.white,
               appBar: AppBar(
                 title: Text(
-                  'Preferences',
+                  'Search Criteria',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.sp,
@@ -35,44 +35,25 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
-                    locator<NavigationService>()
-                        .pushNamed(SettingsViewRoute);
+                    locator<NavigationService>().pushNamed(SelectionViewRoute);
                   },
                 ),
-                actions: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 20.w, top: 20.w),
-                    child: GestureDetector(
-                      onTap: () {
-                        locator<NavigationService>()
-                            .pushNamed(InterestsAndLifestyleViewRoute);
-                      },
-                      child: Text(
-                        'Next',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
               ),
               body: SingleChildScrollView(
                   child: Column(children: [
                 CustomSpacer(flex: 2),
-                Text('Let us know what you expect from your new Roommate',
+                Text('Input your matching criteria',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.cabin(
                         color: Colors.black, fontSize: 16.sp)),
                 CustomSpacer(flex: 2),
-                CustomDropdown(hintText: 'Location', items: [
-                  'Lagos',
-                  'Port Harcourt',
-                  'Abuja',
-                  'Enugu',
-                  'Ibadan',
-                  'Jos'
+                CustomDropdown(hintText: 'University', items: [
+                  'University of Lagos',
+                  'University of Port Harcourt',
+                  'University of Abuja',
+                  'Enugu State University',
+                  'University of Ibadan',
+                  'University of Jos'
                 ]),
                 CustomSpacer(flex: 2),
                 CustomDropdown(hintText: 'Gender', items: ['Male', 'Female']),
@@ -100,7 +81,7 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
                 ]),
                 CustomSpacer(flex: 2),
                 CustomButton(
-                  text: 'Submit',
+                  text: 'Search',
                   onPressed: () {
                     locator<NavigationService>()
                         .pushNamed(InterestsAndLifestyleViewRoute);

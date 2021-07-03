@@ -24,7 +24,7 @@ class _EditProfileViewState extends State<EditProfileView> {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Edit Profile',
+            'Update Profile',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18.sp,
@@ -368,6 +368,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                                 .pushNamed(SettingsViewRoute);
                           },
                         ),
+                        CustomSpacer(flex: 4)
                       ],
                     ),
                   ),

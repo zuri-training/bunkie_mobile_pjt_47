@@ -11,12 +11,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'shared/responsive_widget.dart';
 import 'package:bunkie/utils/utils.dart';
 
-class SelectionView extends StatefulWidget {
+class UserProfileView extends StatefulWidget {
   @override
-  _SelectionViewState createState() => _SelectionViewState();
+  _UserProfileViewState createState() => _UserProfileViewState();
 }
 
-class _SelectionViewState extends State<SelectionView> {
+class _UserProfileViewState extends State<UserProfileView> {
+  final List<Widget> _children = [];
+
   final AuthService _auth = AuthService();
   AuthService _authService = AuthService();
   FireStoreService _fireStoreService = FireStoreService();
@@ -77,18 +79,6 @@ class _SelectionViewState extends State<SelectionView> {
                       ),
                       CustomSpacer(flex: 2),
                       Container(
-                        child: Text(
-                          'Welcome to Bunkie',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ),
-                      CustomSpacer(flex: 1),
-                      Container(
                         alignment: Alignment.topLeft,
                         child: FutureBuilder<dynamic>(
                             future: _fireStoreService
@@ -109,74 +99,39 @@ class _SelectionViewState extends State<SelectionView> {
                               );
                             }),
                       ),
+                      CustomSpacer(flex: 2),
+                      Container(
+                        child: Text(
+                          'About:',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      CustomSpacer(flex: 1),
+                      Container(
+                        child: Text(
+                          'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep all everything simple',
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                CustomSpacer(flex: 35),
-                //Divider(color: Colors.grey[200], thickness: 41.w),
-                CustomSpacer(flex: 10),
-                Container(
-                  child: SizedBox(
-                    height: 70,
-                    width: 220,
-                    child: ElevatedButton.icon(
-                      icon: Icon(
-                        Icons.supervised_user_circle_sharp,
-                        color: Colors.white,
-                        size: 23.0,
-                      ),
-                      label: Text(
-                        'I need a Roommate',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      onPressed: () {
-                        locator<NavigationService>().pushNamed(SearchViewRoute);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green[800],
-                        // padding: EdgeInsets.symmetric(
-                        //    horizontal: 30.h, vertical: 20.w),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.h),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                CustomSpacer(flex: 5),
-                Container(
-                  child: SizedBox(
-                    height: 70,
-                    width: 220,
-                    child: ElevatedButton.icon(
-                      icon: Icon(
-                        Icons.house,
-                        color: Colors.white,
-                        size: 23.0,
-                      ),
-                      label: Text('I need a Room'),
-                      onPressed: () {
-                        locator<NavigationService>().pushNamed(SearchViewRoute);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green[800],
-                        // padding: EdgeInsets.symmetric(
-                        //     horizontal: 40.h, vertical: 20.w),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.h),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                CustomSpacer(flex: 2),
               ],
             ),
           ),
         ),
         bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 0,
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.grey[200],
           selectedItemColor: Colors.grey,
@@ -185,16 +140,15 @@ class _SelectionViewState extends State<SelectionView> {
           unselectedFontSize: 14,
           items: [
             BottomNavigationBarItem(
-              icon: GestureDetector(onTap: () {}, child: Icon(Icons.house)),
+              icon: GestureDetector(
+                  onTap: () {
+                    locator<NavigationService>().pushNamed(SelectionViewRoute);
+                  },
+                  child: Icon(Icons.house)),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: GestureDetector(
-                  onTap: () {
-                    locator<NavigationService>()
-                        .pushNamed(UserProfileViewRoute);
-                  },
-                  child: Icon(Icons.person)),
+              icon: GestureDetector(onTap: () {}, child: Icon(Icons.person)),
               label: 'Profile',
             ),
             BottomNavigationBarItem(
