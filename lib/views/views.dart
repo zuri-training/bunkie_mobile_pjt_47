@@ -16,3 +16,7 @@ export 'package:bunkie/views/settings_view.dart';
 export 'package:bunkie/views/user_verification_view.dart';
 export 'package:bunkie/views/user_document_verification_view.dart';
 export 'package:bunkie/views/live_shot_verification_view.dart';
+export 'package:bunkie/views/menu_view.dart';
+export 'package:bunkie/views/search_view.dart';
+export 'package:bunkie/views/user_profile_view.dart';
+export 'package:bunkie/views/roommate_profile_view.dart';

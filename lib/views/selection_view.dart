@@ -1,184 +1,219 @@
+import 'dart:developer';
+
+import 'package:bunkie/services/auth_service.dart';
 
 import 'package:bunkie/services/services.dart';
+import 'package:bunkie/views/shared/custom_spacer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'shared/responsive_widget.dart';
 import 'package:bunkie/utils/utils.dart';
 
+class SelectionView extends StatefulWidget {
+  @override
+  _SelectionViewState createState() => _SelectionViewState();
+}
 
-class SelectionView extends StatelessWidget {
+class _SelectionViewState extends State<SelectionView> {
+  final AuthService _auth = AuthService();
+  AuthService _authService = AuthService();
+  FireStoreService _fireStoreService = FireStoreService();
+  User? loggedInUser;
+  String? lastname;
+  @override
+  void initState() {
+    loggedInUser = _authService.currentUser();
+    log(loggedInUser!.uid);
+    super.initState();
+  }
+
+  bool allow = true;
+  bool sound = true;
+  bool roommate = true;
+  bool messages = true;
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(
-      onWillPop: () {
-        locator<NavigationService>()
-          .pushNamed(LandingViewRoute);
-      },
-      builder: (context, size) {
-        return Scaffold(
-          body: SingleChildScrollView(
+    return ResponsiveWidget(onWillPop: () {
+      locator<NavigationService>().pushNamed(LandingViewRoute);
+    }, builder: (context, size) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/HsTope.png'),
+              fit: BoxFit.none,
+            ),
+
+          ),
+          child: SafeArea(
             child: Column(
               children: [
-                SizedBox(height: 50.h),
-                Align(
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                CustomSpacer(flex: 3),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      RichText(
-                        text: TextSpan(
-                          text: 'Welcome to ',
-                          style: GoogleFonts.cabin(
-                            fontSize: 24.sp,
-                            color: Colors.black
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: AssetImage(
+                                'assets/images/landing-page-background.jpg'),
+                            radius: 25,
                           ),
-                          children: [
-                            TextSpan(
-                              text: 'Bunkie',
-                              style: GoogleFonts.cabin(
-                                fontSize: 24.sp,
-                                color: Colors.green,
-                                fontWeight: FontWeight.bold
-                              )
-                            )
-                          ]
+                          GestureDetector(
+                            onTap: () {
+                              locator<NavigationService>()
+                                  .pushNamed(MenuViewRoute);
+                            },
+                            child: Icon(Icons.menu,
+                                color: Colors.white, size: 35.0),
+                          ),
+                        ],
+                      ),
+                      CustomSpacer(flex: 2),
+                      Container(
+                        child: Text(
+                          'Welcome to Bunkie',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ),
-                      
+                      CustomSpacer(flex: 1),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        child: FutureBuilder<dynamic>(
+                            future: _fireStoreService
+                                .getUserFirstAndLastName(loggedInUser!.uid),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                log('User is null');
+                                return Text('User is null');
+                              }
+                              lastname = snapshot.data.toString();
+                              return Text(
+                                '$lastname',
+                                style: GoogleFonts.cabin(
+                                    textStyle: TextStyle(
+                                        fontSize: 20.sp,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.normal)),
+                              );
+                            }),
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(height: 10.h),
+                CustomSpacer(flex: 35),
+                //Divider(color: Colors.grey[200], thickness: 41.w),
+                CustomSpacer(flex: 10),
                 Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 15.w
-                  ),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                    text: TextSpan(
-                      text: "Having a roommate that's a companion",
-                      style: GoogleFonts.cabin(
-                        color: Colors.green
+                  child: SizedBox(
+                    height: 70,
+                    width: 220,
+                    child: ElevatedButton.icon(
+                      icon: Icon(
+                        Icons.supervised_user_circle_sharp,
+                        color: Colors.white,
+                        size: 23.0,
                       ),
-                      children: [
-                        TextSpan(
-                          text: "\nis a blessing. Let's help you find one\ntoday!",
-                        )
-                      ]
-                    )
-                  )
-                ),
-                SizedBox(height: 40.h),
-                GestureDetector(
-                  onTap: () => locator<NavigationService>()
-                                .pushNamed(LookingForRoommateViewRoute),
-                  child: Container(
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [BoxShadow(
-                        color: Colors.green.withAlpha(90),
-                        blurRadius: 6,
-                        spreadRadius: 5,
-                        offset: Offset(0.0, 3.0)
-                      )],
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [Colors.green, Colors.white]
-                      ),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/misc/experts.png'
-                        )
-                      )
-                    ),
-                  )
-                ),
-                SizedBox(height: 30.h,),
-                Text(
-                  'I Need a Roommate',
-                  style: GoogleFonts.cabin(
-                    fontSize: 20.sp
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                  horizontal: 15.w),
-                  child: Text(
-                    'Tap Icon if you have a room and you need a roommate',
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                    style: GoogleFonts.cabin(
-                      color: Colors.green,
-                      fontSize: 15.sp
-                    ),
-                  )
-                ),
-                SizedBox(height: 30.h),
-                GestureDetector(
-                  onTap: () {
-                    locator<NavigationService>()
-                      .pushNamed(LookingForApartmentViewRoute);
-                  },
-                  child: Container(
-                    height: 100.h,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.green,
-                      boxShadow: [BoxShadow(
-                        color: Colors.green.withAlpha(50),
-                        blurRadius: 6,
-                        spreadRadius: 2,
-                        offset: Offset(0.0, 3.0)
-                      )],
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [Colors.green, Colors.white]
-                      ),
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/images/misc/quiet_town.jpg',
+                      label: Text(
+                        'I need a Roommate',
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
-                        colorFilter: ColorFilter.mode(Colors.green, BlendMode.dstIn)
-                      )
+                      ),
+                      onPressed: () {
+                        locator<NavigationService>().pushNamed(SearchViewRoute);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green[800],
+                        // padding: EdgeInsets.symmetric(
+                        //    horizontal: 30.h, vertical: 20.w),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.h),
+                        ),
+                      ),
                     ),
-                  )
-                ),
-                SizedBox(height: 30.h,),
-                Text(
-                  'I Need a Room',
-                  style: GoogleFonts.cabin(
-                    fontSize: 20.sp
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                  horizontal: 15.w),
-                  child: Text(
-                    'Tap Icon if you need a roommate that has a\nroom',
-                    textAlign: TextAlign.center,
-                    softWrap: true,
-                    style: GoogleFonts.cabin(
-                      color: Colors.green,
-                      fontSize: 15.sp
+                CustomSpacer(flex: 5),
+                Container(
+                  child: SizedBox(
+                    height: 70,
+                    width: 220,
+                    child: ElevatedButton.icon(
+                      icon: Icon(
+                        Icons.house,
+                        color: Colors.white,
+                        size: 23.0,
+                      ),
+                      label: Text('I need a Room'),
+                      onPressed: () {
+                        locator<NavigationService>().pushNamed(SearchViewRoute);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green[800],
+                        // padding: EdgeInsets.symmetric(
+                        //     horizontal: 40.h, vertical: 20.w),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.h),
+                        ),
+                      ),
                     ),
-                  )
+                  ),
                 ),
-
-                SizedBox(height: 10.h,)              
-                
+                CustomSpacer(flex: 2),
               ],
             ),
-          )
-            
-        );
-      }
-    );
-    
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.grey[200],
+          selectedItemColor: Colors.grey,
+          unselectedItemColor: Colors.grey,
+          selectedFontSize: 14,
+          unselectedFontSize: 14,
+          items: [
+            BottomNavigationBarItem(
+              icon: GestureDetector(
+                  onTap: () {
+                    locator<NavigationService>().pushNamed(SelectionViewRoute);
+                  },
+                  child: Icon(Icons.house)),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: GestureDetector(
+                  onTap: () {
+                    locator<NavigationService>()
+                        .pushNamed(UserProfileViewRoute);
+                  },
+                  child: Icon(Icons.person)),
+              label: 'Profile',
+            ),
+            BottomNavigationBarItem(
+              icon: GestureDetector(onTap: () {}, child: Icon(Icons.mail)),
+              label: 'Messages',
+            ),
+            BottomNavigationBarItem(
+              icon: GestureDetector(
+                  onTap: () {}, child: Icon(Icons.notifications)),
+              label: 'Notifications',
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

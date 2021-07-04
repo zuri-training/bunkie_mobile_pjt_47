@@ -58,6 +58,14 @@ class RouteGenerator {
         return _getPageRoute(UserDocumentVerificationView());
       case LiveShotVerificationViewRoute:
         return _getPageRoute(LiveShotVerificationView());
+      case MenuViewRoute:
+        return _getPageRoute(MenuView());
+      case SearchViewRoute:
+        return _getPageRoute(SearchView());
+      case UserProfileViewRoute:
+        return _getPageRoute(UserProfileView());
+      case RoommateProfileViewRoute:
+        return _getPageRoute(RoommateProfileView());
       default:
         return _getPageRoute(_errorPage);
     }

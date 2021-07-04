@@ -35,103 +35,103 @@ class _AmenitiesViewState extends State<AmenitiesView> {
       onWillPop: () => Navigator.pop(context),
       builder: (context, size) {
         return Scaffold(
-            body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            CustomSpacer(flex: 10),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                      onTap: () => locator<NavigationService>().goBack(),
-                      child: Container(
-                          height: 35.w,
-                          width: 40.w,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.grey)),
-                          child: Icon(Icons.arrow_back,
-                              color: Colors.grey, size: 30))),
-                  GestureDetector(
-                      onTap: () {
-                        locator<NavigationService>()
-                            .pushNamed(InterestsAndLifestyleViewRoute);
-                      },
-                      child: Text(
-                        'Next',
-                        style: GoogleFonts.cabin(
-                            color: Color(0xff027A63), fontSize: 24.sp),
-                      )),
-                ],
+            appBar: AppBar(
+              title: Text(
+                'Amenities',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.sp,
+                ),
               ),
-            ),
-            CustomSpacer(flex: 4),
-            Container(
-                padding: EdgeInsets.only(right: 250.w, bottom: 10),
-                child: Text('Amenities',
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.cabin(
-                        color: Colors.grey, fontSize: 20.sp))),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                child: Column(children: [
-                  Row(
-                    children: [
-                      AmenitiesGrid(
-                          icon: 'assets/images/misc/running_water_icon.png',
-                          amenity: 'Water'),
-                      AmenitiesGrid(
-                          icon: 'assets/images/misc/electricity_icon.png',
-                          amenity: 'Electricity'),
-                      AmenitiesGrid(
-                          icon: 'assets/images/misc/wardrobe_icon.png',
-                          amenity: 'Wardrobe'),
-                    ],
-                  ),
-                  Row(children: [
-                    AmenitiesGrid(
-                        icon: 'assets/images/misc/fan_icon.png',
-                        amenity: 'Fan'),
-                    AmenitiesGrid(
-                        icon: 'assets/images/misc/pot_icon.png',
-                        amenity: 'Kitchen'),
-                    AmenitiesGrid(
-                      icon: 'assets/images/misc/toilet_bottom_icon.png',
-                      amenity: 'Toilet',
-                      spacer: 4,
+              centerTitle: true,
+              backgroundColor: Colors.green[800],
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  locator<NavigationService>().goBack();
+                },
+              ),
+              actions: [
+                Padding(
+                  padding: EdgeInsets.only(right: 20.w, top: 20.w),
+                  child: GestureDetector(
+                    onTap: () {
+                      locator<NavigationService>().pushNamed(SettingsViewRoute);
+                    },
+                    child: Text(
+                      'Done',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ]),
-                  Row(children: [
-                    AmenitiesGrid(
-                        icon: 'assets/images/misc/bathroom_icon.png',
-                        amenity: 'Bathroom'),
-                    AmenitiesGrid(
-                        icon: 'assets/images/misc/ac_icon.png', amenity: 'A/C'),
-                    AmenitiesGrid(
-                        icon: 'assets/images/misc/parking_icon.png',
-                        amenity: 'Parking'),
-                  ])
-                ])),
-            CustomSpacer(flex: 8),
-            Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 20.w),
-                  child: Text(
-                    'Comments',
-                    style: GoogleFonts.cabin(fontSize: 15, color: Colors.grey),
                   ),
-                )),
-            CustomSpacer(flex: 4),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.w),
-              child: CustomTextField(maxLines: 5),
+                )
+              ],
             ),
-            CustomSpacer(flex: 8),
-          ]),
-        ));
+            body: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                CustomSpacer(flex: 5),
+                Text(
+                    'What ammenities would you like to have \nin your new room',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.cabin(
+                        color: Colors.black, fontSize: 16.sp)),
+                CustomSpacer(flex: 3),
+                Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                    child: Column(children: [
+                      Row(
+                        children: [
+                          AmenitiesGrid(
+                              icon: 'assets/images/misc/running_water_icon.png',
+                              amenity: 'Water'),
+                          AmenitiesGrid(
+                              icon: 'assets/images/misc/electricity_icon.png',
+                              amenity: 'Electricity'),
+                          AmenitiesGrid(
+                              icon: 'assets/images/misc/wardrobe_icon.png',
+                              amenity: 'Wardrobe'),
+                        ],
+                      ),
+                      Row(children: [
+                        AmenitiesGrid(
+                            icon: 'assets/images/misc/fan_icon.png',
+                            amenity: 'Fan'),
+                        AmenitiesGrid(
+                            icon: 'assets/images/misc/pot_icon.png',
+                            amenity: 'Kitchen'),
+                        AmenitiesGrid(
+                          icon: 'assets/images/misc/toilet_bottom_icon.png',
+                          amenity: 'Toilet',
+                          spacer: 4,
+                        ),
+                      ]),
+                      Row(children: [
+                        AmenitiesGrid(
+                            icon: 'assets/images/misc/bathroom_icon.png',
+                            amenity: 'Bathroom'),
+                        AmenitiesGrid(
+                            icon: 'assets/images/misc/ac_icon.png',
+                            amenity: 'A/C'),
+                        AmenitiesGrid(
+                            icon: 'assets/images/misc/parking_icon.png',
+                            amenity: 'Parking'),
+                      ])
+                    ])),
+                CustomSpacer(flex: 6),
+                CustomButton(
+                  text: 'Done',
+                  onPressed: () {
+                    locator<NavigationService>().pushNamed(SettingsViewRoute);
+                  },
+                ),
+                CustomSpacer(flex: 8),
+              ]),
+            ));
       },
     );
   }

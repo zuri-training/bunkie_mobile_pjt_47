@@ -31,7 +31,7 @@ dependencies:
 flutter_icons:
   android: "launcher_icons"
   ios: true
-  image_path: "assets/images/bunkie-logos/gradient-bunkie-logo.png"
+  image_path: "assets/images/bunkie-logos/LogoIcon.png"
   remove_alpha_ios: true
 
 
