@@ -190,7 +190,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
                                   ),
                                   elevation: 1,
                                   child: Padding(
-                                      padding: EdgeInsets.all(15),
+                                      padding: EdgeInsets.all(20),
                                       child: Column(
                                         children: [
                                           Row(children: [

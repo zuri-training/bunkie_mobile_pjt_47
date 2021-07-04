@@ -66,6 +66,10 @@ class RouteGenerator {
         return _getPageRoute(UserProfileView());
       case RoommateProfileViewRoute:
         return _getPageRoute(RoommateProfileView());
+      case ApartmentSearchViewRoute:
+        return _getPageRoute(ApartmentSearchView());
+      case SearchRoomViewRoute:
+        return _getPageRoute(SearchRoomView());
       default:
         return _getPageRoute(_errorPage);
     }

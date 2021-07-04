@@ -4,6 +4,7 @@ import 'package:bunkie/services/auth_service.dart';
 
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/views/shared/custom_spacer.dart';
+import 'package:bunkie/views/views.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -159,7 +160,7 @@ class _SelectionViewState extends State<SelectionView> {
                       ),
                       label: Text('I need a Room'),
                       onPressed: () {
-                        locator<NavigationService>().pushNamed(SearchViewRoute);
+                        locator<NavigationService>().pushNamed(SearchRoomViewRoute);
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green[800],
