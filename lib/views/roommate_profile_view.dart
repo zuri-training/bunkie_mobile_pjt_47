@@ -131,7 +131,7 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                       CustomSpacer(flex: 1),
                       Container(
                         child: Text(
-                          'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep all everything simple',
+                          'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple',
                           textAlign: TextAlign.justify,
                           style: TextStyle(
                             fontSize: 13.sp,

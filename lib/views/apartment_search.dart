@@ -11,21 +11,21 @@ import 'package:bunkie/utils/utils.dart';
 import 'shared/circle_carousel.dart';
 import 'shared/custom_carousel.dart';
 
-class RoommateSearchView extends StatefulWidget {
-  _RoommateSearchViewState createState() => _RoommateSearchViewState();
+class ApartmentSearchView extends StatefulWidget {
+  _ApartmentSearchViewState createState() => _ApartmentSearchViewState();
 }
 
-class _RoommateSearchViewState extends State<RoommateSearchView> {
+class _ApartmentSearchViewState extends State<ApartmentSearchView> {
   bool _rTapped = true;
   List<String> _images = [];
 
   Future _initImages() async {
     final manifestContent =
-        await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
+    await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
     final Map<String, dynamic> manifestMap = json.decode(manifestContent);
 
     final imagePaths = manifestMap.keys
-        .where((String key) => key.contains('images/roommates'))
+        .where((String key) => key.contains('images/apartments'))
         .toList();
 
     setState(() => _images = imagePaths);
@@ -75,14 +75,16 @@ class _RoommateSearchViewState extends State<RoommateSearchView> {
                     ),
                     CustomSpacer(flex: 4),
                     Text(
-                      '50 students matched your Criteria',
+                      '50 Rooms matched your Criteria',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.cabin(
                         color: Colors.white,
                         fontSize: 18.sp,
                       ),
                     ),
-                    Expanded(child: CustomCarousel(images: 'images/roommates')),
+                    Expanded(child: CustomCarousel(images: 'images/apartments')),
+
+
                   ],
                 ),
               ),
@@ -122,6 +124,7 @@ class _RoommateSearchViewState extends State<RoommateSearchView> {
                       onTap: () {}, child: Icon(Icons.notifications)),
                   label: 'Notifications',
                 ),
+
               ],
             ),
           );
