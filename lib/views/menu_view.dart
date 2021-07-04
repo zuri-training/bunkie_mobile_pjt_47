@@ -46,7 +46,7 @@ class _MenuViewState extends State<MenuView> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              locator<NavigationService>().pushNamed(SelectionViewRoute);
+              locator<NavigationService>().goBack();
             },
           ),
         ),

@@ -43,7 +43,7 @@ class _InterestButtonState extends State<InterestButton> {
               MaterialStateProperty.all(Colors.white),
             side: MaterialStateProperty.all(
               BorderSide(
-                color: Colors.black,
+                color: Colors.green,
               )
             ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(

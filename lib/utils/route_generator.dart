@@ -1,6 +1,7 @@
 import 'package:bunkie/views/login_view.dart';
 import 'package:bunkie/views/profile_create.dart';
 import 'package:bunkie/views/roommate_preferences.dart';
+import 'package:bunkie/views/roommate_search.dart';
 
 import 'package:bunkie/views/selection_view.dart';
 import 'package:bunkie/views/views.dart';
@@ -41,7 +42,8 @@ class RouteGenerator {
         return _getPageRoute(LookingForRoomateView());
       case RoommatePreferencesViewRoute:
         return _getPageRoute(RoommatePreferencesView());
-
+      case RoommateSearchViewRoute:
+        return _getPageRoute(RoommateSearchView());
       case EditProfileViewRoute:
         return _getPageRoute(EditProfileView());
       case HelpViewRoute:
@@ -62,6 +64,8 @@ class RouteGenerator {
         return _getPageRoute(SearchView());
       case UserProfileViewRoute:
         return _getPageRoute(UserProfileView());
+      case RoommateProfileViewRoute:
+        return _getPageRoute(RoommateProfileView());
       default:
         return _getPageRoute(_errorPage);
     }

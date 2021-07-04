@@ -48,8 +48,7 @@ class _AmenitiesViewState extends State<AmenitiesView> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
-                  locator<NavigationService>()
-                      .pushNamed(InterestsAndLifestyleViewRoute);
+                  locator<NavigationService>().goBack();
                 },
               ),
               actions: [
@@ -127,8 +126,7 @@ class _AmenitiesViewState extends State<AmenitiesView> {
                 CustomButton(
                   text: 'Done',
                   onPressed: () {
-                    locator<NavigationService>()
-                        .pushNamed(SettingsViewRoute);
+                    locator<NavigationService>().pushNamed(SettingsViewRoute);
                   },
                 ),
                 CustomSpacer(flex: 8),

@@ -12,12 +12,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'shared/responsive_widget.dart';
 import 'package:bunkie/utils/utils.dart';
 
-class UserProfileView extends StatefulWidget {
+class RoommateProfileView extends StatefulWidget {
   @override
-  _UserProfileViewState createState() => _UserProfileViewState();
+  _RoommateProfileViewState createState() => _RoommateProfileViewState();
 }
 
-class _UserProfileViewState extends State<UserProfileView> {
+class _RoommateProfileViewState extends State<RoommateProfileView> {
   final List<Widget> _children = [];
 
   final AuthService _auth = AuthService();
@@ -140,13 +140,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                           ),
                         ),
                       ),
-                      CustomSpacer(flex: 20),
-                      Container(
-                        alignment: Alignment.topRight,
-                        child: Icon(Icons.add_circle_outline,
-                            color: Colors.black, size: 30),
-                      ),
-                      CustomSpacer(flex: 5),
+                      CustomSpacer(flex: 23),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.h),
                         child: Row(
@@ -179,6 +173,13 @@ class _UserProfileViewState extends State<UserProfileView> {
                         ),
                       ),
                       CustomSpacer(flex: 6),
+                      Container(
+                        alignment: Alignment.center,
+                        child: CustomButton(
+                          text: 'Message',
+                          onPressed: () {},
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -204,12 +205,10 @@ class _UserProfileViewState extends State<UserProfileView> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: GestureDetector(
-                  onTap: () {
-                    locator<NavigationService>()
-                        .pushNamed(UserProfileViewRoute);
-                  },
-                  child: Icon(Icons.person)),
+              icon: GestureDetector(onTap: () {
+                locator<NavigationService>()
+                    .pushNamed(UserProfileViewRoute);
+              }, child: Icon(Icons.person)),
               label: 'Profile',
             ),
             BottomNavigationBarItem(

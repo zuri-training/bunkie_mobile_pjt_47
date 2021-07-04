@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'views/shared/dismiss_keyboard.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
@@ -13,13 +15,16 @@ void main() {
       designSize: Size(360, 630),
       builder: () => MultiProvider(
           providers: AppProvider.providers,
-          child: MaterialApp(
-            title: 'Bunkie',
-            onGenerateRoute: RouteGenerator.onGenerateRoute,
-            navigatorKey: locator<NavigationService>().navigatorKey,
-            home: BunkieApp(),
-            debugShowCheckedModeBanner: false,
-          ))));
+          child: DismissKeyboard(
+              child: MaterialApp(
+              title: 'Bunkie',
+              onGenerateRoute: RouteGenerator.onGenerateRoute,
+              navigatorKey: locator<NavigationService>().navigatorKey,
+              home: BunkieApp(),
+              debugShowCheckedModeBanner: false,
+            )
+          )       
+        )));
 }
 
 class BunkieApp extends StatefulWidget {

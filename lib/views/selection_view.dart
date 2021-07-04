@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:bunkie/services/auth_service.dart';
+
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/views/shared/custom_spacer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'shared/responsive_widget.dart';
@@ -185,7 +185,11 @@ class _SelectionViewState extends State<SelectionView> {
           unselectedFontSize: 14,
           items: [
             BottomNavigationBarItem(
-              icon: GestureDetector(onTap: () {}, child: Icon(Icons.house)),
+              icon: GestureDetector(
+                  onTap: () {
+                    locator<NavigationService>().pushNamed(SelectionViewRoute);
+                  },
+                  child: Icon(Icons.house)),
               label: 'Home',
             ),
             BottomNavigationBarItem(

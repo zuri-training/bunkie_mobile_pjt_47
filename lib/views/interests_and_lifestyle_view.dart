@@ -36,8 +36,7 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
-                  locator<NavigationService>()
-                      .pushNamed(RoommatePreferencesViewRoute);
+                  locator<NavigationService>().goBack();
                 },
               ),
               actions: [
@@ -203,8 +202,7 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
                 CustomButton(
                   text: 'Submit',
                   onPressed: () {
-                    locator<NavigationService>()
-                        .pushNamed(AmenitiesViewRoute);
+                    locator<NavigationService>().pushNamed(AmenitiesViewRoute);
                   },
                 ),
                 CustomSpacer(flex: 6)

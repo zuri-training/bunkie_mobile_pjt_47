@@ -35,7 +35,7 @@ class _UserDocumentVerificationViewState
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              locator<NavigationService>().goBack();
             },
           ),
         ),
@@ -620,6 +620,7 @@ class _UserDocumentVerificationViewState
                               .pushNamed(LiveShotVerificationViewRoute);
                         },
                       ),
+                      CustomSpacer(flex: 3),
                     ],
                   ),
                 ),

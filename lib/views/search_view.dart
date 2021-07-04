@@ -35,7 +35,7 @@ class _SearchViewState extends State<SearchView> {
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
-                    locator<NavigationService>().pushNamed(SelectionViewRoute);
+                    locator<NavigationService>().goBack();
                   },
                 ),
               ),
@@ -84,7 +84,7 @@ class _SearchViewState extends State<SearchView> {
                   text: 'Search',
                   onPressed: () {
                     locator<NavigationService>()
-                        .pushNamed(InterestsAndLifestyleViewRoute);
+                        .pushNamed(RoommateSearchViewRoute);
                   },
                 ),
               ])));

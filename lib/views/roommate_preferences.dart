@@ -22,91 +22,94 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
         onWillPop: () => Navigator.pop(context),
         builder: (context, size) {
           return Scaffold(
-              appBar: AppBar(
-                title: Text(
-                  'Preferences',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.sp,
-                  ),
+            appBar: AppBar(
+              title: Text(
+                'Preferences',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.sp,
                 ),
-                centerTitle: true,
-                backgroundColor: Colors.green[800],
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    locator<NavigationService>()
-                        .pushNamed(SettingsViewRoute);
-                  },
-                ),
-                actions: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 20.w, top: 20.w),
-                    child: GestureDetector(
-                      onTap: () {
-                        locator<NavigationService>()
-                            .pushNamed(InterestsAndLifestyleViewRoute);
-                      },
-                      child: Text(
-                        'Next',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+              ),
+              centerTitle: true,
+              backgroundColor: Colors.green[800],
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  locator<NavigationService>().goBack();
+                },
+              ),
+              actions: [
+                Padding(
+                  padding: EdgeInsets.only(right: 20.w, top: 20.w),
+                  child: GestureDetector(
+                    onTap: () {
+                      locator<NavigationService>()
+                          .pushNamed(InterestsAndLifestyleViewRoute);
+                    },
+                    child: Text(
+                      'Next',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  )
+                  ),
+                )
+              ],
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  CustomSpacer(flex: 2),
+                  Text('Let us know what you expect from your new Roommate',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.cabin(
+                          color: Colors.black, fontSize: 16.sp)),
+                  CustomSpacer(flex: 2),
+                  CustomDropdown(hintText: 'Location', items: [
+                    'Lagos',
+                    'Port Harcourt',
+                    'Abuja',
+                    'Enugu',
+                    'Ibadan',
+                    'Jos'
+                  ]),
+                  CustomSpacer(flex: 2),
+                  CustomDropdown(hintText: 'Gender', items: ['Male', 'Female']),
+                  CustomSpacer(flex: 2),
+                  CustomDropdown(
+                      hintText: 'Religion',
+                      items: ['Christian', 'Muslim', 'others']),
+                  CustomSpacer(flex: 2),
+                  CustomDropdown(
+                      hintText: 'Tribe',
+                      items: ['Hausa', 'Ibo', 'Yoruba', 'others']),
+                  CustomSpacer(flex: 2),
+                  CustomDropdown(
+                      hintText: 'Level',
+                      items: ['100', '200', '300', '400', '500', '600']),
+                  CustomSpacer(flex: 2),
+                  CustomDropdown(
+                      hintText: 'Age Range',
+                      items: ['18-22', '23-25', '26-30', '31-40']),
+                  CustomSpacer(flex: 2),
+                  CustomDropdown(hintText: 'Budget Range', items: [
+                    '50,000.00 - 100,000.00',
+                    '110,000.00 - 150,000.00',
+                    '160,000.00 - 200,000.00'
+                  ]),
+                  CustomSpacer(flex: 2),
+                  CustomButton(
+                    text: 'Submit',
+                    onPressed: () {
+                      locator<NavigationService>()
+                          .pushNamed(InterestsAndLifestyleViewRoute);
+                    },
+                  ),
                 ],
               ),
-              body: SingleChildScrollView(
-                  child: Column(children: [
-                CustomSpacer(flex: 2),
-                Text('Let us know what you expect from your new Roommate',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.cabin(
-                        color: Colors.black, fontSize: 16.sp)),
-                CustomSpacer(flex: 2),
-                CustomDropdown(hintText: 'Location', items: [
-                  'Lagos',
-                  'Port Harcourt',
-                  'Abuja',
-                  'Enugu',
-                  'Ibadan',
-                  'Jos'
-                ]),
-                CustomSpacer(flex: 2),
-                CustomDropdown(hintText: 'Gender', items: ['Male', 'Female']),
-                CustomSpacer(flex: 2),
-                CustomDropdown(
-                    hintText: 'Religion',
-                    items: ['Christian', 'Muslim', 'others']),
-                CustomSpacer(flex: 2),
-                CustomDropdown(
-                    hintText: 'Tribe',
-                    items: ['Hausa', 'Ibo', 'Yoruba', 'others']),
-                CustomSpacer(flex: 2),
-                CustomDropdown(
-                    hintText: 'Level',
-                    items: ['100', '200', '300', '400', '500', '600']),
-                CustomSpacer(flex: 2),
-                CustomDropdown(
-                    hintText: 'Age Range',
-                    items: ['18-22', '23-25', '26-30', '31-40']),
-                CustomSpacer(flex: 2),
-                CustomDropdown(hintText: 'Budget Range', items: [
-                  '50,000.00 - 100,000.00',
-                  '110,000.00 - 150,000.00',
-                  '160,000.00 - 200,000.00'
-                ]),
-                CustomSpacer(flex: 2),
-                CustomButton(
-                  text: 'Submit',
-                  onPressed: () {
-                    locator<NavigationService>()
-                        .pushNamed(InterestsAndLifestyleViewRoute);
-                  },
-                ),
-              ])));
+            ),
+          );
         });
   }
 }
