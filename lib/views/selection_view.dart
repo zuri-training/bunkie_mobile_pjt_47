@@ -47,6 +47,7 @@ class _SelectionViewState extends State<SelectionView> {
               image: AssetImage('assets/images/HsTope.png'),
               fit: BoxFit.none,
             ),
+
           ),
           child: SafeArea(
             child: Column(

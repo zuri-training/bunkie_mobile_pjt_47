@@ -56,11 +56,9 @@ class _RoommateSearchViewState extends State<RoommateSearchView> {
               child: SafeArea(
                 child: Column(
                   children: [
-                     CustomSpacer(flex: 3),
-
+                    CustomSpacer(flex: 3),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.h),
-
                       child: Container(
                         alignment: Alignment.topLeft,
                         child: GestureDetector(
@@ -76,7 +74,6 @@ class _RoommateSearchViewState extends State<RoommateSearchView> {
                       ),
                     ),
                     CustomSpacer(flex: 4),
-
                     Text(
                       '50 students matched your Criteria',
                       textAlign: TextAlign.center,
@@ -85,8 +82,9 @@ class _RoommateSearchViewState extends State<RoommateSearchView> {
                         fontSize: 18.sp,
                       ),
                     ),
-                    CircleAvatarCarousel(images: 'images/roommates'),
-                    CustomCarousel(images: 'images/roommates')
+                    Expanded(child: CustomCarousel(images: 'images/roommates')),
+
+
                   ],
                 ),
               ),
@@ -126,6 +124,7 @@ class _RoommateSearchViewState extends State<RoommateSearchView> {
                       onTap: () {}, child: Icon(Icons.notifications)),
                   label: 'Notifications',
                 ),
+
               ],
             ),
           );
