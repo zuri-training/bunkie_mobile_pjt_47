@@ -51,8 +51,7 @@ class _RoommateSearchViewState extends State<RoommateSearchView> {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [            
-                // CustomSpacer(flex: 10),
-                SizedBox(height: 50.h),
+                 CustomSpacer(flex: 10),
                 Row(            
                   children: [
                     CustomSpacer(flex: 4, horizontal: true),
@@ -65,7 +64,6 @@ class _RoommateSearchViewState extends State<RoommateSearchView> {
                     )
                   ] 
                 ),
-                CircleAvatarCarousel(images: 'images/roommates'),
                 CustomCarousel(images: 'images/roommates')            
               ],
             )
