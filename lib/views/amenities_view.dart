@@ -73,7 +73,7 @@ class _AmenitiesViewState extends State<AmenitiesView> {
                 child: Text('Amenities',
                     textAlign: TextAlign.start,
                     style: GoogleFonts.cabin(
-                        color: Color(0xff027A63), fontSize: 20.sp))),
+                        color: Colors.grey, fontSize: 20.sp))),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
                 child: Column(children: [
