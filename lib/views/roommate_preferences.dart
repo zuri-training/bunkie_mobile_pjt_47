@@ -44,7 +44,7 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
                     GestureDetector(
                       onTap: () {
                         locator<NavigationService>()
-                            .pushNamed(SettingsViewRoute);
+                            .pushNamed(RoommateSearchViewRoute);
                       },
                       child: Text(
                         'Next',
