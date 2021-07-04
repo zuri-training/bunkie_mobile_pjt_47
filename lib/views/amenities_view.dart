@@ -45,7 +45,7 @@ class _AmenitiesViewState extends State<AmenitiesView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () => locator<NavigationService>().goBack(),
                       child: Container(
                           height: 35.w,
                           width: 40.w,
@@ -68,47 +68,12 @@ class _AmenitiesViewState extends State<AmenitiesView> {
               ),
             ),
             CustomSpacer(flex: 4),
-            Align(
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Hello ',
-                    style: GoogleFonts.cabin(
-                        textStyle: TextStyle(
-                            fontSize: 28.sp,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                  FutureBuilder<dynamic>(
-                      future:
-                          _fireStoreService.getUserFirstName(loggedInUser!.uid),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          log('User is null');
-                          return Text('User is null');
-                        }
-                        firstname = snapshot.data.toString();
-                        return Text(
-                          '$firstname😃',
-                          style: GoogleFonts.cabin(
-                              textStyle: TextStyle(
-                                  fontSize: 28.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold)),
-                        );
-                      })
-                ],
-              ),
-            ),
-            CustomSpacer(flex: 5),
             Container(
                 padding: EdgeInsets.only(right: 250.w, bottom: 10),
                 child: Text('Amenities',
                     textAlign: TextAlign.start,
                     style: GoogleFonts.cabin(
-                        color: Color(0xff027A63), fontSize: 20.sp))),
+                        color: Colors.grey, fontSize: 20.sp))),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
                 child: Column(children: [

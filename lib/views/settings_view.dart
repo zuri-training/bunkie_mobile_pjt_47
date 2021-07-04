@@ -31,7 +31,11 @@ class _SettingsViewState extends State<SettingsView> {
   bool messages = true;
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(builder: (context, size) {
+    return ResponsiveWidget(
+      onWillPop: () => locator<NavigationService>().popAndPushNamed(
+        LookingForRoommateViewRoute
+      ),
+      builder: (context, size) {
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -47,7 +51,7 @@ class _SettingsViewState extends State<SettingsView> {
             icon: Icon(Icons.arrow_back),
             onPressed: () {
               locator<NavigationService>()
-                  .pushNamed(LookingForRoommateViewRoute);
+                  .pushReplacementNamed(LookingForRoommateViewRoute);
             },
           ),
         ),
