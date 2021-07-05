@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'shared/navigation_bar.dart';
 import 'shared/responsive_widget.dart';
 import 'package:bunkie/utils/utils.dart';
 
@@ -73,7 +74,7 @@ class _SelectionViewState extends State<SelectionView> {
                                   .pushNamed(MenuViewRoute);
                             },
                             child: Icon(Icons.menu,
-                                color: Colors.white, size: 35.0),
+                                color: Colors.white, size: 35.0.w),
                           ),
                         ],
                       ),
@@ -98,7 +99,7 @@ class _SelectionViewState extends State<SelectionView> {
                             builder: (context, snapshot) {
                               if (!snapshot.hasData) {
                                 log('User is null');
-                                return Text('User is null');
+                                return Container();
                               }
                               lastname = snapshot.data.toString();
                               return Text(
@@ -114,13 +115,11 @@ class _SelectionViewState extends State<SelectionView> {
                     ],
                   ),
                 ),
-                CustomSpacer(flex: 35),
-                //Divider(color: Colors.grey[200], thickness: 41.w),
-                CustomSpacer(flex: 10),
+                CustomSpacer(flex: 40),
                 Container(
                   child: SizedBox(
-                    height: 70,
-                    width: 220,
+                    height: 70.h,
+                    width: 220.w,
                     child: ElevatedButton.icon(
                       icon: Icon(
                         Icons.supervised_user_circle_sharp,
@@ -150,8 +149,8 @@ class _SelectionViewState extends State<SelectionView> {
                 CustomSpacer(flex: 5),
                 Container(
                   child: SizedBox(
-                    height: 70,
-                    width: 220,
+                    height: 70.h,
+                    width: 220.w,
                     child: ElevatedButton.icon(
                       icon: Icon(
                         Icons.house,
@@ -178,42 +177,7 @@ class _SelectionViewState extends State<SelectionView> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.grey[200],
-          selectedItemColor: Colors.grey,
-          unselectedItemColor: Colors.grey,
-          selectedFontSize: 14,
-          unselectedFontSize: 14,
-          items: [
-            BottomNavigationBarItem(
-              icon: GestureDetector(
-                  onTap: () {
-                    locator<NavigationService>().pushNamed(SelectionViewRoute);
-                  },
-                  child: Icon(Icons.house)),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: GestureDetector(
-                  onTap: () {
-                    locator<NavigationService>()
-                        .pushNamed(UserProfileViewRoute);
-                  },
-                  child: Icon(Icons.person)),
-              label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-              icon: GestureDetector(onTap: () {}, child: Icon(Icons.mail)),
-              label: 'Messages',
-            ),
-            BottomNavigationBarItem(
-              icon: GestureDetector(
-                  onTap: () {}, child: Icon(Icons.notifications)),
-              label: 'Notifications',
-            ),
-          ],
-        ),
+        bottomNavigationBar: BottomNavBar()
       );
     });
   }

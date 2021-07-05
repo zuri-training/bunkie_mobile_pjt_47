@@ -10,6 +10,7 @@ import 'package:bunkie/utils/utils.dart';
 
 import 'shared/circle_carousel.dart';
 import 'shared/custom_carousel.dart';
+import 'shared/navigation_bar.dart';
 
 class ApartmentSearchView extends StatefulWidget {
   _ApartmentSearchViewState createState() => _ApartmentSearchViewState();
@@ -66,67 +67,28 @@ class _ApartmentSearchViewState extends State<ApartmentSearchView> {
                             locator<NavigationService>().goBack();
                           },
                           child: Icon(
-                            Icons.arrow_back_ios_sharp,
+                            Icons.arrow_back,
                             color: Colors.white,
-                            size: 25,
+                            size: 25.h,
                           ),
                         ),
                       ),
                     ),
                     CustomSpacer(flex: 4),
                     Text(
-                      '50 Rooms matched your Criteria',
+                      '50 rooms matched your criteria -',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.cabin(
                         color: Colors.white,
                         fontSize: 18.sp,
                       ),
                     ),
-                    Expanded(child: CustomCarousel(images: 'images/apartments')),
-
-
+                    CustomCarousel(images: 'images/apartments'),
                   ],
                 ),
               ),
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: Colors.grey[200],
-              selectedItemColor: Colors.grey,
-              unselectedItemColor: Colors.grey,
-              selectedFontSize: 14,
-              unselectedFontSize: 14,
-              items: [
-                BottomNavigationBarItem(
-                  icon: GestureDetector(
-                      onTap: () {
-                        locator<NavigationService>()
-                            .pushNamed(SelectionViewRoute);
-                      },
-                      child: Icon(Icons.house)),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: GestureDetector(
-                      onTap: () {
-                        locator<NavigationService>()
-                            .pushNamed(UserProfileViewRoute);
-                      },
-                      child: Icon(Icons.person)),
-                  label: 'Profile',
-                ),
-                BottomNavigationBarItem(
-                  icon: GestureDetector(onTap: () {}, child: Icon(Icons.mail)),
-                  label: 'Messages',
-                ),
-                BottomNavigationBarItem(
-                  icon: GestureDetector(
-                      onTap: () {}, child: Icon(Icons.notifications)),
-                  label: 'Notifications',
-                ),
-
-              ],
-            ),
+            bottomNavigationBar: BottomNavBar(),
           );
         });
   }
