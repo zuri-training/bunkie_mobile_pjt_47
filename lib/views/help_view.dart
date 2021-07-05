@@ -9,7 +9,9 @@ import 'shared/custom_spacer.dart';
 class HelpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(builder: (context, size) {
+    return ResponsiveWidget(
+      onWillPop: () => locator<NavigationService>().goBack(),
+      builder: (context, size) {
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -21,12 +23,24 @@ class HelpView extends StatelessWidget {
           ),
           centerTitle: true,
           backgroundColor: Colors.green[800],
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              locator<NavigationService>().goBack();
-            },
-          ),
+          leading: GestureDetector(
+            onTap: () => locator<NavigationService>().goBack(),
+            child: Container(
+              height: 15.h,
+              width: 6.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [BoxShadow(
+                  color: Colors.green.withAlpha(90),
+                  blurRadius: 2,
+                )],
+              ),
+              child: Icon(
+                Icons.arrow_back,
+                size: 25.w
+              ),   
+            ),
+          )
         ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(

@@ -173,7 +173,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
                   /// opening up dismissible user card.
                   swipedUp
                       ? Positioned(
-                          height: 347.h,
+                          height: 350.h,
                           width: 250.w,
                           bottom: 15.h,
                           left: 55.w,
@@ -207,7 +207,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
                                                     .check_circle_outline_sharp,
                                                 color: Colors.lightGreen)
                                           ]),
-                                          CustomSpacer(flex: 6),
+                                          CustomSpacer(flex: 3),
                                           Row(children: [
                                             Container(
                                               height: 8.h,

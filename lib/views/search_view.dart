@@ -18,7 +18,7 @@ class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
-        onWillPop: () => Navigator.pop(context),
+        onWillPop: () => locator<NavigationService>().goBack(),
         builder: (context, size) {
           return Scaffold(
               backgroundColor: Colors.white,
@@ -32,11 +32,23 @@ class _SearchViewState extends State<SearchView> {
                 ),
                 centerTitle: true,
                 backgroundColor: Colors.green[800],
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    locator<NavigationService>().goBack();
-                  },
+                leading: GestureDetector(
+                  onTap: () => locator<NavigationService>().goBack(),
+                  child: Container(
+                    height: 15.h,
+                    width: 6.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [BoxShadow(
+                        color: Colors.green.withAlpha(90),
+                        blurRadius: 2,
+                      )],
+                    ),
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: 25.w
+                    ),
+                  ),
                 ),
               ),
               body: SingleChildScrollView(
@@ -79,7 +91,7 @@ class _SearchViewState extends State<SearchView> {
                   '110,000.00 - 150,000.00',
                   '160,000.00 - 200,000.00'
                 ]),
-                CustomSpacer(flex: 2),
+                CustomSpacer(flex: 3),
                 CustomButton(
                   text: 'Search',
                   onPressed: () {
@@ -87,6 +99,7 @@ class _SearchViewState extends State<SearchView> {
                         .pushNamed(RoommateSearchViewRoute);
                   },
                 ),
+                CustomSpacer(flex: 3),
               ])));
         });
   }

@@ -1,4 +1,4 @@
-import 'package:bunkie/views/amenities_view.dart';
+
 import 'package:bunkie/views/shared/interest_button.dart';
 import 'package:bunkie/views/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
-        onWillPop: () => Navigator.pop(context),
+        onWillPop: () => locator<NavigationService>().goBack(),
         builder: (context, size) {
           return Scaffold(
             backgroundColor: Colors.white,
@@ -33,11 +33,23 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
               ),
               centerTitle: true,
               backgroundColor: Colors.green[800],
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  locator<NavigationService>().goBack();
-                },
+              leading: GestureDetector(
+                onTap: () => locator<NavigationService>().goBack(),
+                child: Container(
+                  height: 15.h,
+                  width: 6.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [BoxShadow(
+                      color: Colors.green.withAlpha(90),
+                      blurRadius: 2,
+                    )],
+                  ),
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 25.w
+                  ),   
+                ),
               ),
               actions: [
                 Padding(

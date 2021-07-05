@@ -34,7 +34,7 @@ class _SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     return ResponsiveWidget(
         onWillPop: () => locator<NavigationService>()
-            .popAndPushNamed(LookingForRoommateViewRoute),
+            .goBack(),
         builder: (context, size) {
           return Scaffold(
             appBar: AppBar(
@@ -47,13 +47,24 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               centerTitle: true,
               backgroundColor: Colors.green[800],
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  locator<NavigationService>()
-                      .pushNamed(MenuViewRoute);
-                },
-              ),
+              leading: GestureDetector(
+                onTap: () => locator<NavigationService>().goBack(),
+                child: Container(
+                  height: 15.h,
+                  width: 6.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [BoxShadow(
+                      color: Colors.green.withAlpha(90),
+                      blurRadius: 2,
+                    )],
+                  ),
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 25.w
+                  ),
+                ),
+              )
             ),
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
@@ -143,25 +154,26 @@ class _SettingsViewState extends State<SettingsView> {
                           CustomSpacer(flex: 2),
                           Divider(color: Colors.black, thickness: 0.4),
                           CustomSpacer(flex: 2),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.verified_user_rounded,
-                                  size: 27,
-                                  color: Colors.green[800],
-                                ),
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10.w),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        locator<NavigationService>().pushNamed(
-                                            UserVerificationViewRoute);
-                                      },
+                          GestureDetector(
+                            onTap: () {
+                              locator<NavigationService>().pushNamed(
+                                UserVerificationViewRoute
+                              );
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20.w),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.verified_user_rounded,
+                                    size: 27,
+                                    color: Colors.green[800],
+                                  ),
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10.w),
                                       child: Text(
                                         'Verification',
                                         textAlign: TextAlign.center,
@@ -173,10 +185,11 @@ class _SettingsViewState extends State<SettingsView> {
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
+                          
                           CustomSpacer(flex: 2),
                           Divider(color: Colors.black, thickness: 0.4),
                           CustomSpacer(flex: 2),
