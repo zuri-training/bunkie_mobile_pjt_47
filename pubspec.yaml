@@ -50,3 +50,6 @@ flutter:
     - assets/images/verification/
     - assets/images/misc/
     - google_fonts/
+    - assets/images/Bell.jpeg
+    - assets/images/user.jpeg
+    - assets/images/NotBell.png
