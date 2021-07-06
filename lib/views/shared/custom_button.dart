@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:bunkie/utils/utils.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -24,7 +25,7 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: TextStyle(color: Colors.white, fontSize: 17.sp),
+          style: GoogleFonts.cabin(color: Colors.white, fontSize: 17.sp),
         ),
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.green[800]),

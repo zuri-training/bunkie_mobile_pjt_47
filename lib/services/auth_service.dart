@@ -6,7 +6,22 @@ import 'package:bunkie/models/user.dart';
 class AuthService{
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FireStoreService _fireStoreService = FireStoreService();
+  User? _currentUser;
+
+  User? get activeUser => _currentUser;
   // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  
+  Future _populateCurrentUser(user) async {
+    if (user != null) {
+      _currentUser = await _fireStoreService.getUser(user.uid) as User;
+    }
+  }
+
+  Future<bool> isUserLoggedIn() async {
+    var user = _auth.currentUser;
+    await _populateCurrentUser(user);
+    return user != null;
+  }
 
   Future signUpEmailAndPassword({
     String username: '',
@@ -71,17 +86,6 @@ class AuthService{
     } catch(e) {
       print(e.toString());
       return null;
-    }
-  }
-
-  Future updateProfile(String username, String photoUrl) async {
-    User? user = _auth.currentUser;
-    if (user != null) {
-      // ignore: unused_local_variable
-      UserInfo profile = UserInfo(
-        {username: username, 
-        photoUrl: photoUrl
-      });
     }
   }
 
