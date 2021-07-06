@@ -1,14 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:async/async.dart';
 
 import 'package:bunkie/models/user.dart';
 
 
-class Database {
+class DatabaseService {
   static final FirebaseFirestore _db = FirebaseFirestore.instance;
   static final DatabaseReference dbRef = FirebaseDatabase.instance.reference();
-
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
+  
   static Stream<Iterable<CustomUser>>? streamUsers() {
     return _db
         .collection('users')
@@ -140,4 +142,20 @@ class Database {
 
     dbRef.child(uid).onDisconnect().update(presenceStatusFalse);
   }
+
+  static updateUserData(
+        Map fields) {
+      final DocumentReference docRef = _db.
+          collection('users').doc(_auth.currentUser?.uid);
+      
+      fields.forEach((key, value) => docRef
+        .update(<String, dynamic> {
+          key: value
+        })
+        .then((dynamic success) => print("Successful"))
+        .catchError((dynamic e) {
+          print(e);
+        }));
+      
+    }
 }
