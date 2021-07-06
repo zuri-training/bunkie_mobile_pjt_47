@@ -32,7 +32,10 @@ class BottomNavBar extends StatelessWidget {
           label: 'Profile',
         ),
         BottomNavigationBarItem(
-          icon: GestureDetector(onTap: () {}, child: Icon(Icons.mail)),
+          icon: GestureDetector(onTap: () {
+            locator<NavigationService>()
+                .pushNamed(UserMessagesViewRoute);
+          }, child: Icon(Icons.mail)),
           label: 'Messages',
         ),
         BottomNavigationBarItem(
