@@ -70,6 +70,8 @@ class RouteGenerator {
         return _getPageRoute(ApartmentSearchView());
       case SearchRoomViewRoute:
         return _getPageRoute(SearchRoomView());
+      case UserMessagesViewRoute:
+        return _getPageRoute(UserMessagesView());
       default:
         return _getPageRoute(_errorPage);
     }

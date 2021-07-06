@@ -22,3 +22,4 @@ export 'package:bunkie/views/user_profile_view.dart';
 export 'package:bunkie/views/roommate_profile_view.dart';
 export 'package:bunkie/views/apartment_search.dart';
 export 'package:bunkie/views/search_room_view.dart';
+export 'package:bunkie/views/user_messages_view.dart';

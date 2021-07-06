@@ -4,6 +4,7 @@ import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/views/shared/custom_button.dart';
 import 'package:bunkie/views/shared/custom_spacer.dart';
+import 'package:bunkie/views/shared/navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -187,41 +188,7 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: 0,
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.grey[200],
-          selectedItemColor: Colors.grey,
-          unselectedItemColor: Colors.grey,
-          selectedFontSize: 14,
-          unselectedFontSize: 14,
-          items: [
-            BottomNavigationBarItem(
-              icon: GestureDetector(
-                  onTap: () {
-                    locator<NavigationService>().pushNamed(SelectionViewRoute);
-                  },
-                  child: Icon(Icons.house)),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: GestureDetector(onTap: () {
-                locator<NavigationService>()
-                    .pushNamed(UserProfileViewRoute);
-              }, child: Icon(Icons.person)),
-              label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-              icon: GestureDetector(onTap: () {}, child: Icon(Icons.mail)),
-              label: 'Messages',
-            ),
-            BottomNavigationBarItem(
-              icon: GestureDetector(
-                  onTap: () {}, child: Icon(Icons.notifications)),
-              label: 'Notifications',
-            ),
-          ],
-        ),
+        bottomNavigationBar: BottomNavBar(),
       );
     });
   }
