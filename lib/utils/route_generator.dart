@@ -72,6 +72,9 @@ class RouteGenerator {
         return _getPageRoute(SearchRoomView());
       case NotificationsViewRoute:
         return _getPageRoute(NotificationsView());
+      case EmptyNotificationsViewRoute:
+        return _getPageRoute(EmptyNotifications());
+
       default:
         return _getPageRoute(_errorPage);
     }
