@@ -8,4 +8,5 @@ export 'package:bunkie/views/shared/pin_code_fields.dart';
 export 'package:bunkie/views/shared/add_photos_column.dart';
 export 'package:bunkie/views/shared/custom_textField.dart';
 export 'package:bunkie/views/shared/navigation_bar.dart';
+export 'package:bunkie/views/shared/conversation_list.dart';
 

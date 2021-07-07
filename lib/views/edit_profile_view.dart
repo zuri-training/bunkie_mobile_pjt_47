@@ -1,9 +1,15 @@
 import 'dart:io';
-
-import 'package:bunkie/services/services.dart';
-import 'package:bunkie/utils/utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
+
+
+import 'package:bunkie/utils/utils.dart';
+import 'package:bunkie/services/services.dart';
+import 'package:bunkie/services/storage_service.dart';
 import 'package:bunkie/views/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -101,7 +107,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                 onTap: () {
                   onSubmit();
                   print('Done');
-                  // locator<NavigationService>().pushNamed(SettingsViewRoute);
+                  locator<NavigationService>().pushNamed(SettingsViewRoute);
                 },
                 child: Text(
                   'Done',
@@ -146,6 +152,9 @@ class _EditProfileViewState extends State<EditProfileView> {
                                         width: 100.w,
                                         height: 100.h,
                                         decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Color(0xffFDCF09),
+                                          ),
                                           color: Colors.grey[200],
                                           borderRadius: BorderRadius.circular(50),
                                         )
@@ -192,6 +201,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                               Expanded(
                                 child: TextFormField(
                                   controller: _firstNameController,
+                                  validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
                                   decoration: InputDecoration(
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -211,6 +221,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                               CustomSpacer(flex: 4, horizontal: true),
                               Expanded(
                                 child: TextFormField(
+                                  validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
                                   controller: _lastNameController,
                                   decoration: InputDecoration(
                                       enabledBorder: UnderlineInputBorder(
@@ -234,6 +245,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                         //CustomSpacer(flex: 3),
                         Container(
                           child: TextFormField(
+                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
                             controller: _stateController,
                             decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
@@ -255,6 +267,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                         ),
                         Container(
                           child: TextFormField(
+                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
                             controller: _universityController,
                             decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
@@ -276,6 +289,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                         ),
                         Container(
                           child: TextFormField(
+                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
                             controller: _facultyController,
                             decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
@@ -293,6 +307,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                         ),
                         Container(
                           child: TextFormField(
+                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
                             controller: _levelController,
                             decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
@@ -310,6 +325,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                         ),
                         Container(
                           child: TextFormField(
+                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
                             controller: _religionController,
                             decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
@@ -331,6 +347,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                         ),
                         Container(
                           child: TextFormField(
+                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
                             controller: _tribeController,
                             decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
@@ -368,6 +385,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                               Container(
                                 width: 30,
                                 child: TextFormField(
+                                  validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
                                   controller: _ageController,
                                   decoration: InputDecoration(
                                     enabledBorder: UnderlineInputBorder(
@@ -471,6 +489,8 @@ class _EditProfileViewState extends State<EditProfileView> {
                         CustomSpacer(flex: 2),
                         Container(
                           child: TextFormField(
+                            controller: _aboutYouController,
+                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
                             decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                 borderSide:
@@ -506,18 +526,45 @@ class _EditProfileViewState extends State<EditProfileView> {
     });
   }
 
-  Future getImage() async {
-    final pickedFile = await _picker.getImage(
-      source: ImageSource.gallery,
-      imageQuality: 70,
-    );
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected');
-      }
-    });
+  Future getImage(String inputSource) async {
+    final PickedFile? pickedImage;
+    
+    try {
+      pickedImage =  await _picker.getImage(
+        source: inputSource == 'camera'.toLowerCase() ?
+          ImageSource.camera :
+          ImageSource.gallery,
+        maxWidth: 1920,
+        imageQuality: 70,
+      );
+
+      if (pickedImage != null) {
+        setState(() {
+            _image = File(pickedImage!.path);
+            print('PICKED ${pickedImage.path}');
+        });
+
+        final String fileName = path.basename(pickedImage.path);
+
+        try {
+          // Uploading the selected image 
+          await StorageService.storage.ref(fileName)
+              .putFile(
+                _image,
+                SettableMetadata(customMetadata: {
+                  'uploadedBy': _auth.currentUser!.uid
+                }));
+          setState(() {});
+        } on FirebaseException catch(e) {
+          print(e);
+        }
+      } else print('No image selected');
+    
+    
+    } catch(err) {
+      print(err);
+    }
+    
   }
 
   void _showPicker(BuildContext context) {
@@ -532,7 +579,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                   leading: Icon(Icons.photo_library),
                   title: Text('Library'),
                   onTap: () {
-                    getImage();
+                    getImage('gallery');
                     Navigator.of(context).pop();
                   },
                 ),
@@ -540,7 +587,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                   leading: Icon(Icons.photo_camera_rounded),
                   title: Text('Camera'),
                   onTap: () {
-                    getImage();
+                    getImage('camera');
                     Navigator.of(context).pop();
                   },
                 ),

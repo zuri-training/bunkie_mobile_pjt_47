@@ -34,7 +34,7 @@ class BottomNavBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: GestureDetector(onTap: () {
             locator<NavigationService>()
-                .pushNamed(UserMessagesViewRoute);
+                .pushNamed(ChatPageViewRoute);
           }, child: Icon(Icons.mail)),
           label: 'Messages',
         ),

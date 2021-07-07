@@ -32,4 +32,5 @@ const RoommateProfileViewRoute = 'roommate-profile-view';
 const ApartmentSearchViewRoute = 'apartment-search-view';
 const SearchRoomViewRoute = 'search-room-view';
 const UserMessagesViewRoute = 'user-messages-view';
+const ChatPageViewRoute = 'chat_page_view';
 
