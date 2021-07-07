@@ -2,21 +2,14 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String? hintText;
-  var controller;
-  final double? width;
-  bool obscureText;
-  CustomTextFormField({
+  const CustomTextFormField({
     Key? key,
     this.hintText: '',
-    required this.controller,
-    this.width,
-    this.obscureText: false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? 400,
       child: Material(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
@@ -26,8 +19,6 @@ class CustomTextFormField extends StatelessWidget {
         elevation: 20,
         shadowColor: Colors.grey,
         child: TextFormField(
-          controller: controller,
-          obscureText: obscureText,
           decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderSide: BorderSide.none,

@@ -1,28 +1,15 @@
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bunkie/views/shared/shared.dart';
 
-
-class LandingPageView extends StatefulWidget {
+class LandingPageView extends StatelessWidget {
   const LandingPageView({Key? key}) : super(key: key);
 
   @override
-  _LandingPageViewState createState() => _LandingPageViewState();
-}
-
-
-class _LandingPageViewState extends State<LandingPageView> {  
-
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
-  @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(
-      onWillPop: () => Navigator.pop(context),
-      builder: (context, size) {    
+    return ResponsiveWidget(builder: (context, size) {
       return Scaffold(
         body: Stack(children: [
           ShaderMask(
@@ -73,10 +60,7 @@ class _LandingPageViewState extends State<LandingPageView> {
             CustomButton(
                 text: 'Get Started',
                 onPressed: () {
-                  _firebaseAuth.currentUser != null ?
-                    locator<NavigationService>().pushNamed(SelectionViewRoute)
-                  : 
-                    locator<NavigationService>().pushNamed(LoginViewRoute);
+                  locator<NavigationService>().pushNamed(LoginViewRoute);
                 }),
           ])
         ]),

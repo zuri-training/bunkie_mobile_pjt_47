@@ -1,36 +1,16 @@
-import 'dart:developer';
-import 'package:bunkie/services/services.dart';
+import 'package:bunkie/services/navigation_service.dart';
+import 'package:bunkie/utils/constants.dart';
 import 'package:bunkie/utils/locator.dart';
 import 'package:bunkie/views/shared/shared.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class LookingForApartmentView extends StatefulWidget {
+class LookingForApartmentView extends StatelessWidget {
   const LookingForApartmentView({Key? key}) : super(key: key);
-
-  @override
-  _LookingForApartmentViewState createState() =>
-      _LookingForApartmentViewState();
-}
-
-class _LookingForApartmentViewState extends State<LookingForApartmentView> {
-  AuthService _authService = AuthService();
-  FireStoreService _fireStoreService = FireStoreService();
-  User? loggedInUser;
-  String? firstname;
-  @override
-  void initState() {
-    loggedInUser = _authService.currentUser();
-    log(loggedInUser!.uid);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
-      onWillPop: () => Navigator.pop(context),
       builder: (context, size) {
         return Scaffold(
             body: Container(
@@ -63,7 +43,7 @@ class _LookingForApartmentViewState extends State<LookingForApartmentView> {
                     GestureDetector(
                       onTap: () {
                         locator<NavigationService>()
-                            .pushNamed('Not Implemented');
+                            .pushNamed(LookingForRoommateViewRoute);
                       },
                       child: Text('Next',
                           style: TextStyle(
@@ -74,39 +54,17 @@ class _LookingForApartmentViewState extends State<LookingForApartmentView> {
             CustomSpacer(
               flex: 4,
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Hello ',
-                    style: GoogleFonts.cabin(
-                        textStyle: TextStyle(
-                            fontSize: 28.sp,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                  FutureBuilder<dynamic>(
-                      future:
-                          _fireStoreService.getUserFirstName(loggedInUser!.uid),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          log('User is null');
-                          return Text('');
-                        }
-                        firstname = snapshot.data.toString();
-                        return Text(
-                          '$firstname😃',
-                          style: GoogleFonts.cabin(
-                              textStyle: TextStyle(
-                                  fontSize: 28.sp,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold)),
-                        );
-                      })
-                ],
-              ),
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                  text: 'Hello ',
+                  style: TextStyle(color: Colors.grey, fontSize: 28.sp),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'James😃',
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold)),
+                  ]),
             ),
             Divider(
               color: Color(0xff027A63),

@@ -1,35 +1,10 @@
-import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
 
-
-class LoginView extends StatefulWidget {
+class LoginView extends StatelessWidget {
   const LoginView({Key? key}) : super(key: key);
-
-  @override
-  _LoginViewState createState() => _LoginViewState();
-}
-
-
-class _LoginViewState extends State<LoginView> {
-  
-  AuthService _authService = AuthService();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-
-  signIn() async {
-    await _authService.signinWithEmail(
-      _emailController.text,
-      _passwordController.text 
-    ).then((value) {
-      if (value != null) {
-        locator<NavigationService>()
-          .pushReplacementNamed(SelectionViewRoute);
-      } else return null;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +24,7 @@ class _LoginViewState extends State<LoginView> {
                       child: Image.asset(
                           'assets/images/bunkie-logos/gradient-bunkie-logo.png'),
                     ),
-                    CustomSpacer(flex: 4,),
+                    CustomSpacer(flex: 8),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
@@ -63,19 +38,18 @@ class _LoginViewState extends State<LoginView> {
                     CustomSpacer(flex: 4),
                     CustomTextFormField(
                       hintText: 'Enter Email',
-                      controller: _emailController,
                     ),
                     CustomSpacer(flex: 5),
                     CustomTextFormField(
                       hintText: 'Enter Password',
-                      controller: _passwordController,
-                      obscureText: true,
                     ),
-                    CustomSpacer(flex: 8),
+                    CustomSpacer(flex: 12),
                     CustomButton(
                         text: 'Log In',
-                        onPressed: () => signIn(),
-                    ),
+                        onPressed: () {
+                          locator<NavigationService>()
+                              .pushNamed(VerifyNumberViewRoute);
+                        }),
                     CustomSpacer(flex: 4),
                     Text('Or continue with:',
                         style: TextStyle(
