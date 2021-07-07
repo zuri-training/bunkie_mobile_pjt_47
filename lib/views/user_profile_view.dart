@@ -1,14 +1,17 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/services/services.dart';
-import 'package:bunkie/views/shared/custom_button.dart';
+import 'package:bunkie/services/storage_service.dart';
 import 'package:bunkie/views/shared/custom_spacer.dart';
 import 'package:bunkie/views/shared/navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
 
 import 'shared/responsive_widget.dart';
 import 'package:bunkie/utils/utils.dart';
@@ -19,7 +22,6 @@ class UserProfileView extends StatefulWidget {
 }
 
 class _UserProfileViewState extends State<UserProfileView> {
-  final List<Widget> _children = [];
 
   final AuthService _auth = AuthService();
   AuthService _authService = AuthService();
@@ -38,10 +40,13 @@ class _UserProfileViewState extends State<UserProfileView> {
   bool roommate = true;
   bool messages = true;
 
+  var _image = File('');
+  final _picker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(onWillPop: () {
-      locator<NavigationService>().pushNamed(LandingViewRoute);
+      locator<NavigationService>().goBack();
     }, builder: (context, size) {
       return Scaffold(
         backgroundColor: Colors.white,
@@ -68,9 +73,9 @@ class _UserProfileViewState extends State<UserProfileView> {
                             locator<NavigationService>().goBack();
                           },
                           child: Icon(
-                            Icons.arrow_back_ios_sharp,
+                            Icons.arrow_back,
                             color: Colors.white,
-                            size: 25,
+                            size: 25.h,
                           ),
                         ),
                       ),
@@ -79,7 +84,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                           locator<NavigationService>().pushNamed(MenuViewRoute);
                         },
                         child:
-                            Icon(Icons.menu, color: Colors.white, size: 35.0),
+                            Icon(Icons.menu, color: Colors.white, size: 35.h),
                       ),
                     ],
                   ),
@@ -141,11 +146,14 @@ class _UserProfileViewState extends State<UserProfileView> {
                           ),
                         ),
                       ),
-                      CustomSpacer(flex: 20),
+                      CustomSpacer(flex: 10),
                       Container(
                         alignment: Alignment.topRight,
-                        child: Icon(Icons.add_circle_outline,
+                        child: GestureDetector(
+                          onTap: () => _showPicker(context),
+                          child: Icon(Icons.add_circle_outline,
                             color: Colors.black, size: 30),
+                        )    
                       ),
                       CustomSpacer(flex: 5),
                       Padding(
@@ -190,5 +198,78 @@ class _UserProfileViewState extends State<UserProfileView> {
         bottomNavigationBar: BottomNavBar(),
       );
     });
+  }
+
+  Future getImage(String inputSource) async {
+    final PickedFile? pickedImage;
+    
+    try {
+      pickedImage =  await _picker.getImage(
+        source: inputSource == 'camera'.toLowerCase() ?
+          ImageSource.camera :
+          ImageSource.gallery,
+        maxWidth: 1920,
+        imageQuality: 70,
+      );
+
+      if (pickedImage != null) {
+        setState(() {
+            _image = File(pickedImage!.path);
+            print('PICKED ${pickedImage.path}');
+        });
+
+        final String fileName = path.basename(pickedImage.path);
+
+        try {
+          // Uploading the selected image 
+          await StorageService.storage.ref(fileName)
+              .putFile(
+                _image,
+                SettableMetadata(customMetadata: {
+                  'uploadedBy': _auth.currentUser()!.uid
+                }));
+          setState(() {});
+        } on FirebaseException catch(e) {
+          print(e);
+        }
+      } else print('No image selected');
+    
+    
+    } catch(err) {
+      print(err);
+    }
+    
+  }
+
+  void _showPicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context, 
+      builder: (BuildContext _build) {
+        return SafeArea(
+          child: Container(
+            child: Wrap(
+              children: [
+                ListTile(
+                  leading: Icon(Icons.photo_library),
+                  title: Text('Library'),
+                  onTap: () {
+                    getImage('gallery');
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.photo_camera_rounded),
+                  title: Text('Camera'),
+                  onTap: () {
+                    getImage('camera');
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+    );
   }
 }

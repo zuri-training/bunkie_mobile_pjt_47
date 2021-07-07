@@ -1,3 +1,4 @@
+import 'package:bunkie/models/chat_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -7,12 +8,12 @@ import 'package:bunkie/models/user.dart';
 
 
 class DatabaseService {
-  static final FirebaseFirestore _db = FirebaseFirestore.instance;
+  static final FirebaseFirestore db = FirebaseFirestore.instance;
   static final DatabaseReference dbRef = FirebaseDatabase.instance.reference();
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   
   static Stream<Iterable<CustomUser>>? streamUsers() {
-    return _db
+    return db
         .collection('users')
         .snapshots()
         .map((QuerySnapshot list) => list.docs
@@ -27,7 +28,7 @@ class DatabaseService {
   static Stream<List<CustomUser>> getUsersByList(List<String> userIds) {
     final List<Stream<CustomUser>> streams = [];
     for (String id in userIds) {
-      streams.add(_db
+      streams.add(db
         .collection('users')
         .doc(id)
         .snapshots()
@@ -38,10 +39,11 @@ class DatabaseService {
     return StreamZip<CustomUser>(streams).asBroadcastStream();
   }
 
-  /*static Stream<List<Conversation>> streamConversations(String uid) {
-    return _db
+  static Stream<List<Conversation>> streamConversations(String uid) {
+    return db
         .collection('messages')
         .orderBy('lastMessage.timestamp', descending: true)
+        .limit(40)
         .where('users', arrayContains: uid)
         .snapshots()
         .map((QuerySnapshot list) => list.docs
@@ -58,7 +60,7 @@ class DatabaseService {
     String timestamp,
   ) {
     final DocumentReference convoDoc = 
-      _db.collection('messages').doc(convoID);
+      db.collection('messages').doc(convoID);
     
     convoDoc.set(<String, dynamic> {
       'lastMessage': <String, dynamic>{
@@ -70,13 +72,13 @@ class DatabaseService {
       },
       'users': <String>[id, pid]
     }).then((dynamic success) {
-      final DocumentReference messageDoc = _db
+      final DocumentReference messageDoc = db
           .collection('messages')
           .doc(convoID)
           .collection(convoID)
           .doc(timestamp);
 
-      _db.runTransaction((Transaction transaction) async {
+      db.runTransaction((Transaction transaction) async {
         // ignore: await_only_futures
         await transaction.set(
           messageDoc, 
@@ -93,7 +95,7 @@ class DatabaseService {
   }
 
   static void updateMessageStatus(DocumentSnapshot doc, String convoID) {
-    final DocumentReference docRef = _db
+    final DocumentReference docRef = db
         .collection('messages')
         .doc(convoID)
         .collection(convoID)
@@ -104,7 +106,7 @@ class DatabaseService {
 
   static void updateLastMessage(
         DocumentSnapshot doc, String uid, String pid, String convoID) {
-      final DocumentReference docRef = _db.
+      final DocumentReference docRef = db.
           collection('messages').doc(convoID);
 
       docRef
@@ -122,7 +124,7 @@ class DatabaseService {
         .catchError((dynamic e) {
           print(e);
         });
-    }*/
+    }
 
   static void updateUserPresence(uid) async {
     Map<String, dynamic> presenceStatusTrue = {
@@ -145,7 +147,7 @@ class DatabaseService {
 
   static updateUserData(
         Map fields) {
-      final DocumentReference docRef = _db.
+      final DocumentReference docRef = db.
           collection('users').doc(_auth.currentUser?.uid);
       
       fields.forEach((key, value) => docRef
