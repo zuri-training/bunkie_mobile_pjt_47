@@ -24,7 +24,10 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           suffixIcon: suffixIcon ?? suffixIcon,
-          contentPadding: EdgeInsets.symmetric(vertical: 3.h),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 10.h,
+            horizontal: 10.h
+          ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xff027A63), width: 3),
             borderRadius: BorderRadius.all(

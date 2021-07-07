@@ -1,3 +1,10 @@
+import 'package:bunkie/views/chat_page.dart';
+import 'package:bunkie/views/login_view.dart';
+import 'package:bunkie/views/profile_create.dart';
+import 'package:bunkie/views/roommate_preferences.dart';
+import 'package:bunkie/views/roommate_search.dart';
+
+import 'package:bunkie/views/selection_view.dart';
 import 'package:bunkie/views/views.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +19,10 @@ class RouteGenerator {
         return _getPageRoute(Container());
       case LoginViewRoute:
         return _getPageRoute(LoginView());
+      case ProfileCreateViewRoute:
+        return _getPageRoute(ProfileCreate());
+      case SelectionViewRoute:
+        return _getPageRoute(SelectionView());
       case LandingViewRoute:
         return _getPageRoute(LandingPageView());
       case SignUpViewRoute:
@@ -30,6 +41,40 @@ class RouteGenerator {
         return _getPageRoute(LookingForApartmentView());
       case LookingForRoommateViewRoute:
         return _getPageRoute(LookingForRoomateView());
+      case RoommatePreferencesViewRoute:
+        return _getPageRoute(RoommatePreferencesView());
+      case RoommateSearchViewRoute:
+        return _getPageRoute(RoommateSearchView());
+      case EditProfileViewRoute:
+        return _getPageRoute(EditProfileView());
+      case HelpViewRoute:
+        return _getPageRoute(HelpView());
+      case NotificationsSettingsViewRoute:
+        return _getPageRoute(NotificationsSettingsView());
+      case SettingsViewRoute:
+        return _getPageRoute(SettingsView());
+      case UserVerificationViewRoute:
+        return _getPageRoute(UserVerificationView());
+      case UserDocumentVerificationViewRoute:
+        return _getPageRoute(UserDocumentVerificationView());
+      case LiveShotVerificationViewRoute:
+        return _getPageRoute(LiveShotVerificationView());
+      case MenuViewRoute:
+        return _getPageRoute(MenuView());
+      case SearchViewRoute:
+        return _getPageRoute(SearchView());
+      case UserProfileViewRoute:
+        return _getPageRoute(UserProfileView());
+      case RoommateProfileViewRoute:
+        return _getPageRoute(RoommateProfileView());
+      case ApartmentSearchViewRoute:
+        return _getPageRoute(ApartmentSearchView());
+      case SearchRoomViewRoute:
+        return _getPageRoute(SearchRoomView());
+      case UserMessagesViewRoute:
+        return _getPageRoute(UserMessagesView());
+      case ChatPageViewRoute:
+        return _getPageRoute(ChatPageView());
       default:
         return _getPageRoute(_errorPage);
     }
@@ -39,7 +84,7 @@ class RouteGenerator {
   static CupertinoPageRoute _getPageRoute(
     Widget child, [
     String? routeName,
-    dynamic? args,
+    dynamic args,
   ]) =>
       CupertinoPageRoute(
         builder: (context) => child,
@@ -52,13 +97,15 @@ class RouteGenerator {
   ///Error page shown when app attempts navigating to an unknown route
   static Widget _errorPage = Scaffold(
     appBar: AppBar(
-        title: Text(
-      'Page not found',
-      style: TextStyle(color: Colors.red),
-    )),
+      title: Text(
+        'Page not found',
+        style: TextStyle(color: Colors.red),
+      ),
+      backgroundColor: Colors.red,
+    ),
     body: Center(
       child: Text(
-        'Error! Page not found',
+        'Error! Page not found or not implemented yet',
         style: TextStyle(color: Colors.red),
       ),
     ),

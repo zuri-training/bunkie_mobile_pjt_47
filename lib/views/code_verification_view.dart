@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:bunkie/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -87,7 +86,7 @@ class _CodeVerificationViewState extends State<CodeVerificationView> {
                       return null;
                     }),
                 CustomSpacer(
-                  flex: 5,
+                  flex: 3,
                 ),
                 Container(
                   child: Row(
@@ -97,17 +96,21 @@ class _CodeVerificationViewState extends State<CodeVerificationView> {
                           "Didn't Receive the Code?  ",
                           style: TextStyle(fontSize: 17.sp),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            locator<NavigationService>()
-                                .pushNamed(SignUpViewRoute);
-                          },
-                          child: Text(
-                            'Resend Code',
-                            style: TextStyle(
-                                color: Colors.lightGreen, fontSize: 17.sp),
-                          ),
+                        Flexible(
+                          fit: FlexFit.loose,
+                          child: GestureDetector(
+                            onTap: () {
+                              locator<NavigationService>()
+                                  .pushNamed(SignUpViewRoute);
+                            },
+                            child: Text(
+                              'Resend Code',
+                              style: TextStyle(
+                                  color: Colors.lightGreen, fontSize: 17.sp),
+                            ),
+                          )
                         )
+                        
                       ]),
                 ),
                 CustomSpacer(
@@ -118,7 +121,7 @@ class _CodeVerificationViewState extends State<CodeVerificationView> {
                     text: 'Verify',
                     onPressed: () {
                       locator<NavigationService>()
-                          .pushNamed(LookingForApartmentViewRoute);
+                          .pushNamed(ProfileCreateViewRoute);
                     }),
               ]),
             ),
