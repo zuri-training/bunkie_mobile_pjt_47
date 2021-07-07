@@ -2,10 +2,8 @@ import 'dart:async';
 
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
 
 import 'shared/shared.dart';
 
@@ -21,10 +19,6 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
   final formKey = GlobalKey<FormState>();
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? _errorController;
-
-  FirebaseAuth _auth = FirebaseAuth.instance;
-
-  bool _isVerified = false;
 
   bool _hasError = false;
   @override
@@ -64,7 +58,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                         fit: BoxFit.cover),
                   ),
                 ),
-                CustomSpacer(flex: 0),
+                CustomSpacer(flex: 2),
                 Text('Verify your Email',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -103,19 +97,16 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                           "Didn't Receive the Code?  ",
                           style: TextStyle(fontSize: 17.sp),
                         ),
-                        Flexible(
-                          fit: FlexFit.loose,
-                            child: GestureDetector(
-                            onTap: () {
-                              locator<NavigationService>()
-                                  .pushNamed(SignUpViewRoute);
-                            },
-                            child: Text(
-                              'Resend Code',
-                              style: TextStyle(
-                                  color: Colors.lightGreen, fontSize: 17.sp),
-                            ),
-                          )
+                        GestureDetector(
+                          onTap: () {
+                            locator<NavigationService>()
+                                .pushNamed(SignUpViewRoute);
+                          },
+                          child: Text(
+                            'Resend Code',
+                            style: TextStyle(
+                                color: Colors.lightGreen, fontSize: 17.sp),
+                          ),
                         )
                       ]),
                 ),
@@ -125,23 +116,8 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                 CustomButton(
                     width: size.width,
                     text: 'Verify',
-                    onPressed: () async {
-                      try {
-                        User? user = _auth.currentUser;
-                        await user!.reload();
-                        user = _auth.currentUser;
-                        print(user!.emailVerified);
-
-                        if (user.emailVerified) {
-                          setState(() => _isVerified = true);
-                          locator<NavigationService>().pushNamed(ProfileCreateViewRoute);
-                        } else {
-                          return null;
-                        }
-                      } catch(e) {
-                        print(e);
-                      }
-                      
+                    onPressed: () {
+                      locator<NavigationService>().pushNamed(LoginViewRoute);
                     }),
               ]),
             ),

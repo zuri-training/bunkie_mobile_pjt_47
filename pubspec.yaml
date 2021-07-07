@@ -20,28 +20,11 @@ dependencies:
   provider: ^5.0.0
   get_it: ^7.1.3
   flutter_screenutil: ^5.0.0+2
-  carousel_slider: ^4.0.0
   pin_code_fields: ^7.2.0
-  firebase_core: ^1.1.0
-  path: ^1.8.0
-  firebase_auth: ^1.1.2
-  firebase_database: ^7.0.0-dev.2
-  firebase_storage: ^9.0.0
-  cloud_firestore: ^1.0.7
-  image_picker: ^0.8.1+1
-  path_provider: ^2.0.2
-
-flutter_icons:
-  android: "launcher_icons"
-  ios: true
-  image_path: "assets/images/bunkie-logos/LogoIcon.png"
-  remove_alpha_ios: true
-
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: ^0.9.0
 
 flutter:
   uses-material-design: true
@@ -51,5 +34,4 @@ flutter:
     - assets/images/bunkie-logos/
     - assets/images/roommates/
     - assets/images/verification/
-    - assets/images/misc/
     - google_fonts/

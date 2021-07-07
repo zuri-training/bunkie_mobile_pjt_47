@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bunkie_mobile_pjt_47">
    <application
-        android:label="Bunkie"
-        android:icon="@mipmap/launcher_icons">
+        android:label="bunkie_mobile_pjt_47"
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
