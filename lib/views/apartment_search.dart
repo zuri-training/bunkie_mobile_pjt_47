@@ -1,14 +1,12 @@
-import 'dart:convert';
+
 
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/views/shared/shared.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bunkie/utils/utils.dart';
 
-import 'shared/circle_carousel.dart';
 import 'shared/custom_carousel.dart';
 import 'shared/navigation_bar.dart';
 
@@ -17,29 +15,6 @@ class ApartmentSearchView extends StatefulWidget {
 }
 
 class _ApartmentSearchViewState extends State<ApartmentSearchView> {
-  bool _rTapped = true;
-  List<String> _images = [];
-
-  Future _initImages() async {
-    final manifestContent =
-    await DefaultAssetBundle.of(context).loadString('AssetManifest.json');
-    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
-
-    final imagePaths = manifestMap.keys
-        .where((String key) => key.contains('images/apartments'))
-        .toList();
-
-    setState(() => _images = imagePaths);
-  }
-
-  int _currentIndex = 0;
-  bool swipedUp = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _initImages();
-  }
 
   @override
   Widget build(BuildContext context) {

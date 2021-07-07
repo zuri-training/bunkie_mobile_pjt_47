@@ -52,7 +52,7 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
               ),
               actions: [
                 Padding(
-                  padding: EdgeInsets.only(right: 20.w, top: 20.w),
+                  padding: EdgeInsets.only(right: 20.w, top: 20.h),
                   child: GestureDetector(
                     onTap: () {
                       locator<NavigationService>()
@@ -61,7 +61,7 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
                     child: Text(
                       'Next',
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

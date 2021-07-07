@@ -1,3 +1,4 @@
+import 'package:bunkie/views/chat_page.dart';
 import 'package:bunkie/views/login_view.dart';
 import 'package:bunkie/views/profile_create.dart';
 import 'package:bunkie/views/roommate_preferences.dart';
@@ -75,6 +76,10 @@ class RouteGenerator {
       case EmptyNotificationsViewRoute:
         return _getPageRoute(EmptyNotifications());
 
+      case UserMessagesViewRoute:
+        return _getPageRoute(UserMessagesView());
+      case ChatPageViewRoute:
+        return _getPageRoute(ChatPageView());
       default:
         return _getPageRoute(_errorPage);
     }

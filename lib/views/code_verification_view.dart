@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:bunkie/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 

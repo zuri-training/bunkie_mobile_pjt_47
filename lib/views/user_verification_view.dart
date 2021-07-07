@@ -1,10 +1,9 @@
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:bunkie/views/views.dart';
+
 import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:async';
 
 import 'shared/custom_spacer.dart';
 

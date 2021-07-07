@@ -24,3 +24,4 @@ export 'package:bunkie/views/apartment_search.dart';
 export 'package:bunkie/views/search_room_view.dart';
 export 'package:bunkie/views/notifications_view.dart';
 export 'package:bunkie/views/empty_notifications.dart';
+export 'package:bunkie/views/user_messages_view.dart';
