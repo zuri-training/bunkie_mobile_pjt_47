@@ -71,6 +71,11 @@ class RouteGenerator {
         return _getPageRoute(ApartmentSearchView());
       case SearchRoomViewRoute:
         return _getPageRoute(SearchRoomView());
+      case NotificationsViewRoute:
+        return _getPageRoute(NotificationsView());
+      case EmptyNotificationsViewRoute:
+        return _getPageRoute(EmptyNotifications());
+
       case UserMessagesViewRoute:
         return _getPageRoute(UserMessagesView());
       case ChatPageViewRoute:

@@ -42,143 +42,143 @@ class _SelectionViewState extends State<SelectionView> {
       locator<NavigationService>().pushNamed(LandingViewRoute);
     }, builder: (context, size) {
       return Scaffold(
-        backgroundColor: Colors.white,
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/HsTope.png'),
-              fit: BoxFit.none,
+          backgroundColor: Colors.white,
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/HsTope.png'),
+                fit: BoxFit.none,
+              ),
             ),
-
-          ),
-          child: SafeArea(
-            child: Column(
-              children: [
-                CustomSpacer(flex: 3),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: AssetImage(
-                                'assets/images/landing-page-background.jpg'),
-                            radius: 25,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              locator<NavigationService>()
-                                  .pushNamed(MenuViewRoute);
-                            },
-                            child: Icon(Icons.menu,
-                                color: Colors.white, size: 35.0.w),
-                          ),
-                        ],
-                      ),
-                      CustomSpacer(flex: 2),
-                      Container(
-                        child: Text(
-                          'Welcome to Bunkie',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
+            child: SafeArea(
+              child: Column(
+                children: [
+                  CustomSpacer(flex: 3),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CircleAvatar(
+                              backgroundImage: AssetImage(
+                                  'assets/images/landing-page-background.jpg'),
+                              radius: 25,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                locator<NavigationService>()
+                                    .pushNamed(MenuViewRoute);
+                              },
+                              child: Icon(Icons.menu,
+                                  color: Colors.white, size: 35.0.w),
+                            ),
+                          ],
+                        ),
+                        CustomSpacer(flex: 2),
+                        Container(
+                          child: Text(
+                            'Welcome to Bunkie',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 13.sp,
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
                         ),
-                      ),
-                      CustomSpacer(flex: 1),
-                      Container(
-                        alignment: Alignment.topLeft,
-                        child: FutureBuilder<dynamic>(
-                            future: _fireStoreService
-                                .getUserFirstAndLastName(loggedInUser!.uid),
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData) {
-                                log('User is null');
-                                return Container();
-                              }
-                              lastname = snapshot.data.toString();
-                              return Text(
-                                '$lastname',
-                                style: GoogleFonts.cabin(
-                                    textStyle: TextStyle(
-                                        fontSize: 20.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.normal)),
-                              );
-                            }),
-                      ),
-                    ],
+                        CustomSpacer(flex: 1),
+                        Container(
+                          alignment: Alignment.topLeft,
+                          child: FutureBuilder<dynamic>(
+                              future: _fireStoreService
+                                  .getUserFirstAndLastName(loggedInUser!.uid),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  log('User is null');
+                                  return Container();
+                                }
+                                lastname = snapshot.data.toString();
+                                return Text(
+                                  '$lastname',
+                                  style: GoogleFonts.cabin(
+                                      textStyle: TextStyle(
+                                          fontSize: 20.sp,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.normal)),
+                                );
+                              }),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                CustomSpacer(flex: 40),
-                Container(
-                  child: SizedBox(
-                    height: 70.h,
-                    width: 220.w,
-                    child: ElevatedButton.icon(
-                      icon: Icon(
-                        Icons.supervised_user_circle_sharp,
-                        color: Colors.white,
-                        size: 23.0,
-                      ),
-                      label: Text(
-                        'I need a Roommate',
-                        style: TextStyle(
+                  CustomSpacer(flex: 40),
+                  Container(
+                    child: SizedBox(
+                      height: 70.h,
+                      width: 220.w,
+                      child: ElevatedButton.icon(
+                        icon: Icon(
+                          Icons.supervised_user_circle_sharp,
                           color: Colors.white,
+                          size: 23.0,
                         ),
-                      ),
-                      onPressed: () {
-                        locator<NavigationService>().pushNamed(SearchViewRoute);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green[800],
-                        // padding: EdgeInsets.symmetric(
-                        //    horizontal: 30.h, vertical: 20.w),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.h),
+                        label: Text(
+                          'I need a Roommate',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                ),
-                CustomSpacer(flex: 5),
-                Container(
-                  child: SizedBox(
-                    height: 70.h,
-                    width: 220.w,
-                    child: ElevatedButton.icon(
-                      icon: Icon(
-                        Icons.house,
-                        color: Colors.white,
-                        size: 23.0,
-                      ),
-                      label: Text('I need a Room'),
-                      onPressed: () {
-                        locator<NavigationService>().pushNamed(SearchRoomViewRoute);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green[800],
-                        // padding: EdgeInsets.symmetric(
-                        //     horizontal: 40.h, vertical: 20.w),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.h),
+                        onPressed: () {
+                          locator<NavigationService>()
+                              .pushNamed(SearchViewRoute);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green[800],
+                          // padding: EdgeInsets.symmetric(
+                          //    horizontal: 30.h, vertical: 20.w),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.h),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                CustomSpacer(flex: 2),
-              ],
+                  CustomSpacer(flex: 5),
+                  Container(
+                    child: SizedBox(
+                      height: 70.h,
+                      width: 220.w,
+                      child: ElevatedButton.icon(
+                        icon: Icon(
+                          Icons.house,
+                          color: Colors.white,
+                          size: 23.0,
+                        ),
+                        label: Text('I need a Room'),
+                        onPressed: () {
+                          locator<NavigationService>()
+                              .pushNamed(SearchRoomViewRoute);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green[800],
+                          // padding: EdgeInsets.symmetric(
+                          //     horizontal: 40.h, vertical: 20.w),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.h),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  CustomSpacer(flex: 2),
+                ],
+              ),
             ),
           ),
-        ),
-        bottomNavigationBar: BottomNavBar()
-      );
+          bottomNavigationBar: BottomNavBar());
     });
   }
 }
