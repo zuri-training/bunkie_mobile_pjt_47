@@ -1,3 +1,4 @@
+
 import 'package:bunkie/views/shared/interest_button.dart';
 import 'package:bunkie/views/shared/shared.dart';
 import 'package:flutter/material.dart';
@@ -18,181 +19,207 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
-        onWillPop: () => Navigator.pop(context),
+        onWillPop: () => locator<NavigationService>().goBack(),
         builder: (context, size) {
           return Scaffold(
-            body: SingleChildScrollView(
-                child: Column(children: [
-              CustomSpacer(flex: 10),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20.w,
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              title: Text(
+                'Interests and LifeStyle',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.sp,
                 ),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: Container(
-                              height: 30.w,
-                              width: 40.w,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.grey)),
-                              child: Icon(Icons.arrow_back,
-                                  color: Colors.grey, size: 30.w))),
-                      GestureDetector(
-                          onTap: () {
-                            locator<NavigationService>()
-                                .pushNamed(RoommatePreferencesViewRoute);
-                          },
-                          child: Text(
-                            'Next',
-                            style: GoogleFonts.cabin(
-                                color: Color(0xff027A63), fontSize: 20.sp),
-                          )),
-                    ]),
               ),
-              Text('Almost there',
-                  style:
-                      GoogleFonts.cabin(fontSize: 25.sp, color: Colors.grey)),
-              CustomSpacer(flex: 3),
-              Text(
-                  'Tell us your interests, we\'ll find roommates \nwith the same interests as you',
-                  textAlign: TextAlign.center,
-                  style:
-                      GoogleFonts.cabin(color: Colors.grey, fontSize: 16.sp)),
-              CustomSpacer(flex: 3),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InterestButton(
-                        text: 'Music',
-                      ),
-                      InterestButton(text: 'Gaming'),
-                      InterestButton(text: 'Cooking'),
-                      InterestButton(text: 'Sports'),
-                    ]),
+              centerTitle: true,
+              backgroundColor: Colors.green[800],
+              leading: GestureDetector(
+                onTap: () => locator<NavigationService>().goBack(),
+                child: Container(
+                  height: 15.h,
+                  width: 6.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [BoxShadow(
+                      color: Colors.green.withAlpha(90),
+                      blurRadius: 2,
+                    )],
+                  ),
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 25.w
+                  ),   
+                ),
               ),
-              CustomSpacer(flex: 3),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InterestButton(
-                        text: 'Pets',
-                      ),
-                      InterestButton(text: 'Travel'),
-                      InterestButton(text: 'Food'),
-                      InterestButton(text: 'Politics'),
-                    ]),
-              ),
-              CustomSpacer(flex: 3),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InterestButton(
-                        text: 'Books',
-                      ),
-                      InterestButton(text: 'Movies'),
-                      InterestButton(text: 'Writing'),
-                      InterestButton(text: 'Dance'),
-                    ]),
-              ),
-              CustomSpacer(flex: 6),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+              actions: [
+                Padding(
+                  padding: EdgeInsets.only(right: 20.w, top: 20.w),
+                  child: GestureDetector(
+                    onTap: () {
+                      locator<NavigationService>()
+                          .pushNamed(AmenitiesViewRoute);
+                    },
                     child: Text(
-                      'Lifestyle',
-                      style: GoogleFonts.cabin(
-                        fontSize: 20.sp,
-                        color: Colors.grey,
+                      'Next',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
                       ),
-                    )),
-              ),
-              Align(
+                    ),
+                  ),
+                )
+              ],
+            ),
+            body: SingleChildScrollView(
+                child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.h),
+              child: Column(children: [
+                CustomSpacer(flex: 3),
+                Text(
+                    'Tell us your interests and we will help you find \nroommates have the same interests with you',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.cabin(
+                        color: Colors.black, fontSize: 16.sp)),
+                CustomSpacer(flex: 3),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InterestButton(
+                          text: 'Music',
+                        ),
+                        InterestButton(text: 'Gaming'),
+                        InterestButton(text: 'Cooking'),
+                        InterestButton(text: 'Sports'),
+                      ]),
+                ),
+                CustomSpacer(flex: 3),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InterestButton(
+                          text: 'Pets',
+                        ),
+                        InterestButton(text: 'Travel'),
+                        InterestButton(text: 'Food'),
+                        InterestButton(text: 'Politics'),
+                      ]),
+                ),
+                CustomSpacer(flex: 3),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InterestButton(
+                          text: 'Books',
+                        ),
+                        InterestButton(text: 'Movies'),
+                        InterestButton(text: 'Writing'),
+                        InterestButton(text: 'Dance'),
+                      ]),
+                ),
+                CustomSpacer(flex: 3),
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20.w,
-                    ),
-                    child: Text('Select tags that describe your lifestyle',
-                        textAlign: TextAlign.start,
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Text(
+                        'Lifestyle',
                         style: GoogleFonts.cabin(
-                            color: Colors.grey, fontSize: 15.sp)),
-                  )),
-              CustomSpacer(flex: 3),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InterestButton(
-                        text: 'Introvert',
+                          fontSize: 20.sp,
+                          color: Colors.black,
+                        ),
+                      )),
+                ),
+                CustomSpacer(flex: 1),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.w,
                       ),
-                      InterestButton(text: 'Extrovert', width: 80.w),
-                      InterestButton(text: 'Neat Freak', width: 95.w),
-                    ]),
-              ),
-              CustomSpacer(
-                flex: 2,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InterestButton(
-                        text: 'Gym Rat',
-                      ),
-                      InterestButton(text: 'Nerd'),
-                      InterestButton(text: 'Party Animal', width: 95.w),
-                    ]),
-              ),
-              CustomSpacer(flex: 2),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InterestButton(
-                        text: 'Quiet',
-                      ),
-                      InterestButton(text: 'Non-smoker', width: 95.w),
-                      InterestButton(text: 'Smoker'),
-                    ]),
-              ),
-              CustomSpacer(flex: 2),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InterestButton(text: 'Independent', width: 95.w),
-                      InterestButton(text: 'Night Owl', width: 80.w),
-                      InterestButton(text: 'Drinker'),
-                    ]),
-              ),
-              CustomSpacer(flex: 2),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InterestButton(text: 'Love Sharing', width: 95.w),
-                      // InterestButton(text: 'Extrovert', width: 80.w),
-                      InterestButton(text: 'Playful'),
-                    ]),
-              ),
-              CustomSpacer(flex: 6)
-            ])),
+                      child: Text('Select tags that describe your lifestyle',
+                          textAlign: TextAlign.start,
+                          style: GoogleFonts.cabin(
+                              color: Colors.black, fontSize: 15.sp)),
+                    )),
+                CustomSpacer(flex: 3),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InterestButton(
+                          text: 'Introvert',
+                        ),
+                        InterestButton(text: 'Extrovert', width: 80.w),
+                        InterestButton(text: 'Neat Freak', width: 95.w),
+                      ]),
+                ),
+                CustomSpacer(
+                  flex: 2,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InterestButton(
+                          text: 'Gym Rat',
+                        ),
+                        InterestButton(text: 'Nerd'),
+                        InterestButton(text: 'Party Animal', width: 95.w),
+                      ]),
+                ),
+                CustomSpacer(flex: 2),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InterestButton(
+                          text: 'Quiet',
+                        ),
+                        InterestButton(text: 'Non-smoker', width: 95.w),
+                        InterestButton(text: 'Smoker'),
+                      ]),
+                ),
+                CustomSpacer(flex: 2),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InterestButton(text: 'Independent', width: 95.w),
+                        InterestButton(text: 'Night Owl', width: 80.w),
+                        InterestButton(text: 'Drinker'),
+                      ]),
+                ),
+                CustomSpacer(flex: 2),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InterestButton(text: 'Love Sharing', width: 95.w),
+                        // InterestButton(text: 'Extrovert', width: 80.w),
+                        InterestButton(text: 'Playful'),
+                      ]),
+                ),
+                CustomSpacer(flex: 4),
+                CustomButton(
+                  text: 'Submit',
+                  onPressed: () {
+                    locator<NavigationService>().pushNamed(AmenitiesViewRoute);
+                  },
+                ),
+                CustomSpacer(flex: 6)
+              ]),
+            )),
           );
         });
   }

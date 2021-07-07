@@ -18,7 +18,9 @@ class _NotificationsSettingsViewState extends State<NotificationsSettingsView> {
   bool messages = true;
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(builder: (context, size) {
+    return ResponsiveWidget(
+      onWillPop: () => locator<NavigationService>().goBack(),
+      builder: (context, size) {
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -30,11 +32,23 @@ class _NotificationsSettingsViewState extends State<NotificationsSettingsView> {
           ),
           centerTitle: true,
           backgroundColor: Colors.green[800],
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+          leading: GestureDetector(
+            onTap: () => locator<NavigationService>().goBack(),
+            child: Container(
+              height: 15.h,
+              width: 6.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [BoxShadow(
+                  color: Colors.green.withAlpha(90),
+                  blurRadius: 2,
+                )],
+              ),
+              child: Icon(
+                Icons.arrow_back,
+                size: 25.w
+              ),
+            ),
           ),
           actions: [
             Padding(

@@ -35,7 +35,7 @@ class _UserDocumentVerificationViewState
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
-              Navigator.pop(context);
+              locator<NavigationService>().goBack();
             },
           ),
         ),
@@ -55,12 +55,19 @@ class _UserDocumentVerificationViewState
                             Expanded(
                               child: Container(
                                 alignment: Alignment.center,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () {},
-                                  elevation: 2.0,
-                                  color: Colors.green,
-                                  padding: EdgeInsets.all(10.w),
-                                  shape: CircleBorder(),
+                                  style: ButtonStyle(
+                                    elevation: MaterialStateProperty.all(
+                                      2.0
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                      Colors.green
+                                    ),
+                                    shape: MaterialStateProperty.all(
+                                      CircleBorder()
+                                    ),
+                                  ),
                                   child: Text(
                                     '1',
                                     style: TextStyle(
@@ -82,12 +89,19 @@ class _UserDocumentVerificationViewState
                             Expanded(
                               child: Container(
                                 alignment: Alignment.center,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () {},
-                                  elevation: 2.0,
-                                  color: Colors.green,
-                                  padding: EdgeInsets.all(10.w),
-                                  shape: CircleBorder(),
+                                  style: ButtonStyle(
+                                    elevation: MaterialStateProperty.all(
+                                      2.0
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                      Colors.green
+                                    ),
+                                    shape: MaterialStateProperty.all(
+                                      CircleBorder()
+                                    ),
+                                  ),
                                   child: Text(
                                     '2',
                                     style: TextStyle(
@@ -109,12 +123,19 @@ class _UserDocumentVerificationViewState
                             Expanded(
                               child: Container(
                                 alignment: Alignment.center,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () {},
-                                  elevation: 2.0,
-                                  color: Colors.grey,
-                                  padding: EdgeInsets.all(10.w),
-                                  shape: CircleBorder(),
+                                  style: ButtonStyle(
+                                    elevation: MaterialStateProperty.all(
+                                      2.0
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                      Colors.green
+                                    ),
+                                    shape: MaterialStateProperty.all(
+                                      CircleBorder()
+                                    ),
+                                  ),
                                   child: Text(
                                     '3',
                                     style: TextStyle(
@@ -620,6 +641,7 @@ class _UserDocumentVerificationViewState
                               .pushNamed(LiveShotVerificationViewRoute);
                         },
                       ),
+                      CustomSpacer(flex: 3),
                     ],
                   ),
                 ),

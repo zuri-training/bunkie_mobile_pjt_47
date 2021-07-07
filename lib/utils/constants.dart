@@ -25,5 +25,12 @@ const SettingsViewRoute = 'settings-view';
 const UserVerificationViewRoute = 'user-verification-view';
 const UserDocumentVerificationViewRoute = 'user-document-verification-view';
 const LiveShotVerificationViewRoute = 'live-shot-verification-view';
-
+const MenuViewRoute = 'menu-view';
+const SearchViewRoute = 'search-view';
+const UserProfileViewRoute = 'user-profile-view';
+const RoommateProfileViewRoute = 'roommate-profile-view';
+const ApartmentSearchViewRoute = 'apartment-search-view';
+const SearchRoomViewRoute = 'search-room-view';
+const UserMessagesViewRoute = 'user-messages-view';
+const ChatPageViewRoute = 'chat_page_view';
 

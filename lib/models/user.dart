@@ -1,33 +1,35 @@
 
 class CustomUser {
   final String id;
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String state;
-  String university;
-  String level;
-  String gender;
-  final String avatar;
-  final int age;
-  final String religion;
-  final String ethnicity;
-  String faculty;
+  final String? firstName;
+  final String? lastName;
+  final String? email;
+  final String? state;
+  String? university;
+  String? level;
+  String? gender;
+  final String? avatar;
+  final int? age;
+  final String? religion;
+  final String? ethnicity;
+  String? faculty;
+  String? bio;
 
   CustomUser({
     this.id: '',
-    this.firstName: '',
-    this.lastName: '',
-    this.email: '',
-    this.state: '',
-    this.university: '',
-    this.level: '',
-    this.gender: '',
-    this.age: 0,
-    this.ethnicity: '',
-    this.religion: '',
-    this.avatar: '',
-    this.faculty: '',
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.state,
+    this.university,
+    this.level,
+    this.gender,
+    this.age,
+    this.ethnicity,
+    this.religion,
+    this.avatar,
+    this.faculty,
+    this.bio
 
   });
 
@@ -38,7 +40,7 @@ class CustomUser {
       level = data['level'], gender = data['gender'], 
       age = data['age'], ethnicity = data['ethnicity'], 
       avatar = data['avatar'], religion = data['religion'],
-      faculty = data['faculty'];
+      faculty = data['faculty'], bio = data['bio'];
 
   Map<String, dynamic>toJson() {
     return {
@@ -55,6 +57,7 @@ class CustomUser {
       'email': email,
       'religion': religion,
       'faculty': faculty,
+      'bio': bio,
     };
   }
 }

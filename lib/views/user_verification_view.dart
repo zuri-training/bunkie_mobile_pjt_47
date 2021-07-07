@@ -1,10 +1,9 @@
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:bunkie/views/views.dart';
+
 import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:async';
 
 import 'shared/custom_spacer.dart';
 
@@ -18,7 +17,9 @@ class UserVerificationView extends StatefulWidget {
 class _UserVerificationViewState extends State<UserVerificationView> {
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(builder: (context, size) {
+    return ResponsiveWidget(
+      onWillPop: () => locator<NavigationService>().goBack(),
+      builder: (context, size) {
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -30,11 +31,23 @@ class _UserVerificationViewState extends State<UserVerificationView> {
           ),
           centerTitle: true,
           backgroundColor: Colors.green[800],
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+          leading: GestureDetector(
+            onTap: () => locator<NavigationService>().goBack(),
+            child: Container(
+              height: 15.h,
+              width: 6.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [BoxShadow(
+                  color: Colors.green.withAlpha(90),
+                  blurRadius: 2,
+                )],
+              ),
+              child: Icon(
+                Icons.arrow_back,
+                size: 25.w
+              ),
+            ),
           ),
         ),
         backgroundColor: Colors.white,
@@ -69,12 +82,19 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                             Expanded(
                               child: Container(
                                 alignment: Alignment.center,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () {},
-                                  elevation: 2.0,
-                                  color: Colors.green,
-                                  padding: EdgeInsets.all(10.w),
-                                  shape: CircleBorder(),
+                                  style: ButtonStyle(
+                                    elevation: MaterialStateProperty.all(
+                                      2.0
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                      Colors.green
+                                    ),
+                                    shape: MaterialStateProperty.all(
+                                      CircleBorder()
+                                    ),
+                                  ),
                                   child: Text(
                                     '1',
                                     style: TextStyle(
@@ -96,12 +116,19 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                             Expanded(
                               child: Container(
                                 alignment: Alignment.center,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () {},
-                                  elevation: 2.0,
-                                  color: Colors.grey,
-                                  padding: EdgeInsets.all(10.w),
-                                  shape: CircleBorder(),
+                                  style: ButtonStyle(
+                                    elevation: MaterialStateProperty.all(
+                                      2.0
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                      Colors.green
+                                    ),
+                                    shape: MaterialStateProperty.all(
+                                      CircleBorder()
+                                    ),
+                                  ),
                                   child: Text(
                                     '2',
                                     style: TextStyle(
@@ -123,12 +150,19 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                             Expanded(
                               child: Container(
                                 alignment: Alignment.center,
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                   onPressed: () {},
-                                  elevation: 2.0,
-                                  color: Colors.grey,
-                                  padding: EdgeInsets.all(10.w),
-                                  shape: CircleBorder(),
+                                  style: ButtonStyle(
+                                    elevation: MaterialStateProperty.all(
+                                      2.0
+                                    ),
+                                    backgroundColor: MaterialStateProperty.all(
+                                      Colors.green
+                                    ),
+                                    shape: MaterialStateProperty.all(
+                                      CircleBorder()
+                                    ),
+                                  ),
                                   child: Text(
                                     '3',
                                     style: TextStyle(
