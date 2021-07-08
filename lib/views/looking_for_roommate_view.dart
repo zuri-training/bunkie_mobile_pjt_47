@@ -87,8 +87,8 @@ class _LookingForRoomateViewState extends State<LookingForRoomateView> {
                             color: Colors.grey,
                             fontWeight: FontWeight.bold)),
                   ),
-                  FutureBuilder<dynamic>(
-                      future:
+                  StreamBuilder(
+                      stream:
                           _fireStoreService.getUserFirstName(loggedInUser!.uid),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {

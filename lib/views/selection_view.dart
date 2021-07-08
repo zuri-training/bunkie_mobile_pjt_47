@@ -1,14 +1,12 @@
 import 'dart:developer';
-
 import 'package:bunkie/services/auth_service.dart';
-
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/views/shared/custom_spacer.dart';
+import 'package:bunkie/views/shared/full_name_stream.dart';
 import 'package:bunkie/views/views.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'shared/navigation_bar.dart';
 import 'shared/responsive_widget.dart';
 import 'package:bunkie/utils/utils.dart';
@@ -19,11 +17,9 @@ class SelectionView extends StatefulWidget {
 }
 
 class _SelectionViewState extends State<SelectionView> {
-  final AuthService _auth = AuthService();
   AuthService _authService = AuthService();
-  FireStoreService _fireStoreService = FireStoreService();
   User? loggedInUser;
-  String? lastname;
+
   @override
   void initState() {
     loggedInUser = _authService.currentUser();
@@ -87,30 +83,21 @@ class _SelectionViewState extends State<SelectionView> {
                               color: Colors.white,
                               fontWeight: FontWeight.normal,
                             ),
+
                           ),
                         ),
                         CustomSpacer(flex: 1),
                         Container(
                           alignment: Alignment.topLeft,
-                          child: FutureBuilder<dynamic>(
-                              future: _fireStoreService
-                                  .getUserFirstAndLastName(loggedInUser!.uid),
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasData) {
-                                  log('User is null');
-                                  return Container();
-                                }
-                                lastname = snapshot.data.toString();
-                                return Text(
-                                  '$lastname',
-                                  style: GoogleFonts.cabin(
-                                      textStyle: TextStyle(
-                                          fontSize: 20.sp,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.normal)),
-                                );
-                              }),
-                        ),
+                          child: FullNameStream(
+                            loggedInUser: loggedInUser!,
+                            style: GoogleFonts.cabin(
+                                textStyle: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal)),
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -131,6 +118,7 @@ class _SelectionViewState extends State<SelectionView> {
                             color: Colors.white,
                           ),
                         ),
+
                         onPressed: () {
                           locator<NavigationService>()
                               .pushNamed(SearchViewRoute);
