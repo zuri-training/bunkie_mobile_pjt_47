@@ -4,10 +4,10 @@ import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/views/shared/custom_button.dart';
 import 'package:bunkie/views/shared/custom_spacer.dart';
+import 'package:bunkie/views/shared/full_name_stream.dart';
 import 'package:bunkie/views/shared/navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'shared/responsive_widget.dart';
@@ -19,13 +19,9 @@ class RoommateProfileView extends StatefulWidget {
 }
 
 class _RoommateProfileViewState extends State<RoommateProfileView> {
-  final List<Widget> _children = [];
-
-  final AuthService _auth = AuthService();
   AuthService _authService = AuthService();
-  FireStoreService _fireStoreService = FireStoreService();
   User? loggedInUser;
-  String? lastname;
+
   @override
   void initState() {
     loggedInUser = _authService.currentUser();
@@ -97,26 +93,15 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                       ),
                       CustomSpacer(flex: 2),
                       Container(
-                        alignment: Alignment.topLeft,
-                        child: FutureBuilder<dynamic>(
-                            future: _fireStoreService
-                                .getUserFirstAndLastName(loggedInUser!.uid),
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData) {
-                                log('User is null');
-                                return Text('User is null');
-                              }
-                              lastname = snapshot.data.toString();
-                              return Text(
-                                '$lastname',
-                                style: GoogleFonts.cabin(
-                                    textStyle: TextStyle(
-                                        fontSize: 20.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.normal)),
-                              );
-                            }),
-                      ),
+                          alignment: Alignment.topLeft,
+                          child: FullNameStream(
+                            loggedInUser: loggedInUser!,
+                            style: GoogleFonts.cabin(
+                                textStyle: TextStyle(
+                                    fontSize: 20.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal)),
+                          )),
                       CustomSpacer(flex: 2),
                       Container(
                         child: Text(

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bunkie/models/user.dart';
@@ -34,15 +35,15 @@ class FireStoreService {
     // throw Exception;
   }
 
-  Future<String> getUserFirstName(String uid) async {
+  Stream<String> getUserFirstName(String uid) async* {
     String firstName;
     var data = await _users.doc(uid).get();
     firstName = data.data()!['firstName'].toString();
     log('FirstName is $firstName');
-    return firstName;
+    yield firstName;
   }
 
-  Future<String> getUserFirstAndLastName(String uid) async {
+  Stream<String> getUserFirstAndLastName(String uid) async* {
     String firstName;
     String lastName;
     String fullName;
@@ -51,6 +52,6 @@ class FireStoreService {
     lastName = data.data()!['lastName'].toString();
     fullName = firstName + ' $lastName';
     log('FullName is $fullName');
-    return fullName;
+    yield fullName;
   }
 }

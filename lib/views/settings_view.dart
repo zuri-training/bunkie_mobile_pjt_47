@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
 import 'package:bunkie/views/roommate_preferences.dart';
+import 'package:bunkie/views/shared/full_name_stream.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
@@ -33,39 +34,36 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
-        onWillPop: () => locator<NavigationService>()
-            .goBack(),
+        onWillPop: () => locator<NavigationService>().goBack(),
         builder: (context, size) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(
-                'Settings',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.sp,
-                ),
-              ),
-              centerTitle: true,
-              backgroundColor: Colors.green[800],
-              leading: GestureDetector(
-                onTap: () => locator<NavigationService>().goBack(),
-                child: Container(
-                  height: 15.h,
-                  width: 6.w,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [BoxShadow(
-                      color: Colors.green.withAlpha(90),
-                      blurRadius: 2,
-                    )],
-                  ),
-                  child: Icon(
-                    Icons.arrow_back,
-                    size: 25.w
+                title: Text(
+                  'Settings',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.sp,
                   ),
                 ),
-              )
-            ),
+                centerTitle: true,
+                backgroundColor: Colors.green[800],
+                leading: GestureDetector(
+                  onTap: () => locator<NavigationService>().goBack(),
+                  child: Container(
+                    height: 15.h,
+                    width: 6.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.green.withAlpha(90),
+                          blurRadius: 2,
+                        )
+                      ],
+                    ),
+                    child: Icon(Icons.arrow_back, size: 25.w),
+                  ),
+                )),
             backgroundColor: Colors.white,
             body: SingleChildScrollView(
               child: Column(
@@ -90,26 +88,14 @@ class _SettingsViewState extends State<SettingsView> {
                                   child: Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 20.w),
-                                      child: FutureBuilder<dynamic>(
-                                          future: _fireStoreService
-                                              .getUserFirstAndLastName(
-                                                  loggedInUser!.uid),
-                                          builder: (context, snapshot) {
-                                            if (!snapshot.hasData) {
-                                              log('User is null');
-                                              return Text('User is null');
-                                            }
-                                            lastname = snapshot.data.toString();
-                                            return Text(
-                                              '$lastname',
-                                              style: GoogleFonts.cabin(
-                                                  textStyle: TextStyle(
-                                                      fontSize: 20.sp,
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            );
-                                          })),
+                                      child: FullNameStream(
+                                        loggedInUser: loggedInUser!,
+                                        style: GoogleFonts.cabin(
+                                            textStyle: TextStyle(
+                                                fontSize: 20.sp,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold)),
+                                      )),
                                 ),
                               ],
                             ),
@@ -156,9 +142,8 @@ class _SettingsViewState extends State<SettingsView> {
                           CustomSpacer(flex: 2),
                           GestureDetector(
                             onTap: () {
-                              locator<NavigationService>().pushNamed(
-                                UserVerificationViewRoute
-                              );
+                              locator<NavigationService>()
+                                  .pushNamed(UserVerificationViewRoute);
                             },
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -172,8 +157,8 @@ class _SettingsViewState extends State<SettingsView> {
                                   Container(
                                     alignment: Alignment.centerLeft,
                                     child: Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10.w),
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10.w),
                                       child: Text(
                                         'Verification',
                                         textAlign: TextAlign.center,
@@ -189,7 +174,6 @@ class _SettingsViewState extends State<SettingsView> {
                               ),
                             ),
                           ),
-                          
                           CustomSpacer(flex: 2),
                           Divider(color: Colors.black, thickness: 0.4),
                           CustomSpacer(flex: 2),

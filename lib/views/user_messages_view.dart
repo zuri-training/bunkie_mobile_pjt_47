@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
+import 'package:bunkie/views/shared/full_name_stream.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ class UserMessagesView extends StatefulWidget {
 
 class _UserMessagesViewState extends State<UserMessagesView> {
   AuthService _authService = AuthService();
-  FireStoreService _fireStoreService = FireStoreService();
   User? loggedInUser;
   String? lastname;
   @override
@@ -92,27 +92,14 @@ class _UserMessagesViewState extends State<UserMessagesView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        FutureBuilder<dynamic>(
-                                            future: _fireStoreService
-                                                .getUserFirstAndLastName(
-                                                    loggedInUser!.uid),
-                                            builder: (context, snapshot) {
-                                              if (!snapshot.hasData) {
-                                                log('User is null');
-                                                return Text('User is null');
-                                              }
-                                              lastname =
-                                                  snapshot.data.toString();
-                                              return Text(
-                                                '$lastname',
-                                                style: GoogleFonts.cabin(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 15.sp,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              );
-                                            }),
+                                        FullNameStream(
+                                          loggedInUser: loggedInUser!,
+                                          style: GoogleFonts.cabin(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                         Container(
                                           width: 220,
                                           child: Row(
@@ -193,27 +180,14 @@ class _UserMessagesViewState extends State<UserMessagesView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        FutureBuilder<dynamic>(
-                                            future: _fireStoreService
-                                                .getUserFirstAndLastName(
-                                                    loggedInUser!.uid),
-                                            builder: (context, snapshot) {
-                                              if (!snapshot.hasData) {
-                                                log('User is null');
-                                                return Text('User is null');
-                                              }
-                                              lastname =
-                                                  snapshot.data.toString();
-                                              return Text(
-                                                '$lastname',
-                                                style: GoogleFonts.cabin(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 15.sp,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              );
-                                            }),
+                                        FullNameStream(
+                                          loggedInUser: loggedInUser!,
+                                          style: GoogleFonts.cabin(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                         Container(
                                           width: 220,
                                           child: Row(
@@ -294,27 +268,14 @@ class _UserMessagesViewState extends State<UserMessagesView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        FutureBuilder<dynamic>(
-                                            future: _fireStoreService
-                                                .getUserFirstAndLastName(
-                                                    loggedInUser!.uid),
-                                            builder: (context, snapshot) {
-                                              if (!snapshot.hasData) {
-                                                log('User is null');
-                                                return Text('User is null');
-                                              }
-                                              lastname =
-                                                  snapshot.data.toString();
-                                              return Text(
-                                                '$lastname',
-                                                style: GoogleFonts.cabin(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 15.sp,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              );
-                                            }),
+                                        FullNameStream(
+                                          loggedInUser: loggedInUser!,
+                                          style: GoogleFonts.cabin(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                         Container(
                                           width: 220,
                                           child: Row(
@@ -395,11 +356,12 @@ class _UserMessagesViewState extends State<UserMessagesView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        FutureBuilder<dynamic>(
-                                            future: _fireStoreService
+                                        StreamBuilder(
+                                            stream: locator<FireStoreService>()
                                                 .getUserFirstAndLastName(
                                                     loggedInUser!.uid),
-                                            builder: (context, snapshot) {
+                                            builder: (context,
+                                                AsyncSnapshot snapshot) {
                                               if (!snapshot.hasData) {
                                                 log('User is null');
                                                 return Text('User is null');
@@ -496,27 +458,14 @@ class _UserMessagesViewState extends State<UserMessagesView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        FutureBuilder<dynamic>(
-                                            future: _fireStoreService
-                                                .getUserFirstAndLastName(
-                                                    loggedInUser!.uid),
-                                            builder: (context, snapshot) {
-                                              if (!snapshot.hasData) {
-                                                log('User is null');
-                                                return Text('User is null');
-                                              }
-                                              lastname =
-                                                  snapshot.data.toString();
-                                              return Text(
-                                                '$lastname',
-                                                style: GoogleFonts.cabin(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 15.sp,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              );
-                                            }),
+                                        FullNameStream(
+                                          loggedInUser: loggedInUser!,
+                                          style: GoogleFonts.cabin(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                         Container(
                                           width: 220,
                                           child: Row(
@@ -597,27 +546,14 @@ class _UserMessagesViewState extends State<UserMessagesView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        FutureBuilder<dynamic>(
-                                            future: _fireStoreService
-                                                .getUserFirstAndLastName(
-                                                    loggedInUser!.uid),
-                                            builder: (context, snapshot) {
-                                              if (!snapshot.hasData) {
-                                                log('User is null');
-                                                return Text('User is null');
-                                              }
-                                              lastname =
-                                                  snapshot.data.toString();
-                                              return Text(
-                                                '$lastname',
-                                                style: GoogleFonts.cabin(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 15.sp,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              );
-                                            }),
+                                        FullNameStream(
+                                          loggedInUser: loggedInUser!,
+                                          style: GoogleFonts.cabin(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                         Container(
                                           width: 220,
                                           child: Row(
@@ -698,27 +634,14 @@ class _UserMessagesViewState extends State<UserMessagesView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        FutureBuilder<dynamic>(
-                                            future: _fireStoreService
-                                                .getUserFirstAndLastName(
-                                                    loggedInUser!.uid),
-                                            builder: (context, snapshot) {
-                                              if (!snapshot.hasData) {
-                                                log('User is null');
-                                                return Text('User is null');
-                                              }
-                                              lastname =
-                                                  snapshot.data.toString();
-                                              return Text(
-                                                '$lastname',
-                                                style: GoogleFonts.cabin(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 15.sp,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              );
-                                            }),
+                                        FullNameStream(
+                                          loggedInUser: loggedInUser!,
+                                          style: GoogleFonts.cabin(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                         Container(
                                           width: 220,
                                           child: Row(
@@ -799,27 +722,14 @@ class _UserMessagesViewState extends State<UserMessagesView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        FutureBuilder<dynamic>(
-                                            future: _fireStoreService
-                                                .getUserFirstAndLastName(
-                                                    loggedInUser!.uid),
-                                            builder: (context, snapshot) {
-                                              if (!snapshot.hasData) {
-                                                log('User is null');
-                                                return Text('User is null');
-                                              }
-                                              lastname =
-                                                  snapshot.data.toString();
-                                              return Text(
-                                                '$lastname',
-                                                style: GoogleFonts.cabin(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 15.sp,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              );
-                                            }),
+                                        FullNameStream(
+                                          loggedInUser: loggedInUser!,
+                                          style: GoogleFonts.cabin(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                         Container(
                                           width: 220,
                                           child: Row(
@@ -900,27 +810,14 @@ class _UserMessagesViewState extends State<UserMessagesView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        FutureBuilder<dynamic>(
-                                            future: _fireStoreService
-                                                .getUserFirstAndLastName(
-                                                    loggedInUser!.uid),
-                                            builder: (context, snapshot) {
-                                              if (!snapshot.hasData) {
-                                                log('User is null');
-                                                return Text('User is null');
-                                              }
-                                              lastname =
-                                                  snapshot.data.toString();
-                                              return Text(
-                                                '$lastname',
-                                                style: GoogleFonts.cabin(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 15.sp,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              );
-                                            }),
+                                        FullNameStream(
+                                          loggedInUser: loggedInUser!,
+                                          style: GoogleFonts.cabin(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                         Container(
                                           width: 220,
                                           child: Row(
@@ -1001,27 +898,14 @@ class _UserMessagesViewState extends State<UserMessagesView> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        FutureBuilder<dynamic>(
-                                            future: _fireStoreService
-                                                .getUserFirstAndLastName(
-                                                    loggedInUser!.uid),
-                                            builder: (context, snapshot) {
-                                              if (!snapshot.hasData) {
-                                                log('User is null');
-                                                return Text('User is null');
-                                              }
-                                              lastname =
-                                                  snapshot.data.toString();
-                                              return Text(
-                                                '$lastname',
-                                                style: GoogleFonts.cabin(
-                                                    textStyle: TextStyle(
-                                                        fontSize: 15.sp,
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              );
-                                            }),
+                                        FullNameStream(
+                                          loggedInUser: loggedInUser!,
+                                          style: GoogleFonts.cabin(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15.sp,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
                                         Container(
                                           width: 220,
                                           child: Row(
