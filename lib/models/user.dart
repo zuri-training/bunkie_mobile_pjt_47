@@ -1,6 +1,8 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class CustomUser {
-  final String id;
+  dynamic id;
   final String? firstName;
   final String? lastName;
   final String? email;
@@ -16,7 +18,7 @@ class CustomUser {
   String? bio;
 
   CustomUser({
-    this.id: '',
+    this.id,
     this.firstName,
     this.lastName,
     this.email,
@@ -59,5 +61,11 @@ class CustomUser {
       'faculty': faculty,
       'bio': bio,
     };
+  }
+
+  factory CustomUser.fromFirestore(DocumentSnapshot docSnapshot) {
+    CustomUser user = CustomUser.fromData(docSnapshot.data());
+    user.id = docSnapshot.id;
+    return user;
   }
 }

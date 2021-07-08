@@ -145,19 +145,18 @@ class DatabaseService {
     dbRef.child(uid).onDisconnect().update(presenceStatusFalse);
   }
 
-  static updateUserData(
-        Map fields) {
+  static updateUserData(Map fields) {
       final DocumentReference docRef = db.
           collection('users').doc(_auth.currentUser?.uid);
       
-      fields.forEach((key, value) => docRef
-        .update(<String, dynamic> {
-          key: value
-        })
-        .then((dynamic success) => print("Successful"))
-        .catchError((dynamic e) {
-          print(e);
-        }));
+      fields.forEach((key, value) {
+        if (value != '' || value != null)
+          docRef.update(<String, dynamic> {
+            key: value
+          })
+          .then((dynamic success) => print('Successful'))
+          .catchError((e) => print(e));
+        });
       
     }
 }

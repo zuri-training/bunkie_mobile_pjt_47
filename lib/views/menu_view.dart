@@ -96,6 +96,7 @@ class _MenuViewState extends State<MenuView> {
                                       )),
                                 ),
                               ],
+
                             ),
                           ),
                           CustomSpacer(flex: 1),

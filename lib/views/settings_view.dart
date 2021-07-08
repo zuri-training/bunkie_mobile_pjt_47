@@ -34,6 +34,7 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
+
         onWillPop: () => locator<NavigationService>().goBack(),
         builder: (context, size) {
           return Scaffold(
@@ -43,7 +44,7 @@ class _SettingsViewState extends State<SettingsView> {
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18.sp,
-                  ),
+                           ),
                 ),
                 centerTitle: true,
                 backgroundColor: Colors.green[800],

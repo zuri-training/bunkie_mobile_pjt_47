@@ -83,6 +83,7 @@ class _SelectionViewState extends State<SelectionView> {
                               color: Colors.white,
                               fontWeight: FontWeight.normal,
                             ),
+
                           ),
                         ),
                         CustomSpacer(flex: 1),
@@ -117,6 +118,7 @@ class _SelectionViewState extends State<SelectionView> {
                             color: Colors.white,
                           ),
                         ),
+
                         onPressed: () {
                           locator<NavigationService>()
                               .pushNamed(SearchViewRoute);

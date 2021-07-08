@@ -19,6 +19,7 @@ class RoommateProfileView extends StatefulWidget {
 }
 
 class _RoommateProfileViewState extends State<RoommateProfileView> {
+
   AuthService _authService = AuthService();
   User? loggedInUser;
 
@@ -64,9 +65,9 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                             locator<NavigationService>().goBack();
                           },
                           child: Icon(
-                            Icons.arrow_back_ios_sharp,
+                            Icons.arrow_back,
                             color: Colors.white,
-                            size: 25,
+                            size: 35.h,
                           ),
                         ),
                       ),
@@ -75,7 +76,7 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                           locator<NavigationService>().pushNamed(MenuViewRoute);
                         },
                         child:
-                            Icon(Icons.menu, color: Colors.white, size: 35.0),
+                            Icon(Icons.menu, color: Colors.white, size: 35.0.h),
                       ),
                     ],
                   ),
@@ -107,7 +108,7 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                         child: Text(
                           'About:',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: GoogleFonts.cabin(
                             fontSize: 13.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.normal,
@@ -116,17 +117,24 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                       ),
                       CustomSpacer(flex: 1),
                       Container(
-                        child: Text(
-                          'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.cabin(
+                                fontSize: 13.sp,
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            CustomSpacer(flex: 2)
+                          ]
+                        )
+                        
+                        
                       ),
-                      CustomSpacer(flex: 23),
+                      CustomSpacer(flex: 10),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.h),
                         child: Row(

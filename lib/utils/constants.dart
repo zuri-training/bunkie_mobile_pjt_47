@@ -1,5 +1,3 @@
-import 'package:bunkie/views/edit_profile_view.dart';
-import 'package:bunkie/views/views.dart';
 
 const SplashScreenViewRoute = '/';
 
@@ -11,11 +9,11 @@ const VerifyNumberViewRoute = 'verify-number-view';
 const CodeVerificationViewRoute = 'code-verification-view';
 const ProfileCreateViewRoute = 'create-profile';
 const AmenitiesViewRoute = 'amenities-view';
-const SelectionViewRoute = 'select';
+const SelectionViewRoute = 'select-view';
 const LookingForRoommateViewRoute = 'looking-for-roommate-view';
 const LookingForApartmentViewRoute = 'looking-for-apartment-view';
 const InterestsAndLifestyleViewRoute = 'interests-and-lifestyle-view';
-const RoommatePreferencesViewRoute = 'roomates-preferences';
+const RoommatePreferencesViewRoute = 'roommate-preferences';
 const RoommateSearchViewRoute = 'roommate-search';
 const EditProfileViewRoute = 'edit-profile-view';
 const HelpViewRoute = 'help-view';
@@ -31,6 +29,7 @@ const UserProfileViewRoute = 'user-profile-view';
 const RoommateProfileViewRoute = 'roommate-profile-view';
 const ApartmentSearchViewRoute = 'apartment-search-view';
 const SearchRoomViewRoute = 'search-room-view';
+const NotificationsViewRoute = 'notifications-view';
+const EmptyNotificationsViewRoute = 'empty-notifications-view';
 const UserMessagesViewRoute = 'user-messages-view';
-const ChatPageViewRoute = 'chat_page_view';
-
+const ChatPageViewRoute = 'chat-page-view';

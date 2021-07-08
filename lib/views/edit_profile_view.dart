@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:path/path.dart' as path;
-import 'package:path_provider/path_provider.dart';
-
 
 import 'package:bunkie/utils/utils.dart';
 import 'package:bunkie/services/services.dart';
@@ -14,7 +12,7 @@ import 'package:bunkie/views/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
-
+import 'shared/custom_searchable_dropdown.dart';
 import 'shared/custom_spacer.dart';
 
 class EditProfileView extends StatefulWidget {
@@ -25,46 +23,55 @@ class EditProfileView extends StatefulWidget {
 }
 
 class _EditProfileViewState extends State<EditProfileView> {
+
   String selectedGender = 'male';
+  String? _stateSelected;
+  String? _universitySelected;
+  var _levelSelected;
+  var userProfile;
 
   final _picker = ImagePicker();
   var _image = File('');
 
   FirebaseAuth _auth = FirebaseAuth.instance;
+  FireStoreService _firestoreService = FireStoreService();
 
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _stateController = TextEditingController();
-  TextEditingController _universityController = TextEditingController();
   TextEditingController _facultyController = TextEditingController();
-  TextEditingController _levelController = TextEditingController();
   TextEditingController _aboutYouController = TextEditingController();
   TextEditingController _religionController = TextEditingController();
   TextEditingController _tribeController = TextEditingController();
   TextEditingController _ageController = TextEditingController();
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+   
+
   onSubmit() async {
+    validateForm();
     if (_auth.currentUser != null) {
       await DatabaseService.updateUserData({
         'firstName': _firstNameController.text,
         'lastName': _lastNameController.text,
         'faculty': _facultyController.text,
-        'level': _levelController.text,
+        'level': _levelSelected ?? userProfile['level'],
         'bio': _aboutYouController.text,
         'gender': selectedGender,
         'ethnicity': _tribeController.text,
         'religion': _religionController.text,
-        'university': _universityController.text,
-        'state': _stateController.text,
+        'university': Universities.contains(_universitySelected) ? 
+            _universitySelected : userProfile['university'],
+        'state': _stateSelected ?? userProfile['state'],
         'age': _ageController.text,
       }).then((value) {
-        if (value == null) {
-          print('Value is null');
-        } else print("Done");
+        if (value == null) 
+          return ;
       });
     }
     
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +113,7 @@ class _EditProfileViewState extends State<EditProfileView> {
               child: GestureDetector(
                 onTap: () {
                   onSubmit();
-                  print('Done');
-                  locator<NavigationService>().pushNamed(SettingsViewRoute);
+                  locator<NavigationService>().popAndPushNamed(SettingsViewRoute);
                 },
                 child: Text(
                   'Done',
@@ -121,409 +127,349 @@ class _EditProfileViewState extends State<EditProfileView> {
           ],
         ),
         backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Column(
-              children: [
-                Container(
-                  child: SafeArea(
-                    child: Column(
-                      children: [
-                        CustomSpacer(flex: 2),
-                        Row(
-                          children: [
-                            Stack(
-                              children: [
-                                CircleAvatar(
-                                  radius: 30,
-                                  child: _image.path.isNotEmpty ? 
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: Image.file(
-                                          _image,
-                                          width: 100.w,
-                                          height: 100.h,
-                                          fit: BoxFit.fitHeight,
-                                        )
-                                      ) 
-                                      : 
-                                      Container(
-                                        width: 100.w,
+        body: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: FutureBuilder(
+              future: _firestoreService.getUser(_auth.currentUser!.uid),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  userProfile = snapshot.data;
+                } 
+                if (!snapshot.hasData) return Container();      
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Column(
+                    children: [
+                      Container(
+                        child: SafeArea(
+                          child: Column(
+                            children: [
+                              CustomSpacer(flex: 2),
+                              Row(
+                                children: [
+                                  Stack(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 30,
+                                        child: _image.path.isNotEmpty ? 
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.circular(50),
+                                              child: Image.file(
+                                                _image,
+                                                width: 100.w,
+                                                height: 100.h,
+                                                fit: BoxFit.fitHeight,
+                                              )
+                                            ) 
+                                            : 
+                                            Container(
+                                              width: 100.w,
+                                              height: 100.h,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: Color(0xffFDCF09),
+                                                ),
+                                                color: Colors.grey[200],
+                                                borderRadius: BorderRadius.circular(50),
+                                              )
+                                            )
+                                      ),
+                                      Positioned(
                                         height: 100.h,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: Color(0xffFDCF09),
-                                          ),
-                                          color: Colors.grey[200],
-                                          borderRadius: BorderRadius.circular(50),
-                                        )
+                                        width: 50.w,
+                                        left: 10.w,
+                                        child: GestureDetector(
+                                          onTap: () => _showPicker(context),
+                                          child: Icon(
+                                            Icons.camera_alt_rounded,
+                                            size: 25,
+                                            color: Colors.black,
+                                          )
+                                        ),
                                       )
-                                ),
-                                Positioned(
-                                  height: 100.h,
-                                  width: 50.w,
-                                  left: 10.w,
-                                  child: GestureDetector(
-                                    onTap: () => _showPicker(context),
-                                    child: Icon(
-                                      Icons.camera_alt_rounded,
-                                      size: 25,
-                                      color: Colors.black,
-                                    )
+                                    ],
                                   ),
-                                )
-                              ],
-                            ),
-                            
-                            CustomSpacer(flex: 1, horizontal: true),
-                            Container(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                  
+                                  CustomSpacer(flex: 1, horizontal: true),
+                                  Container(
+                                    alignment: Alignment.topLeft,
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                      child: Text(
+                                        'Change your profile picture',
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.cabin(
+                                          fontSize: 15.sp,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextFormField(
+                                        onChanged: (text) => {},
+                                        controller: _firstNameController..text = capitalize(userProfile['firstName']),
+                                        validator: (val) {
+                                          return val!.isEmpty ? 'Enter a valid text' : null;
+                                        } ,
+                                        decoration: InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.lightGreen),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.lightGreen),
+                                            ),
+                                            labelText: 'First Name',
+                                            labelStyle: GoogleFonts.cabin(),
+                                          ),
+                                      ),
+                                    ),
+                                    CustomSpacer(flex: 4, horizontal: true),
+                                    Expanded(
+                                      child: TextFormField(
+                                        onChanged: (text) => {},
+                                        validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
+                                        controller: _lastNameController..text = capitalize(userProfile['lastName']),
+                                        decoration: InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.lightGreen),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.lightGreen),
+                                            ),
+                                            labelText: 'Last Name',
+                                            labelStyle: GoogleFonts.cabin(),
+                                            hintText: 'Last Name',
+                                            hintStyle: GoogleFonts.cabin(),
+                                          ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                
+                              ),
+                              CustomSpacer(flex: 3),
+                              CustomSearchableDropdown(
+                                hintText: 'State',
+                                items: StatesInNigeria,
+                                onChanged: (newValue) => setState(() => _stateSelected = newValue),
+                                initialValue: userProfile['state'],
+                              ),
+
+                              CustomSpacer(flex: 3),
+
+                              CustomSearchableDropdown(
+                                hintText: 'University', 
+                                items: Universities,
+                                onChanged: (newValue) => setState(() => 
+                                  _universitySelected = newValue),
+                                initialValue: userProfile['university'],
+                              ),
+
+                              CustomSpacer(flex: 3),
+
+                              CustomSearchableDropdown(
+                                hintText: 'Level',
+                                items: ['100', '200', '300', '400', '500', '600'],
+                                onChanged: (newValue) =>
+                                  setState(() => _levelSelected = newValue),
+                                showSearchBox: false,
+                                initialValue: userProfile['level'],
+                              ),
+
+                              CustomSpacer(flex: 3),
+                              Container(
+                                alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Change your profile picture',
+                                  'How old are you?',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.cabin(
                                     fontSize: 15.sp,
                                     color: Colors.black,
-                                    fontWeight: FontWeight.normal,
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextFormField(
-                                  controller: _firstNameController,
-                                  validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
-                                  decoration: InputDecoration(
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.lightGreen),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.lightGreen),
-                                      ),
-                                      labelText: 'First Name',
-                                      labelStyle: GoogleFonts.cabin(),
-                                      hintText: 'First Name',
-                                      hintStyle: GoogleFonts.cabin()
-                                    ),
-                                ),
-                              ),
-                              CustomSpacer(flex: 4, horizontal: true),
-                              Expanded(
-                                child: TextFormField(
-                                  validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
-                                  controller: _lastNameController,
-                                  decoration: InputDecoration(
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.lightGreen),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Colors.lightGreen),
-                                      ),
-                                      labelText: 'Last Name',
-                                      labelStyle: GoogleFonts.cabin(),
-                                      hintText: 'Last Name',
-                                      hintStyle: GoogleFonts.cabin(),
-                                    ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        //CustomSpacer(flex: 3),
-                        Container(
-                          child: TextFormField(
-                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
-                            controller: _stateController,
-                            decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              suffixIcon: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.arrow_drop_down),
-                              ),
-                              labelText: 'State',
-                              labelStyle: GoogleFonts.cabin()
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: TextFormField(
-                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
-                            controller: _universityController,
-                            decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              suffixIcon: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.arrow_drop_down),
-                              ),
-                              labelText: 'University',
-                              labelStyle: GoogleFonts.cabin(),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: TextFormField(
-                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
-                            controller: _facultyController,
-                            decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              labelText: 'Faculty',
-                              labelStyle: GoogleFonts.cabin(),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: TextFormField(
-                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
-                            controller: _levelController,
-                            decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              labelText: 'Level',
-                            ),
-                            keyboardType: TextInputType.number,
-                          ),
-                        ),
-                        Container(
-                          child: TextFormField(
-                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
-                            controller: _religionController,
-                            decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              suffixIcon: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.arrow_drop_down),
-                              ),
-                              labelText: 'Religion',
-                              labelStyle: GoogleFonts.cabin(),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: TextFormField(
-                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
-                            controller: _tribeController,
-                            decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              suffixIcon: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.arrow_drop_down),
-                              ),
-                              labelText: 'Tribe',
-                              labelStyle: GoogleFonts.cabin(),
-                            ),
-                          ),
-                        ),
-                        CustomSpacer(flex: 3),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'How old are you?',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.cabin(
-                              fontSize: 15.sp,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: Row(
-                            children: [
                               Container(
-                                width: 30,
-                                child: TextFormField(
-                                  validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
-                                  controller: _ageController,
-                                  decoration: InputDecoration(
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.lightGreen),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 30,
+                                      child: TextFormField(
+                                        validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
+                                        controller: _ageController..text = userProfile['age'],
+                                        decoration: InputDecoration(
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.lightGreen),
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.lightGreen),
+                                          ),
+                                          labelText: 'Age',
+                                          labelStyle: GoogleFonts.cabin(),
+                                        ),
+                                        keyboardType: TextInputType.number,
+                                      ),
                                     ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Colors.lightGreen),
+                                    CustomSpacer(flex: 3, horizontal: true),
+                                    Expanded(
+                                      child: Text(
+                                        'years old.',
+                                        style: GoogleFonts.cabin(
+                                          
+                                        )
+                                      ),
                                     ),
-                                    labelText: 'Age',
-                                    labelStyle: GoogleFonts.cabin(),
-                                  ),
-                                  keyboardType: TextInputType.number,
+                                  ],
                                 ),
                               ),
-                              CustomSpacer(flex: 3, horizontal: true),
-                              Expanded(
+                              CustomSpacer(flex: 2),
+                              Container(
+                                alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'years old.',
+                                  'Identify as',
+                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.cabin(
-                                    
-                                  )
+                                    fontSize: 15.sp,
+                                    color: Colors.black,
+                                    // fontWeight: FontWeight.w300,
+                                  ),
                                 ),
                               ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: ListTile(
+                                        leading: Radio(
+                                          value: 'male',
+                                          groupValue: selectedGender,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              selectedGender = userProfile['gender'];
+                                            });
+                                          },
+                                          activeColor: Colors.green,
+                                        ),
+                                        title: Text(
+                                          'Male',
+                                          style: GoogleFonts.cabin(
+                                            fontSize: 15.sp
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: ListTile(
+                                      leading: Radio(
+                                        value: 'female',
+                                        groupValue: selectedGender,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            selectedGender = 'female';
+                                          });
+                                        },
+                                        activeColor: Colors.green,
+                                      ),
+                                      title: Text(
+                                        'Female',
+                                        style: GoogleFonts.cabin(
+                                          fontSize: 15.sp
+                                        )
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'About You',
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.cabin(
+                                    fontSize: 15.sp,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              ),
+                              CustomSpacer(flex: 2),
+                              Container(
+                                child: TextFormField(
+                                  controller: _aboutYouController..text = userProfile['bio'],
+                                  validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
+                                  decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.lightGreen),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.lightGreen),
+                                    ),
+                                  ),
+                                  keyboardType: TextInputType.multiline,
+                                  maxLines: 5,
+                                ),
+                              ),
+                              CustomSpacer(flex: 3),
+                              CustomButton(
+                                text: 'Submit',
+                                onPressed: () {
+                                  onSubmit();
+                                  locator<NavigationService>()
+                                      .popAndPushNamed(SettingsViewRoute);
+                                },
+                              ),
+                              CustomSpacer(flex: 4)
                             ],
                           ),
                         ),
-                        CustomSpacer(flex: 2),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Identify as',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.cabin(
-                              fontSize: 15.sp,
-                              color: Colors.black,
-                              // fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.centerLeft,
-                                child: ListTile(
-                                  leading: Radio(
-                                    value: 'male',
-                                    groupValue: selectedGender,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedGender = 'male';
-                                      });
-                                    },
-                                    activeColor: Colors.green,
-                                  ),
-                                  title: Text(
-                                    'Male',
-                                    style: GoogleFonts.cabin(
-                                      fontSize: 15.sp
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: ListTile(
-                                leading: Radio(
-                                  value: 'female',
-                                  groupValue: selectedGender,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedGender = 'female';
-                                    });
-                                  },
-                                  activeColor: Colors.green,
-                                ),
-                                title: Text(
-                                  'Female',
-                                  style: GoogleFonts.cabin(
-                                    fontSize: 15.sp
-                                  )
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'About You',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.cabin(
-                              fontSize: 15.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                        ),
-                        CustomSpacer(flex: 2),
-                        Container(
-                          child: TextFormField(
-                            controller: _aboutYouController,
-                            validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.lightGreen),
-                              ),
-                            ),
-                            keyboardType: TextInputType.multiline,
-                            maxLines: 5,
-                          ),
-                        ),
-                        CustomSpacer(flex: 3),
-                        CustomButton(
-                          text: 'Submit',
-                          onPressed: () {
-                            locator<NavigationService>()
-                                .pushNamed(SettingsViewRoute);
-                          },
-                        ),
-                        CustomSpacer(flex: 4)
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
+                );
+              }
+            )
+            
+            
           ),
-        ),
+        )
+        
+        
       );
     });
+  }
+
+  void dispose() {
+    super.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _ageController.dispose();
+    _aboutYouController.dispose();
+    _facultyController.dispose();
+  }
+
+  void validateForm() {
+    final FormState? form = _formKey.currentState;
+    if (form!.validate()) {
+      print('Form is valid');
+    } else print('Form is invalid');
   }
 
   Future getImage(String inputSource) async {

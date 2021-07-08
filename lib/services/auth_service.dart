@@ -13,7 +13,7 @@ class AuthService{
   
   Future _populateCurrentUser(user) async {
     if (user != null) {
-      _currentUser = await _fireStoreService.getUser(user.uid) as User;
+      _currentUser = _fireStoreService.getUser(user.uid) as User;
     }
   }
 

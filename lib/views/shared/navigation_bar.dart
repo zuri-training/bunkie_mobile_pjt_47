@@ -2,7 +2,6 @@ import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-
 class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -25,8 +24,7 @@ class BottomNavBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: GestureDetector(
               onTap: () {
-                locator<NavigationService>()
-                    .pushNamed(UserProfileViewRoute);
+                locator<NavigationService>().pushNamed(UserProfileViewRoute);
               },
               child: Icon(Icons.person)),
           label: 'Profile',
@@ -40,7 +38,10 @@ class BottomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: GestureDetector(
-              onTap: () {}, child: Icon(Icons.notifications)),
+              onTap: () {
+                locator<NavigationService>().pushNamed(NotificationsViewRoute);
+              },
+              child: Icon(Icons.notifications)),
           label: 'Notifications',
         ),
       ],

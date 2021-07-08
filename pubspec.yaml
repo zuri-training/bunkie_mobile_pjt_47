@@ -30,6 +30,7 @@ dependencies:
   cloud_firestore: ^1.0.7
   image_picker: ^0.8.1+1
   path_provider: ^2.0.2
+  dropdown_search: ^0.6.3
 
 flutter_icons:
   android: "launcher_icons"
@@ -53,3 +54,6 @@ flutter:
     - assets/images/verification/
     - assets/images/misc/
     - google_fonts/
+    - assets/images/Bell.jpeg
+    - assets/images/user.jpeg
+    - assets/images/NotBell.png
