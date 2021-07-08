@@ -34,7 +34,7 @@ class _SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     return ResponsiveWidget(
         onWillPop: () => locator<NavigationService>()
-            .goBack(),
+            .popAndPushNamed(MenuViewRoute),
         builder: (context, size) {
           return Scaffold(
             appBar: AppBar(
@@ -48,7 +48,8 @@ class _SettingsViewState extends State<SettingsView> {
               centerTitle: true,
               backgroundColor: Colors.green[800],
               leading: GestureDetector(
-                onTap: () => locator<NavigationService>().goBack(),
+                onTap: () => locator<NavigationService>()
+                  .popAndPushNamed(MenuViewRoute),
                 child: Container(
                   height: 15.h,
                   width: 6.w,

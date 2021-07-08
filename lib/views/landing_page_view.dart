@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bunkie/views/shared/shared.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class LandingPageView extends StatefulWidget {
@@ -63,9 +64,9 @@ class _LandingPageViewState extends State<LandingPageView> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.w),
               child: Text(
-                  'Need a perfect roommate in your school? Join millions of students who find theirs with Bunkie',
+                  'Need a perfect roommate in your school? Join millions of students who find theirs with Bunkie.',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 21.sp)),
+                  style: GoogleFonts.cabin(color: Colors.white, fontSize: 21.sp)),
             ),
             CustomSpacer(
               flex: 25,
