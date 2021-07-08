@@ -3,3 +3,7 @@ export 'package:bunkie/utils/route_generator.dart';
 export 'package:bunkie/utils/locator.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:bunkie/utils/providers.dart';
+export 'package:bunkie/utils/helpers.dart';
+export 'package:bunkie/utils/universities.dart';
+export 'package:bunkie/utils/states_in_nigeria.dart';
+export 'package:bunkie/utils/capitalize.dart';
