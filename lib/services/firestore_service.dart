@@ -15,19 +15,24 @@ class FireStoreService {
     }
   }
 
-  Future<CustomUser?> getUser(String uid) async {
+  Stream<dynamic> getUser(String uid) async* {
     try {
+      Map userMap = {};
       var userData =
           await _users.doc(uid).get().then((DocumentSnapshot docSnapshot) {
         if (docSnapshot.exists) {
           print('Document data: ${docSnapshot.data()}');
-          print(CustomUser.fromData(docSnapshot.data()).email);
-          return CustomUser.fromData(docSnapshot.data());
+          //print(CustomUser.fromData(docSnapshot.data()).email);
+          // return CustomUser.fromFirestore(docSnapshot);
+          docSnapshot.data()!.forEach((key, value) {
+            userMap[key] = value;
+          });
+          return userMap;
         } else {
           print('Document does not exist on the database');
         }
       });
-      return userData;
+      yield userData;
     } catch (e) {
       print(e);
     }

@@ -75,7 +75,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                           child: Icon(
                             Icons.arrow_back,
                             color: Colors.white,
-                            size: 25.h,
+                            size: 35.h,
                           ),
                         ),
                       ),
@@ -114,11 +114,11 @@ class _UserProfileViewState extends State<UserProfileView> {
                               lastname = snapshot.data.toString();
                               return Text(
                                 '$lastname',
-                                style: GoogleFonts.cabin(
-                                    textStyle: TextStyle(
-                                        fontSize: 20.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.normal)),
+                                style: GoogleFonts.cabin(                           
+                                  fontSize: 20.sp,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal
+                                )
                               );
                             }),
                       ),
@@ -127,7 +127,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                         child: Text(
                           'About:',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: GoogleFonts.cabin(
                             fontSize: 13.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.normal,
@@ -138,8 +138,8 @@ class _UserProfileViewState extends State<UserProfileView> {
                       Container(
                         child: Text(
                           'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple',
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.cabin(
                             fontSize: 13.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.normal,
