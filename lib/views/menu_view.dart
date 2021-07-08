@@ -32,7 +32,8 @@ class _MenuViewState extends State<MenuView> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
-      onWillPop: () => locator<NavigationService>().goBack(),
+      onWillPop: () => locator<NavigationService>()
+                .popAndPushNamed(SelectionViewRoute),
       builder: (context, size) {
       return Scaffold(
         appBar: AppBar(
@@ -46,7 +47,8 @@ class _MenuViewState extends State<MenuView> {
           centerTitle: true,
           backgroundColor: Colors.green[800],
           leading: GestureDetector(
-            onTap: () => locator<NavigationService>().goBack(),
+            onTap: () => locator<NavigationService>()
+                  .popAndPushNamed(SelectionViewRoute),
             child: Container(
               height: 15.h,
               width: 6.w,
