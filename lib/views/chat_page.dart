@@ -1,8 +1,7 @@
-import 'package:bunkie/models/chat_message.dart';
+
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bunkie/views/shared/shared.dart';
@@ -15,16 +14,15 @@ class ChatPageView extends StatefulWidget {
 }
 
 class _ChatPageViewState extends State<ChatPageView> {
-  var snap;
+  var contact;
   String name = '';
   String content = '';
 
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  FirebaseAuth _auth = FirebaseAuth.instance;
   CollectionReference firestoreUsers =
       FirebaseFirestore.instance.collection('users');
 
-  AuthService _authService = AuthService();
+  AuthService _auth = AuthService();
   Query? messages;
 
   @override
@@ -32,7 +30,7 @@ class _ChatPageViewState extends State<ChatPageView> {
     messages = DatabaseService.db
         .collection('messages')
         // .orderBy('lastMessage.timestamp', descending: true)
-        .where('users', arrayContains: _auth.currentUser!.uid);
+        .where('users', arrayContains: _auth.currentUser()!.uid);
 
     return ResponsiveWidget(
         onWillPop: () => locator<NavigationService>().goBack(),
@@ -111,8 +109,12 @@ class _ChatPageViewState extends State<ChatPageView> {
                                   return CircularProgressIndicator.adaptive();
                                 } else if (snapshot1.hasData ||
                                     snapshot1.data != null) {
-                                  var data = snapshot1.data!.docs;
+                                  // All users in collection
+                                  var allUsers = snapshot1.data!.docs;
                                   var messageData = snapshot2.data!.docs;
+                                  
+                                  // List to hold user IDs in conversations
+                                  List userIdsInConvo = [];
 
                                   return ListView.separated(
                                     shrinkWrap: true,
@@ -125,14 +127,17 @@ class _ChatPageViewState extends State<ChatPageView> {
                                       indent: 80,
                                     ),
                                     itemBuilder: (context, index) {
-                                      print(messageData[index]['lastMessage']);
-                                      print(messageData.length);
-                                      data.forEach((element) {
-                                        if (element['id'] ==
-                                            messageData[index]['users'][1]) {
-                                          print(element['firstName']);
+                                      var lastMsg = messageData[index]['lastMessage'];
+
+                                      // Add IDs of the two users in conversation to list
+                                      userIdsInConvo.addAll([lastMsg['idTo'], lastMsg['idFrom']]);
+
+                                      allUsers.forEach((element) {
+                                        if (element['id'] != _auth.currentUser()!.uid && 
+                                            userIdsInConvo.contains(element['id'])) {
+                                              
                                           name = element['firstName'];
-                                          snap = element;
+                                          contact = element;
                                         }
                                       });
 
@@ -146,9 +151,9 @@ class _ChatPageViewState extends State<ChatPageView> {
                                         messageRead: (index == 0 || index == 3)
                                             ? true
                                             : false,
-                                        uid: _auth.currentUser!.uid,
+                                        uid: _auth.currentUser()!.uid,
                                         pid: messageData[index]['users'][1],
-                                        contact: snap,
+                                        contact: contact,
                                       );
                                     },
                                   );

@@ -3,7 +3,6 @@ import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/views/shared/custom_spacer.dart';
 import 'package:bunkie/views/shared/full_name_stream.dart';
-import 'package:bunkie/views/views.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

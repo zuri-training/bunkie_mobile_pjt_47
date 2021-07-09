@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:bunkie/services/auth_service.dart';
-import 'package:bunkie/services/firestore_service.dart';
 import 'package:bunkie/services/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ class AmenitiesView extends StatefulWidget {
 
 class _AmenitiesViewState extends State<AmenitiesView> {
   AuthService _authService = AuthService();
-  FireStoreService _fireStoreService = FireStoreService();
   User? loggedInUser;
   String? firstname;
   @override
