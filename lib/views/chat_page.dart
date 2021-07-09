@@ -138,6 +138,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                                               
                                           name = element['firstName'];
                                           contact = element;
+                                          print(contact['id']);
                                         }
                                       });
 
@@ -152,7 +153,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                                             ? true
                                             : false,
                                         uid: _auth.currentUser()!.uid,
-                                        pid: messageData[index]['users'][1],
+                                        pid: contact['id'],
                                         contact: contact,
                                       );
                                     },
