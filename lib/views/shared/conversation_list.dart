@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:bunkie/utils/helpers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:bunkie/utils/utils.dart';
+
 import '../chat_detail.dart';
 
 // ignore: must_be_immutable
@@ -37,7 +39,7 @@ class _ConversationListState extends State<ConversationList> {
     return GestureDetector(
         onTap: () => createConversation(context),
         child: Container(
-            padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+            padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 10.h, bottom: 10.h),
             child: Row(
               children: [
                 Expanded(
@@ -49,7 +51,7 @@ class _ConversationListState extends State<ConversationList> {
                         ),
                         maxRadius: 26,
                       ),
-                      SizedBox(width: 16),
+                      SizedBox(width: 16.w),
                       Expanded(
                           child: Container(
                         color: Colors.transparent,
@@ -58,8 +60,10 @@ class _ConversationListState extends State<ConversationList> {
                             children: [
                               Text(widget.name,
                                   style: GoogleFonts.cabin(
-                                      fontSize: 16, color: Colors.black)),
-                              SizedBox(height: 6),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20.sp, 
+                                      color: Colors.black)),
+                              SizedBox(height: 6.h),
                               Container(
                                 width: 220,
                                 child: Row(
@@ -68,9 +72,9 @@ class _ConversationListState extends State<ConversationList> {
                                       child: RichText(
                                         overflow: TextOverflow.ellipsis,
                                         text: TextSpan(
-                                            style: TextStyle(
+                                            style: GoogleFonts.cabin(
                                                 color: Colors.black,
-                                                fontSize: 12,
+                                                fontSize: 16.sp,
                                                 fontWeight: widget.messageRead
                                                     ? FontWeight.bold
                                                     : FontWeight.normal),
@@ -89,7 +93,7 @@ class _ConversationListState extends State<ConversationList> {
                 Text(
                   widget.time.toString(),
                   style: GoogleFonts.cabin(
-                      fontSize: 12,
+                      fontSize: 12.sp,
                       color: Colors.black,
                       fontWeight: widget.messageRead
                           ? FontWeight.bold

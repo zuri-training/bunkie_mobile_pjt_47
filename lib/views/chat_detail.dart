@@ -149,30 +149,38 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                                   DatabaseService.updateMessageStatus(
                                       doc, convoID);
                                 }
-                                return Container(
-                                  padding: EdgeInsets.only(
-                                      left: 16.w,
-                                      right: 16.w,
-                                      top: 10.h,
-                                      bottom: 10.h),
-                                  child: Align(
-                                      // If my message, align to the right,
-                                      // else align left
-                                      alignment: doc['idFrom'] == uid
-                                          ? Alignment.topRight
-                                          : Alignment.topLeft,
-                                      child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              color: doc['idFrom'] == uid
-                                                  ? Colors.green[200]
-                                                  : Colors.yellow[100]),
-                                          padding: EdgeInsets.all(16),
-                                          child: Text(doc['content'],
-                                              style: TextStyle(
-                                                  color: Colors.black87)))),
+                                return Column(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        left: 16.w,
+                                        right: 2.w,
+                                        bottom: 5.h
+                                      ),
+                                      child: Align(
+                                          // If my message, align to the right,
+                                          // else align left
+                                          alignment: doc['idFrom'] == uid
+                                              ? Alignment.topRight
+                                              : Alignment.topLeft,
+                                          child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                  color: doc['idFrom'] == uid
+                                                      ? Colors.green[200]
+                                                      : Colors.yellow[100]),
+                                              padding: EdgeInsets.all(16),
+                                              child: Text(doc['content'],
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.cabin(
+                                                      color: Colors.black87)))),
+                                    ),
+                                    CustomSpacer(flex: 4)
+                                  ]
                                 );
+                                
+                                
                               });
                         }
                         if (snapshot.hasError) {
@@ -217,16 +225,24 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                             ),
                           ),
                           SizedBox(width: 15),
-                          Expanded(
-                              child: TextField(
-                            autocorrect: true,
-                            controller: textController,
-                            decoration: InputDecoration(
-                              hintText: 'Write message',
-                              hintStyle: GoogleFonts.cabin(),
-                              border: InputBorder.none,
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: TextField(
+                              style: GoogleFonts.cabin(
+                                fontSize: 20.sp
+                              ),
+                              textAlignVertical: TextAlignVertical.center,
+                              maxLines: 4,
+                              autocorrect: true,
+                              controller: textController,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.all(2),
+                                hintText: 'Write message',
+                                hintStyle: GoogleFonts.cabin(),
+                                border: InputBorder.none,
+                              ),
                             ),
-                          )),
+                          ),
                           SizedBox(width: 15),
                           FloatingActionButton(
                             backgroundColor: Colors.green[800],
