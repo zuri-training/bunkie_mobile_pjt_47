@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:bunkie/views/roommate_preferences.dart';
 import 'package:bunkie/views/shared/full_name_stream.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,6 @@ class SettingsView extends StatefulWidget {
 
 class _SettingsViewState extends State<SettingsView> {
   AuthService _authService = AuthService();
-  FireStoreService _fireStoreService = FireStoreService();
   User? loggedInUser;
   String? lastname;
   @override

@@ -2,7 +2,7 @@ import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
-import 'dart:async';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'shared/custom_spacer.dart';
 
@@ -16,7 +16,7 @@ class HelpView extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             'Help',
-            style: TextStyle(
+            style: GoogleFonts.cabin(
               color: Colors.white,
               fontSize: 18.sp,
             ),
@@ -58,7 +58,7 @@ class HelpView extends StatelessWidget {
                           child: Text(
                             'Report a Problem.',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 17.sp,
                               color: Colors.green[800],
                               fontWeight: FontWeight.bold,
@@ -76,7 +76,7 @@ class HelpView extends StatelessWidget {
                           child: Text(
                             'Terms and Conditions.',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 17.sp,
                               color: Colors.green[800],
                               fontWeight: FontWeight.bold,
@@ -94,7 +94,7 @@ class HelpView extends StatelessWidget {
                           child: Text(
                             'Contact Us.',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 17.sp,
                               color: Colors.green[800],
                               fontWeight: FontWeight.bold,
@@ -112,7 +112,7 @@ class HelpView extends StatelessWidget {
                           child: Text(
                             'FAQ.',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 17.sp,
                               color: Colors.green[800],
                               fontWeight: FontWeight.bold,

@@ -1,7 +1,6 @@
 import 'package:bunkie/services/navigation_service.dart';
 import 'package:bunkie/utils/constants.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:bunkie/views/interests_and_lifestyle_view.dart';
 import 'package:bunkie/views/shared/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,7 +24,7 @@ class _SearchViewState extends State<SearchView> {
               appBar: AppBar(
                 title: Text(
                   'Search Criteria',
-                  style: TextStyle(
+                  style: GoogleFonts.cabin(
                     color: Colors.white,
                     fontSize: 18.sp,
                   ),

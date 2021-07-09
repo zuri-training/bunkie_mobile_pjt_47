@@ -1,10 +1,8 @@
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:bunkie/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:async';
 
 import 'shared/custom_spacer.dart';
 
@@ -19,12 +17,14 @@ class LiveShotVerificationView extends StatefulWidget {
 class _LiveShotVerificationViewState extends State<LiveShotVerificationView> {
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(builder: (context, size) {
+    return ResponsiveWidget(
+      onWillPop: () => locator<NavigationService>().goBack(),
+      builder: (context, size) {
       return Scaffold(
         appBar: AppBar(
           title: Text(
             'Verification',
-            style: TextStyle(
+            style: GoogleFonts.cabin(
               color: Colors.white,
               fontSize: 18.sp,
             ),
@@ -155,7 +155,7 @@ class _LiveShotVerificationViewState extends State<LiveShotVerificationView> {
                           child: Text(
                             'Verifying your identity would increase your chances of getting a roommate by 10x',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 12.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
@@ -173,7 +173,7 @@ class _LiveShotVerificationViewState extends State<LiveShotVerificationView> {
                           child: Text(
                             'Live Photo',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 17.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -189,7 +189,7 @@ class _LiveShotVerificationViewState extends State<LiveShotVerificationView> {
                           child: Text(
                             'We need to take a Live Photo of you',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 12.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
@@ -213,7 +213,7 @@ class _LiveShotVerificationViewState extends State<LiveShotVerificationView> {
                                 child: Text(
                                   'Don\'t Use Filters',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: GoogleFonts.cabin(
                                     fontSize: 12.sp,
                                     color: Colors.green[800],
                                     fontWeight: FontWeight.bold,
@@ -235,7 +235,7 @@ class _LiveShotVerificationViewState extends State<LiveShotVerificationView> {
                                 child: Text(
                                   'Don\'t wear eye glasses',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: GoogleFonts.cabin(
                                     fontSize: 12.sp,
                                     color: Colors.green[800],
                                     fontWeight: FontWeight.bold,
@@ -262,7 +262,7 @@ class _LiveShotVerificationViewState extends State<LiveShotVerificationView> {
                                 child: Text(
                                   'Use enough Sunlight',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: GoogleFonts.cabin(
                                     fontSize: 12.sp,
                                     color: Colors.green[800],
                                     fontWeight: FontWeight.bold,
@@ -282,9 +282,9 @@ class _LiveShotVerificationViewState extends State<LiveShotVerificationView> {
                               Container(
                                 alignment: Alignment.bottomCenter,
                                 child: Text(
-                                  'Don\'t wear hat/cap',
+                                  'Don\'t wear a hat',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: GoogleFonts.cabin(
                                     fontSize: 12.sp,
                                     color: Colors.green[800],
                                     fontWeight: FontWeight.bold,
@@ -319,7 +319,7 @@ class _LiveShotVerificationViewState extends State<LiveShotVerificationView> {
                                     child: Text(
                                       'Take Photo',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: GoogleFonts.cabin(
                                         fontSize: 18.sp,
                                         color: Colors.green[800],
                                         fontWeight: FontWeight.bold,

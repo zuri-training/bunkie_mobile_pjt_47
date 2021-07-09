@@ -4,7 +4,6 @@ import 'package:bunkie/services/firestore_service.dart';
 import 'package:bunkie/services/navigation_service.dart';
 import 'package:bunkie/utils/constants.dart';
 import 'package:bunkie/utils/locator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -39,8 +38,7 @@ class _ProfileCreateState extends State<ProfileCreate> {
     'University of Uyo',
   ];
   
-   AuthService _authService = AuthService();
-   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+   AuthService _auth = AuthService();
    FireStoreService _firestore = FireStoreService();
    
   var _currentSelectedState;
@@ -57,7 +55,7 @@ class _ProfileCreateState extends State<ProfileCreate> {
 
 
   createProfile() async {
-    if (_firebaseAuth.currentUser != null) {
+    if (_auth.currentUser() != null) {
       await _firestore.createUser(CustomUser(
         faculty: _facultyController.text,
         level: _levelController.text,

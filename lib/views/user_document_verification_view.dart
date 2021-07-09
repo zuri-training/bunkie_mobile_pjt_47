@@ -1,10 +1,9 @@
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
-import 'package:bunkie/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:async';
+
 
 import 'shared/custom_spacer.dart';
 
@@ -20,12 +19,14 @@ class _UserDocumentVerificationViewState
     extends State<UserDocumentVerificationView> {
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(builder: (context, size) {
+    return ResponsiveWidget(
+      onWillPop: () => locator<NavigationService>().goBack(),
+      builder: (context, size) {
       return Scaffold(
         appBar: AppBar(
           title: Text(
             'Verification',
-            style: TextStyle(
+            style: GoogleFonts.cabin(
               color: Colors.white,
               fontSize: 18.sp,
             ),
@@ -156,7 +157,7 @@ class _UserDocumentVerificationViewState
                           child: Text(
                             'Verifying your identity would increase your chances of getting a roommate by 10x',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 12.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
@@ -174,7 +175,7 @@ class _UserDocumentVerificationViewState
                           child: Text(
                             'Upload Student ID or Admission Letter.(pdf, jpg, jpeg or png)',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 12.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
@@ -189,6 +190,7 @@ class _UserDocumentVerificationViewState
                           child: ConstrainedBox(
                             constraints: BoxConstraints.tightFor(height: 40),
                             child: TextFormField(
+                              style: GoogleFonts.cabin(),
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 20),
@@ -208,6 +210,7 @@ class _UserDocumentVerificationViewState
                                   icon: Icon(Icons.arrow_drop_down),
                                 ),
                                 hintText: 'Student ID',
+                                hintStyle: GoogleFonts.cabin(),
                               ),
                               keyboardType: TextInputType.multiline,
                               maxLines: 1,
@@ -223,6 +226,7 @@ class _UserDocumentVerificationViewState
                           child: ConstrainedBox(
                             constraints: BoxConstraints.tightFor(height: 40),
                             child: TextFormField(
+                              style: GoogleFonts.cabin(),
                               decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 5),
@@ -239,6 +243,7 @@ class _UserDocumentVerificationViewState
                                     icon: Icon(Icons.cancel_outlined),
                                     color: Colors.red,
                                   ),
+                                  hintStyle: GoogleFonts.cabin(),
                                   hintText: 'James Bond ID'),
                             ),
                           ),
@@ -268,7 +273,7 @@ class _UserDocumentVerificationViewState
                                         child: Text(
                                           'Take Photo',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
+                                          style: GoogleFonts.cabin(
                                             fontSize: 13.sp,
                                             color: Colors.green[800],
                                             fontWeight: FontWeight.bold,
@@ -301,7 +306,7 @@ class _UserDocumentVerificationViewState
                                       child: Text(
                                         'Upload',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 13.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,
@@ -325,7 +330,7 @@ class _UserDocumentVerificationViewState
                           child: Text(
                             'Upload National ID/Passport/Drivers License(pdf, jpg, jpeg or png)',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 12.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
@@ -340,6 +345,7 @@ class _UserDocumentVerificationViewState
                           child: ConstrainedBox(
                             constraints: BoxConstraints.tightFor(height: 40),
                             child: TextFormField(
+                              style: GoogleFonts.cabin(),
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 20),
@@ -359,6 +365,7 @@ class _UserDocumentVerificationViewState
                                   icon: Icon(Icons.arrow_drop_down),
                                 ),
                                 hintText: 'Passport',
+                                hintStyle: GoogleFonts.cabin(),
                               ),
                               keyboardType: TextInputType.multiline,
                               maxLines: 1,
@@ -374,6 +381,7 @@ class _UserDocumentVerificationViewState
                           child: ConstrainedBox(
                             constraints: BoxConstraints.tightFor(height: 40),
                             child: TextFormField(
+                              style: GoogleFonts.cabin(),
                               decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 5),
@@ -390,6 +398,7 @@ class _UserDocumentVerificationViewState
                                     icon: Icon(Icons.cancel_outlined),
                                     color: Colors.red,
                                   ),
+                                  hintStyle: GoogleFonts.cabin(),
                                   hintText: 'James Passport'),
                             ),
                           ),
@@ -419,7 +428,7 @@ class _UserDocumentVerificationViewState
                                         child: Text(
                                           'Take Photo',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
+                                          style: GoogleFonts.cabin(
                                             fontSize: 13.sp,
                                             color: Colors.green[800],
                                             fontWeight: FontWeight.bold,
@@ -452,7 +461,7 @@ class _UserDocumentVerificationViewState
                                       child: Text(
                                         'Upload',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 13.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,
@@ -476,7 +485,7 @@ class _UserDocumentVerificationViewState
                           child: Text(
                             'Verify Address',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 17.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -492,7 +501,7 @@ class _UserDocumentVerificationViewState
                           child: Text(
                             'Upload a Utility Bill or Bank Statement that clearly shows your address(pdf, jpg, jpeg or png)',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 12.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
@@ -507,6 +516,7 @@ class _UserDocumentVerificationViewState
                           child: ConstrainedBox(
                             constraints: BoxConstraints.tightFor(height: 40),
                             child: TextFormField(
+                              style: GoogleFonts.cabin(),
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 20),
@@ -525,6 +535,7 @@ class _UserDocumentVerificationViewState
                                   onPressed: () {},
                                   icon: Icon(Icons.arrow_drop_down),
                                 ),
+                                hintStyle: GoogleFonts.cabin(),
                                 hintText: 'Utility Bill',
                               ),
                               keyboardType: TextInputType.multiline,
@@ -541,6 +552,7 @@ class _UserDocumentVerificationViewState
                           child: ConstrainedBox(
                             constraints: BoxConstraints.tightFor(height: 40),
                             child: TextFormField(
+                              style: GoogleFonts.cabin(),
                               decoration: InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 5),
@@ -557,6 +569,7 @@ class _UserDocumentVerificationViewState
                                     icon: Icon(Icons.cancel_outlined),
                                     color: Colors.red,
                                   ),
+                                  hintStyle: GoogleFonts.cabin(),
                                   hintText: 'Utility Bill'),
                             ),
                           ),
@@ -586,7 +599,7 @@ class _UserDocumentVerificationViewState
                                         child: Text(
                                           'Take Photo',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
+                                          style: GoogleFonts.cabin(
                                             fontSize: 13.sp,
                                             color: Colors.green[800],
                                             fontWeight: FontWeight.bold,
@@ -619,7 +632,7 @@ class _UserDocumentVerificationViewState
                                       child: Text(
                                         'Upload',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 13.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,
