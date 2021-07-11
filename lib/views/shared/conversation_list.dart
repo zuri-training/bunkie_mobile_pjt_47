@@ -60,7 +60,7 @@ class _ConversationListState extends State<ConversationList> {
                             children: [
                               Text(widget.name,
                                   style: GoogleFonts.cabin(
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w800,
                                       fontSize: 20.sp,
                                       color: Colors.black)),
                               SizedBox(height: 4.h),
@@ -74,7 +74,7 @@ class _ConversationListState extends State<ConversationList> {
                                         text: TextSpan(
                                             style: GoogleFonts.cabin(
                                                 color: Colors.black,
-                                                fontSize: 13.sp,
+                                                fontSize: 15.sp,
                                                 fontWeight: widget.messageRead
                                                     ? FontWeight.bold
                                                     : FontWeight.normal),
