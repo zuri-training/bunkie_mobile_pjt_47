@@ -336,17 +336,19 @@ class _MenuViewState extends State<MenuView> {
                                 Container(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10.w),
-                                    child: Text(
-                                      'Log out',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: 17.sp,
-                                        color: Colors.green[800],
-                                        fontWeight: FontWeight.bold,
+                                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                    child: GestureDetector(
+                                      onTap: () => _authService.signOut(),
+                                      child: Text(
+                                        'Log out',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 17.sp,
+                                          color: Colors.green[800],
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
+                                    )    
                                   ),
                                 ),
                               ],

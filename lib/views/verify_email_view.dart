@@ -16,7 +16,6 @@ class VerifyEmailView extends StatefulWidget {
 }
 
 class _VerifyEmailViewState extends State<VerifyEmailView> {
-  TextEditingController _controller = TextEditingController();
   final formKey = GlobalKey<FormState>();
   // ignore: close_sinks
   StreamController<ErrorAnimationType>? _errorController;
@@ -25,7 +24,6 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
 
   bool _isVerified = false;
 
-  bool _hasError = false;
   @override
   void initState() {
     _errorController = StreamController<ErrorAnimationType>();
