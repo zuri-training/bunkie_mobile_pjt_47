@@ -54,22 +54,23 @@ class _LandingPageViewState extends State<LandingPageView> {
             ),
           ),
           Column(children: [
+            CustomSpacer(flex: 8),
             Container(
               width: 180.w,
               height: 120.h,
               child: Image.asset(
                   'assets/images/bunkie-logos/white-bunkie-logo.png'),
             ),
-            CustomSpacer(flex: size.height / 18),
+            CustomSpacer(flex: size.height / 25),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.w),
               child: Text(
-                  'Need a perfect roommate in your school? Join millions of students who find theirs with Bunkie.',
+                  'Join millions of students using Bunkie to search for Rooms and Roommates.',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.cabin(color: Colors.white, fontSize: 21.sp)),
             ),
             CustomSpacer(
-              flex: 25,
+              flex: 20,
             ),
             CustomButton(
                 text: 'Get Started',

@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-
 import 'shared/shared.dart';
 
 class VerifyEmailView extends StatefulWidget {
@@ -44,6 +43,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
   Widget build(BuildContext context) {
     return ResponsiveWidget(builder: (context, size) {
       return Scaffold(
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.w),
@@ -72,28 +72,15 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                         fontSize: 35.sp,
                         fontWeight: FontWeight.w800)),
                 CustomSpacer(
-                  flex: 5,
+                  flex: 10,
                 ),
                 Text(
-                  'Please enter the 4 digit code we sent to your mail',
+                  'Click the link sent to your Email Address to verify before proceeding',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18.sp),
+                  style: TextStyle(fontSize: 16.sp),
                 ),
                 CustomSpacer(
-                  flex: 2,
-                ),
-                PinCodeFields(
-                    hasError: _hasError,
-                    errorController: _errorController!,
-                    controller: _controller,
-                    validator: (val) {
-                      if (val.length < 6) {
-                        return '';
-                      }
-                      return null;
-                    }),
-                CustomSpacer(
-                  flex: 5,
+                  flex: 10,
                 ),
                 Container(
                   child: Row(
@@ -104,19 +91,18 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                           style: TextStyle(fontSize: 17.sp),
                         ),
                         Flexible(
-                          fit: FlexFit.loose,
+                            fit: FlexFit.loose,
                             child: GestureDetector(
-                            onTap: () {
-                              locator<NavigationService>()
-                                  .pushNamed(SignUpViewRoute);
-                            },
-                            child: Text(
-                              'Resend Code',
-                              style: TextStyle(
-                                  color: Colors.lightGreen, fontSize: 17.sp),
-                            ),
-                          )
-                        )
+                              onTap: () {
+                                locator<NavigationService>()
+                                    .pushNamed(SignUpViewRoute);
+                              },
+                              child: Text(
+                                'Resend Code',
+                                style: TextStyle(
+                                    color: Colors.lightGreen, fontSize: 17.sp),
+                              ),
+                            ))
                       ]),
                 ),
                 CustomSpacer(
@@ -124,7 +110,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
                 ),
                 CustomButton(
                     width: size.width,
-                    text: 'Verify',
+                    text: 'Proceed',
                     onPressed: () async {
                       try {
                         User? user = _auth.currentUser;
@@ -134,14 +120,14 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
 
                         if (user.emailVerified) {
                           setState(() => _isVerified = true);
-                          locator<NavigationService>().pushNamed(ProfileCreateViewRoute);
+                          locator<NavigationService>()
+                              .pushNamed(ProfileCreateViewRoute);
                         } else {
                           return null;
                         }
-                      } catch(e) {
+                      } catch (e) {
                         print(e);
                       }
-                      
                     }),
               ]),
             ),

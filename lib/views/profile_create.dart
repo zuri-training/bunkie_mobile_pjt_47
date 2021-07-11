@@ -10,11 +10,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'shared/responsive_widget.dart';
 import 'package:bunkie/utils/utils.dart';
 
-
 class ProfileCreate extends StatefulWidget {
   _ProfileCreateState createState() => _ProfileCreateState();
 }
-
 
 class _ProfileCreateState extends State<ProfileCreate> {
   /// Temporary list to test out dropdown functionality.
@@ -28,7 +26,7 @@ class _ProfileCreateState extends State<ProfileCreate> {
     'Kogi',
     'Kwara'
   ];
-  
+
   ///
   List _unis = [
     'University of Port-Harcourt',
@@ -37,10 +35,10 @@ class _ProfileCreateState extends State<ProfileCreate> {
     'University of Lagos',
     'University of Uyo',
   ];
-  
-   AuthService _auth = AuthService();
-   FireStoreService _firestore = FireStoreService();
-   
+
+  AuthService _auth = AuthService();
+  FireStoreService _firestore = FireStoreService();
+
   var _currentSelectedState;
   var _currentSelectedUni;
 
@@ -53,20 +51,17 @@ class _ProfileCreateState extends State<ProfileCreate> {
   TextEditingController _ethnicityController = TextEditingController();
   String filter = '';
 
-
   createProfile() async {
     if (_auth.currentUser() != null) {
       await _firestore.createUser(CustomUser(
-        faculty: _facultyController.text,
-        level: _levelController.text,
-        religion: _religionController.text,
-        ethnicity: _ethnicityController.text,
-        gender: _groupValue == 0 ? 'Male' : 'Female',
-        university: _currentSelectedUni,
-        state: _currentSelectedState
-      ));
+          faculty: _facultyController.text,
+          level: _levelController.text,
+          religion: _religionController.text,
+          ethnicity: _ethnicityController.text,
+          gender: _groupValue == 0 ? 'Male' : 'Female',
+          university: _currentSelectedUni,
+          state: _currentSelectedState));
     }
-    
   }
 
   @override
@@ -83,47 +78,33 @@ class _ProfileCreateState extends State<ProfileCreate> {
     super.dispose();
     _controller.dispose();
   }
-  
-  @override 
+
+  @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(
-      builder: (context, size) {
-        return Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 30.h
-                  )
-                ),
-                Center(
-                  child: Text(
-                    'Profile',
-                    style: GoogleFonts.cabin(
-                      fontSize: 20.sp,
-                      color: Colors.green,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    right: 50.w,
-                    left: 50.w,
-                    top: 15.h
-                  ),
-                  child: Text(
-                    "Let's get to know you!",
-                    style: GoogleFonts.cabin(
-                      color: Colors.green
-                    )
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                Form(
-                  child: Column(
-                    children: [
-                      /*Row(
+    return ResponsiveWidget(builder: (context, size) {
+      return Scaffold(
+        body: SingleChildScrollView(
+            child: Column(children: [
+          Padding(padding: EdgeInsets.symmetric(vertical: 30.h)),
+          Center(
+            child: Text(
+              'Profile',
+              style: GoogleFonts.cabin(
+                fontSize: 20.sp,
+                color: Colors.black,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(right: 50.w, left: 50.w, top: 15.h),
+            child: Text("Let's get to know you!",
+                style: GoogleFonts.cabin(color: Colors.black)),
+          ),
+          SizedBox(height: 20.h),
+          Form(
+              child: Column(
+            children: [
+              /*Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
@@ -158,246 +139,213 @@ class _ProfileCreateState extends State<ProfileCreate> {
                           )
                         ],
                       ),*/
-                      SizedBox(height: 10.h),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15.w,
+              SizedBox(height: 10.h),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.w,
+                ),
+                child: FormField(
+                    // Dropdown
+                    builder: (FormFieldState<String> state) {
+                  return InputDecorator(
+                    decoration: InputDecoration(
+                        labelText: 'State',
+                        labelStyle: GoogleFonts.cabin(
+                          fontSize: 14.sp,
                         ),
-                        child: FormField(
-                          // Dropdown
-                          builder: (FormFieldState<String> state) {
-                            return InputDecorator(
-                              decoration: InputDecoration(
-                                labelText: 'State',
-                                labelStyle: GoogleFonts.cabin(
-                                  fontSize: 14.sp,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.green),
-                                )
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.green),
+                        )),
+                    isEmpty: _currentSelectedState == '',
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                          value: _currentSelectedState,
+                          isDense: true,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _currentSelectedState = newValue;
+                              state.didChange(newValue);
+                            });
+                          },
+                          items: _states.map((value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: GoogleFonts.cabin(),
                               ),
-                              isEmpty: _currentSelectedState == '',
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  value: _currentSelectedState,
-                                  isDense: true,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _currentSelectedState = newValue;
-                                      state.didChange(newValue);
-                                    });
-                                  },
-                                  items: _states.map((value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(
-                                        value,
-                                        style: GoogleFonts.cabin(),
-                                      ),
-                                    );
-                                  }).toList()
-                                ),
-                              ),
-                              
                             );
-                          }                 
+                          }).toList()),
+                    ),
+                  );
+                }),
+              ),
+              SizedBox(height: 10.h),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.w,
+                ),
+                child: FormField(
+                    // Dropdown
+                    builder: (FormFieldState<String> state) {
+                  return InputDecorator(
+                    decoration: InputDecoration(
+                        labelText: 'University',
+                        labelStyle: GoogleFonts.cabin(
+                          fontSize: 14.sp,
                         ),
-                      ),
-                      SizedBox(height: 10.h),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15.w,
-                        ),
-                        child: FormField(
-                          // Dropdown
-                          builder: (FormFieldState<String> state) {
-                            return InputDecorator(
-                              decoration: InputDecoration(
-                                  labelText: 'University',
-                                labelStyle: GoogleFonts.cabin(
-                                  fontSize: 14.sp,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.green),
-                                )
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.green),
+                        )),
+                    isEmpty: _currentSelectedUni == '',
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                          value: _currentSelectedUni,
+                          isDense: true,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _currentSelectedUni = newValue;
+                              state.didChange(newValue);
+                            });
+                          },
+                          items: _unis.map((value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: GoogleFonts.cabin(),
                               ),
-                              isEmpty: _currentSelectedUni == '',
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton<String>(
-                                  value: _currentSelectedUni,
-                                  isDense: true,
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      _currentSelectedUni = newValue;
-                                      state.didChange(newValue);
-                                    });
-                                  },
-                                  items: _unis.map((value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(
-                                        value,
-                                        style: GoogleFonts.cabin(),
-                                      ),
-                                    );
-                                  }).toList()
-                                ),
-                              ),
-                              
                             );
-                          }
-                          
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15.w,
-                          vertical: 10.h
-                        ),
-                        child: TextFormField(
-                          controller: _facultyController,
-                          decoration: InputDecoration(
-                            labelText: 'Faculty',
-                            labelStyle: GoogleFonts.cabin(
-                              fontSize: 14.sp,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.green),
-                            )
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15.w,
-                        ),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Level',
-                            labelStyle: GoogleFonts.cabin(
-                              fontSize: 14.sp,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.green),
-                            )
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15.w,
-                          vertical: 10.h
-                        ),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Religion',
-                            labelStyle: GoogleFonts.cabin(
-                              fontSize: 14.sp,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.green),
-                            )
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 15.w,
-                        ),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Ethnicity',
-                            labelStyle: GoogleFonts.cabin(
-                              fontSize: 14.sp,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.green),
-                            )
-                          )
-                        ),
-                      ),
-                      SizedBox(height: 20.h),
-                    ],
-                  )
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 200.w),
-                  child: Text(
-                    'Identify as:',
-                    style: GoogleFonts.cabin(
-                      fontSize: 15.sp
+                          }).toList()),
                     ),
-                  ),
+                  );
+                }),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                child: TextFormField(
+                  controller: _facultyController,
+                  decoration: InputDecoration(
+                      labelText: 'Faculty',
+                      labelStyle: GoogleFonts.cabin(
+                        fontSize: 14.sp,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.green),
+                      )),
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _buildRadioButton(
-                        title: 'Male',
-                        value: 0,
-                        onChanged: (newVal) => setState(() => _groupValue = newVal),
-                      )
-                    ),
-                    Expanded(
-                      child: _buildRadioButton(
-                        title: 'Female',
-                        value: 1,
-                        onChanged: (newVal) => setState(() => _groupValue = newVal),
-                      )
-                    ),
-                  ],
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.w,
                 ),
-                Container(
-                  width: 200.w,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      createProfile();
-                      locator<NavigationService>().pushNamed(SelectionViewRoute);
-                    },
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      labelText: 'Level',
+                      labelStyle: GoogleFonts.cabin(
+                        fontSize: 14.sp,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.green),
+                      )),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                      labelText: 'Religion',
+                      labelStyle: GoogleFonts.cabin(
+                        fontSize: 14.sp,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.green),
+                      )),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15.w,
+                ),
+                child: TextFormField(
+                    decoration: InputDecoration(
+                        labelText: 'Ethnicity',
+                        labelStyle: GoogleFonts.cabin(
+                          fontSize: 14.sp,
                         ),
-                      ),
-                      backgroundColor: MaterialStateProperty.all(
-                        Color(0xff027A63),
-                      ),
-                    ),
-                    child: Text(
-                      'Continue',
-                      style: GoogleFonts.cabin(),
-                    )
-                  ),
-                ),
-              
-                SizedBox(height: 40.h)
-              ]
-            )
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.green),
+                        ))),
+              ),
+              SizedBox(height: 20.h),
+            ],
+          )),
+          Padding(
+            padding: EdgeInsets.only(right: 200.w),
+            child: Text(
+              'Identify as:',
+              style: GoogleFonts.cabin(fontSize: 15.sp),
+            ),
           ),
-        );
-      });
-          
-    }
-        
-    Widget _buildRadioButton({String? title, int? value, var onChanged}) {
-      return RadioListTile(
+          Row(
+            children: [
+              Expanded(
+                  child: _buildRadioButton(
+                title: 'Male',
+                value: 0,
+                onChanged: (newVal) => setState(() => _groupValue = newVal),
+              )),
+              Expanded(
+                  child: _buildRadioButton(
+                title: 'Female',
+                value: 1,
+                onChanged: (newVal) => setState(() => _groupValue = newVal),
+              )),
+            ],
+          ),
+          Container(
+            width: 200.w,
+            child: ElevatedButton(
+                onPressed: () {
+                  createProfile();
+                  locator<NavigationService>().pushNamed(SelectionViewRoute);
+                },
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  backgroundColor: MaterialStateProperty.all(
+                    Color(0xff027A63),
+                  ),
+                ),
+                child: Text(
+                  'Continue',
+                  style: GoogleFonts.cabin(),
+                )),
+          ),
+          SizedBox(height: 40.h)
+        ])),
+      );
+    });
+  }
+
+  Widget _buildRadioButton({String? title, int? value, var onChanged}) {
+    return RadioListTile(
         value: value,
         activeColor: Color(0xff027A63),
         groupValue: _groupValue,
         onChanged: onChanged,
         title: Text(
           title.toString(),
-          style: GoogleFonts.cabin(
-            fontSize: 14.sp
-          ),
-        )
-      );
-    }
+          style: GoogleFonts.cabin(fontSize: 14.sp),
+        ));
   }
+}

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
 import 'package:bunkie/views/shared/full_name_stream.dart';
+import 'package:bunkie/views/verify_email_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
@@ -96,7 +97,6 @@ class _MenuViewState extends State<MenuView> {
                                       )),
                                 ),
                               ],
-
                             ),
                           ),
                           CustomSpacer(flex: 1),
