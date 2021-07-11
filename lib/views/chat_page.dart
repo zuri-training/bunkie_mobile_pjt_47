@@ -3,6 +3,8 @@ import 'package:bunkie/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'package:intl/intl.dart';
+
 import 'package:bunkie/views/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -113,8 +115,22 @@ class _ChatPageViewState extends State<ChatPageView> {
                                     snapshot2.connectionState ==
                                         ConnectionState.waiting) {
                                   return CircularProgressIndicator.adaptive();
-                                } else if (snapshot1.hasData ||
-                                    snapshot1.data != null) {
+                                }
+                                if (!snapshot2.hasData || snapshot2.data == null) {
+                                  return Center(
+                                    child: Flexible(
+                                      child: Text(
+                                        "Oops! Seems like you have no messages yet.",
+                                        style: GoogleFonts.raleway(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20
+                                        ),
+                                      )
+                                    )
+                                  );
+                                }
+                                if (snapshot1.hasData ||
+                                  snapshot1.data != null && snapshot2.hasData) {
                                   // All users in collection
                                   var allUsers = snapshot1.data!.docs;
                                   var messageData = snapshot2.data!.docs;
@@ -141,10 +157,8 @@ class _ChatPageViewState extends State<ChatPageView> {
                                           [lastMsg['idTo'], lastMsg['idFrom']]);
 
                                       allUsers.forEach((element) {
-                                        if (element['id'] !=
-                                                _auth.currentUser()!.uid &&
-                                            userIdsInConvo
-                                                .contains(element['id'])) {
+                                        if (element['id'] != _auth.currentUser()!.uid 
+                                          && userIdsInConvo.contains(element['id'])) {
                                           name = element['firstName'];
                                           contact = element;
                                         }
@@ -157,7 +171,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                                             .trim(),
                                         // imageUrl: data[index]['photoURL'],
                                         time: messageData[index]
-                                            ['lastMessage.timestamp'],
+                                            ['lastMessage.timestamp'] ,
                                         messageRead: (index == 0 || index == 3)
                                             ? true
                                             : false,
