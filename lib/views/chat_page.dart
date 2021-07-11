@@ -120,12 +120,12 @@ class _ChatPageViewState extends State<ChatPageView> {
                                     shrinkWrap: true,
                                     itemCount: messageData.length,
                                     separatorBuilder: (context, index) =>
-                                        Divider(
-                                      color: Colors.black,
-                                      height: 0,
-                                      thickness: 1,
-                                      indent: 80,
-                                    ),
+                                      Divider(
+                                        color: Colors.black,
+                                        height: 0,
+                                        thickness: 1,
+                                        indent: 80,
+                                      ),
                                     itemBuilder: (context, index) {
                                       var lastMsg = messageData[index]['lastMessage'];
 
@@ -134,11 +134,9 @@ class _ChatPageViewState extends State<ChatPageView> {
 
                                       allUsers.forEach((element) {
                                         if (element['id'] != _auth.currentUser()!.uid && 
-                                            userIdsInConvo.contains(element['id'])) {
-                                              
+                                            userIdsInConvo.contains(element['id'])) {            
                                           name = element['firstName'];
                                           contact = element;
-                                          print(contact['id']);
                                         }
                                       });
 
@@ -148,7 +146,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                                                 ['lastMessage.content']
                                             .trim(),
                                         // imageUrl: data[index]['photoURL'],
-                                        // time: messageData[index]['lastMessage.timestamp'],
+                                        time: messageData[index]['lastMessage.timestamp'],
                                         messageRead: (index == 0 || index == 3)
                                             ? true
                                             : false,

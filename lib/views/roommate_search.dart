@@ -2,20 +2,27 @@
 
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/views/shared/shared.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'package:google_fonts/google_fonts.dart';
 import 'package:bunkie/utils/utils.dart';
 
 import 'shared/custom_carousel.dart';
 import 'shared/navigation_bar.dart';
 
 class RoommateSearchView extends StatefulWidget {
+  final Query collection;
+  
+  const RoommateSearchView({
+    Key? key,
+    required this.collection,
+  }) : super(key: key);
+
   _RoommateSearchViewState createState() => _RoommateSearchViewState();
 }
 
 class _RoommateSearchViewState extends State<RoommateSearchView> {
-
+      
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
@@ -50,15 +57,15 @@ class _RoommateSearchViewState extends State<RoommateSearchView> {
                       ),
                     ),
                     CustomSpacer(flex: 4),
-                    Text(
+                    /*Text(
                       '50 students matched your criteria -',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.cabin(
                         color: Colors.white,
                         fontSize: 18.sp,
                       ),
-                    ),
-                    CustomCarousel(images: 'images/roommates'),
+                    ),*/
+                    CustomCarousel(images: 'images/roommates', collection: widget.collection),
                   ],
                 ),
               ),

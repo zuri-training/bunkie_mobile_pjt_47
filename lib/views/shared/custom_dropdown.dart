@@ -4,14 +4,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:bunkie/utils/utils.dart';
 
 
+// ignore: must_be_immutable
 class CustomDropdown extends StatefulWidget {
   final String hintText;
   final List items;
+  var onChanged;
+  var initialValue;
 
-  const CustomDropdown({
+  CustomDropdown({
     Key? key,
     required this.hintText,
-    required this.items
+    required this.items,
+    this.onChanged,
+    this.initialValue
   }) : super(key: key);
 
   @override
@@ -45,11 +50,12 @@ class _CustomDropdownState extends State<CustomDropdown> {
             isEmpty: _currentSelectedValue == '',
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
-                value: _currentSelectedValue,
+                value: widget.initialValue,
                 isDense: true,
                 onChanged: (newValue) {
                   setState(() {
                     _currentSelectedValue = newValue.toString();
+                    widget.initialValue = newValue.toString();
                     state.didChange(newValue);
                   });
                 },

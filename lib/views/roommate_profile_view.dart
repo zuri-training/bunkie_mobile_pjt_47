@@ -10,10 +10,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'chat_detail.dart';
 import 'shared/responsive_widget.dart';
 import 'package:bunkie/utils/utils.dart';
 
 class RoommateProfileView extends StatefulWidget {
+  final user;
+
+  const RoommateProfileView({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
+
   @override
   _RoommateProfileViewState createState() => _RoommateProfileViewState();
 }
@@ -38,7 +46,7 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(onWillPop: () {
-      locator<NavigationService>().pushNamed(LandingViewRoute);
+      locator<NavigationService>().goBack();
     }, builder: (context, size) {
       return Scaffold(
         backgroundColor: Colors.white,
@@ -95,8 +103,8 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                       CustomSpacer(flex: 2),
                       Container(
                           alignment: Alignment.topLeft,
-                          child: FullNameStream(
-                            loggedInUser: loggedInUser!,
+                          child: Text(
+                            '${widget.user['firstName']} ${widget.user['lastName']}',
                             style: GoogleFonts.cabin(
                                 textStyle: TextStyle(
                                     fontSize: 20.sp,
@@ -120,7 +128,9 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                         child: Column(
                           children: [
                             Text(
-                              'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple',
+                              widget.user['bio'].length < 1 ?
+                              'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple'
+                              : widget.user['bio'],
                               textAlign: TextAlign.center,
                               style: GoogleFonts.cabin(
                                 fontSize: 13.sp,
@@ -171,7 +181,7 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                         alignment: Alignment.center,
                         child: CustomButton(
                           text: 'Message',
-                          onPressed: () {},
+                          onPressed: () => createConversation(context)
                         ),
                       ),
                     ],
@@ -184,5 +194,17 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
         bottomNavigationBar: BottomNavBar(),
       );
     });
+  }
+
+  void createConversation(BuildContext context) {
+    String convoID = Helpers.getConvoID(loggedInUser!.uid, widget.user['id']);
+    
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => ChatDetailView(
+              uid: loggedInUser!.uid,
+              contact: widget.user,
+              convoID: convoID,
+              photoURL: widget.user['avatar'] ?? 'https://i.pravatar.cc/150?img=1',
+            )));
   }
 }
