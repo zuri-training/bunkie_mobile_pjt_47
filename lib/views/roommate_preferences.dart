@@ -51,7 +51,7 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
               ),
               actions: [
                 Padding(
-                  padding: EdgeInsets.only(right: 20.w, top: 20.h),
+                  padding: EdgeInsets.only(right: 20.w, top: 17.h),
                   child: GestureDetector(
                     onTap: () {
                       locator<NavigationService>()
@@ -71,12 +71,12 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
             body: SingleChildScrollView(
               child: Column(
                 children: [
-                  CustomSpacer(flex: 2),
-                  Text('Let us know what you expect from your new Roommate',
+                  CustomSpacer(flex: 3),
+                  Text('Please select your Preferences',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.cabin(
                           color: Colors.black, fontSize: 16.sp)),
-                  CustomSpacer(flex: 2),
+                  CustomSpacer(flex: 3),
                   CustomDropdown(hintText: 'Location', items: [
                     'Lagos',
                     'Port Harcourt',
@@ -109,7 +109,7 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
                     '110,000.00 - 150,000.00',
                     '160,000.00 - 200,000.00'
                   ]),
-                  CustomSpacer(flex: 2),
+                  CustomSpacer(flex: 3),
                   CustomButton(
                     text: 'Submit',
                     onPressed: () {

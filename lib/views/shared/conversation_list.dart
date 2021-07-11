@@ -61,9 +61,9 @@ class _ConversationListState extends State<ConversationList> {
                               Text(widget.name,
                                   style: GoogleFonts.cabin(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 20.sp, 
+                                      fontSize: 20.sp,
                                       color: Colors.black)),
-                              SizedBox(height: 6.h),
+                              SizedBox(height: 4.h),
                               Container(
                                 width: 220,
                                 child: Row(
@@ -74,7 +74,7 @@ class _ConversationListState extends State<ConversationList> {
                                         text: TextSpan(
                                             style: GoogleFonts.cabin(
                                                 color: Colors.black,
-                                                fontSize: 16.sp,
+                                                fontSize: 13.sp,
                                                 fontWeight: widget.messageRead
                                                     ? FontWeight.bold
                                                     : FontWeight.normal),
@@ -93,7 +93,7 @@ class _ConversationListState extends State<ConversationList> {
                 Text(
                   widget.time.toString(),
                   style: GoogleFonts.cabin(
-                      fontSize: 12.sp,
+                      fontSize: 10.sp,
                       color: Colors.black,
                       fontWeight: widget.messageRead
                           ? FontWeight.bold

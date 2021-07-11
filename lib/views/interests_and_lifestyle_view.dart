@@ -76,7 +76,7 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
               child: Column(children: [
                 CustomSpacer(flex: 3),
                 Text(
-                    'Tell us your interests and we will help you find \nroommates have the same interests with you',
+                    'Select your most preferred Interests',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.cabin(
                         color: Colors.black, fontSize: 16.sp)),
