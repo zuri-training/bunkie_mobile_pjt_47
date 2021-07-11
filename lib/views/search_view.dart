@@ -91,7 +91,7 @@ class _SearchViewState extends State<SearchView> {
                           items: Universities,
                           onChanged: (val) => setState(() => 
                             _selectedUniversity = val),
-                          initialValue: Universities[0],
+                          //initialValue: Universities[0],
                           showSearchBox: true,
                         ),
                         CustomSpacer(flex: 2),
