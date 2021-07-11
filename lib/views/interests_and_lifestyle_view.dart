@@ -25,7 +25,7 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
             backgroundColor: Colors.white,
             appBar: AppBar(
               title: Text(
-                'Interests and LifeStyle',
+                'Interests and Lifestyle',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18.sp,
@@ -76,7 +76,7 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
               child: Column(children: [
                 CustomSpacer(flex: 3),
                 Text(
-                    'Select your most preferred Interests',
+                    'Select your most preferred interests',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.cabin(
                         color: Colors.black, fontSize: 16.sp)),

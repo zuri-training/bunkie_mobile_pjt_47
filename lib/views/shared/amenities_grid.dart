@@ -28,12 +28,12 @@ class _AmenitiesGridState extends State<AmenitiesGrid> {
           setState(() => _active = !_active);
         },
         child: Container(
-            width: 90.w,
-            height: 90.h,
-            padding: EdgeInsets.all(16),
+            width: 100.w,
+            height: 100.h,
+            padding: EdgeInsets.all(5.h),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.green),
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(15.r),
               color: _active ? Colors.green[800] : Colors.white,
             ),
             child: Column(

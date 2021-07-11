@@ -128,10 +128,10 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                         child: Column(
                           children: [
                             Text(
-                              widget.user['bio'].length < 1 ?
+                              widget.user['bio'] != "" && widget.user['bio'].length < 1 ?
                               'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple'
                               : widget.user['bio'],
-                              textAlign: TextAlign.justify,
+                              textAlign: TextAlign.center,
                               style: GoogleFonts.cabin(
                                 fontSize: 13.sp,
                                 color: Colors.white,
@@ -144,7 +144,7 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                         
                         
                       ),
-                      CustomSpacer(flex: 19),
+                      CustomSpacer(flex: 15),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.h),
                         child: Row(

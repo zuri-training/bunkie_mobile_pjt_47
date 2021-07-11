@@ -52,18 +52,6 @@ class _EditProfileViewState extends State<EditProfileView> {
   onSubmit() async {
     validateForm();
 
-    try {
-      // Uploading the selected image 
-      await StorageService.storage.ref(filename)
-        .putFile(
-          _image,
-          SettableMetadata(customMetadata: {
-            'uploadedBy': _auth.currentUser!.uid
-          }));
-      } on FirebaseException catch(e) {
-        print(e);
-    }
-
     if (_auth.currentUser != null) {
       await DatabaseService.updateUserData({
         'firstName': _firstNameController.text,
@@ -78,7 +66,7 @@ class _EditProfileViewState extends State<EditProfileView> {
             _universitySelected : userProfile['university'],
         'state': _stateSelected ?? userProfile['state'],
         'age': _ageController.text,
-        'avatar': 'gs://bunkie-54bf1.appspot.com/ggg$_image'
+        // 'avatar': 'gs://bunkie-54bf1.appspot.com/ggg$_image'
       });
     }
     
@@ -503,6 +491,19 @@ class _EditProfileViewState extends State<EditProfileView> {
         });
         
         setState(() => filename = path.basename(pickedImage!.path));
+
+        try {
+          // Uploading the selected image 
+          await StorageService.storage.ref(filename)
+            .putFile(
+              _image,
+              SettableMetadata(customMetadata: {
+                'uploadedBy': _auth.currentUser!.uid
+              }));
+          } on FirebaseException catch(e) {
+            print(e);
+        }
+
 
       } else print('No image selected');
     
