@@ -152,7 +152,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                                 return Column(children: [
                                   Container(
                                     padding: EdgeInsets.only(
-                                        left: 16.w, right: 2.w, bottom: 5.h),
+                                        left: 16.w, right: 2.w, bottom: 15.h),
                                     child: Align(
                                         // If my message, align to the right,
                                         // else align left
@@ -162,14 +162,15 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                                         child: Container(
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(15),
+                                                    BorderRadius.circular(15.r),
                                                 color: doc['idFrom'] == uid
                                                     ? Colors.green[200]
                                                     : Colors.yellow[100]),
-                                            padding: EdgeInsets.all(16),
+                                            padding: EdgeInsets.all(16.h),
                                             child: Text(doc['content'],
                                                 textAlign: TextAlign.center,
                                                 style: GoogleFonts.cabin(
+                                                    fontSize: 15.sp,
                                                     color: Colors.black87)))),
                                   ),
                                   CustomSpacer(flex: 1)
@@ -204,8 +205,8 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                           GestureDetector(
                             onTap: () {},
                             child: Container(
-                              height: 30,
-                              width: 30,
+                              height: 30.h,
+                              width: 30.w,
                               decoration: BoxDecoration(
                                 color: Colors.green[800],
                                 borderRadius: BorderRadius.circular(30),
@@ -217,7 +218,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 15),
+                          SizedBox(width: 15.w),
                           Flexible(
                             fit: FlexFit.loose,
                             child: TextField(
@@ -234,7 +235,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 15),
+                          SizedBox(width: 15.w),
                           FloatingActionButton(
                             backgroundColor: Colors.green[800],
                             onPressed: () => onSend(textController.text),
