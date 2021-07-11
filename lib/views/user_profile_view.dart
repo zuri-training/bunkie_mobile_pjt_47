@@ -73,7 +73,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                           child: Icon(
                             Icons.arrow_back,
                             color: Colors.white,
-                            size: 35.h,
+                            size: 30.h,
                           ),
                         ),
                       ),
@@ -82,7 +82,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                           locator<NavigationService>().pushNamed(MenuViewRoute);
                         },
                         child:
-                            Icon(Icons.menu, color: Colors.white, size: 35.h),
+                            Icon(Icons.menu, color: Colors.white, size: 30.h),
                       ),
                     ],
                   ),
@@ -128,7 +128,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                       Container(
                         child: Text(
                           'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple',
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.justify,
                           style: GoogleFonts.cabin(
                             fontSize: 13.sp,
                             color: Colors.white,
@@ -136,7 +136,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                           ),
                         ),
                       ),
-                      CustomSpacer(flex: 10),
+                      CustomSpacer(flex: 15),
                       Container(
                           alignment: Alignment.topRight,
                           child: GestureDetector(

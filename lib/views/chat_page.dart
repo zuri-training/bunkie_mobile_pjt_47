@@ -1,4 +1,3 @@
-
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -79,6 +78,13 @@ class _ChatPageViewState extends State<ChatPageView> {
                       padding: EdgeInsets.only(right: 20.w, top: 5.w),
                       child: GestureDetector(
                           onTap: () {},
+                          child: Icon(Icons.person_add,
+                              size: 25, color: Colors.white)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 20.w, top: 5.w),
+                      child: GestureDetector(
+                          onTap: () {},
                           child: Icon(Icons.more_vert_sharp,
                               size: 25, color: Colors.white)),
                     ),
@@ -112,7 +118,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                                   // All users in collection
                                   var allUsers = snapshot1.data!.docs;
                                   var messageData = snapshot2.data!.docs;
-                                  
+
                                   // List to hold user IDs in conversations
                                   List userIdsInConvo = [];
 
@@ -120,21 +126,25 @@ class _ChatPageViewState extends State<ChatPageView> {
                                     shrinkWrap: true,
                                     itemCount: messageData.length,
                                     separatorBuilder: (context, index) =>
-                                      Divider(
-                                        color: Colors.black,
-                                        height: 0,
-                                        thickness: 1,
-                                        indent: 80,
-                                      ),
+                                        Divider(
+                                      color: Colors.black,
+                                      height: 0,
+                                      thickness: 1,
+                                      indent: 80,
+                                    ),
                                     itemBuilder: (context, index) {
-                                      var lastMsg = messageData[index]['lastMessage'];
+                                      var lastMsg =
+                                          messageData[index]['lastMessage'];
 
                                       // Add IDs of the two users in conversation to list
-                                      userIdsInConvo.addAll([lastMsg['idTo'], lastMsg['idFrom']]);
+                                      userIdsInConvo.addAll(
+                                          [lastMsg['idTo'], lastMsg['idFrom']]);
 
                                       allUsers.forEach((element) {
-                                        if (element['id'] != _auth.currentUser()!.uid && 
-                                            userIdsInConvo.contains(element['id'])) {            
+                                        if (element['id'] !=
+                                                _auth.currentUser()!.uid &&
+                                            userIdsInConvo
+                                                .contains(element['id'])) {
                                           name = element['firstName'];
                                           contact = element;
                                         }
@@ -146,7 +156,8 @@ class _ChatPageViewState extends State<ChatPageView> {
                                                 ['lastMessage.content']
                                             .trim(),
                                         // imageUrl: data[index]['photoURL'],
-                                        time: messageData[index]['lastMessage.timestamp'],
+                                        time: messageData[index]
+                                            ['lastMessage.timestamp'],
                                         messageRead: (index == 0 || index == 3)
                                             ? true
                                             : false,

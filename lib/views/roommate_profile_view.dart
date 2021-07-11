@@ -75,7 +75,7 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                           child: Icon(
                             Icons.arrow_back,
                             color: Colors.white,
-                            size: 35.h,
+                            size: 30.h,
                           ),
                         ),
                       ),
@@ -84,7 +84,7 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                           locator<NavigationService>().pushNamed(MenuViewRoute);
                         },
                         child:
-                            Icon(Icons.menu, color: Colors.white, size: 35.0.h),
+                            Icon(Icons.menu, color: Colors.white, size: 30.0.h),
                       ),
                     ],
                   ),
@@ -131,7 +131,7 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                               widget.user['bio'].length < 1 ?
                               'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple'
                               : widget.user['bio'],
-                              textAlign: TextAlign.center,
+                              textAlign: TextAlign.justify,
                               style: GoogleFonts.cabin(
                                 fontSize: 13.sp,
                                 color: Colors.white,
@@ -144,7 +144,7 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                         
                         
                       ),
-                      CustomSpacer(flex: 10),
+                      CustomSpacer(flex: 19),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.h),
                         child: Row(

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/services/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -50,15 +51,14 @@ class _AmenitiesViewState extends State<AmenitiesView> {
                   width: 6.w,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    boxShadow: [BoxShadow(
-                      color: Colors.green.withAlpha(90),
-                      blurRadius: 2,
-                    )],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.green.withAlpha(90),
+                        blurRadius: 2,
+                      )
+                    ],
                   ),
-                  child: Icon(
-                    Icons.arrow_back,
-                    size: 25.w
-                  ),   
+                  child: Icon(Icons.arrow_back, size: 25.w),
                 ),
               ),
               actions: [
@@ -83,9 +83,9 @@ class _AmenitiesViewState extends State<AmenitiesView> {
               physics: BouncingScrollPhysics(),
               child:
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                CustomSpacer(flex: 5),
+                CustomSpacer(flex: 3),
                 Text(
-                    'What amenities would you like to have \nin your new room',
+                    'What amenities would you like to have \nin your new room?',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.cabin(
                         color: Colors.black, fontSize: 16.sp)),
@@ -95,42 +95,54 @@ class _AmenitiesViewState extends State<AmenitiesView> {
                         EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
                     child: Column(children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AmenitiesGrid(
-                              icon: 'assets/images/misc/running_water_icon.png',
+                              icon: 'assets/images/misc/tap_icon.png',
                               amenity: 'Water'),
+                          CustomSpacer(flex: 1, horizontal: true),
                           AmenitiesGrid(
-                              icon: 'assets/images/misc/electricity_icon.png',
+                              icon: 'assets/images/misc/power_icon.png',
                               amenity: 'Electricity'),
+                          CustomSpacer(flex: 1, horizontal: true),
                           AmenitiesGrid(
-                              icon: 'assets/images/misc/wardrobe_icon.png',
+                              icon: 'assets/images/misc/WardR_icon.png',
                               amenity: 'Wardrobe'),
                         ],
                       ),
-                      Row(children: [
-                        AmenitiesGrid(
-                            icon: 'assets/images/misc/fan_icon.png',
-                            amenity: 'Fan'),
-                        AmenitiesGrid(
-                            icon: 'assets/images/misc/pot_icon.png',
-                            amenity: 'Kitchen'),
-                        AmenitiesGrid(
-                          icon: 'assets/images/misc/toilet_bottom_icon.png',
-                          amenity: 'Toilet',
-                          spacer: 4,
-                        ),
-                      ]),
-                      Row(children: [
-                        AmenitiesGrid(
-                            icon: 'assets/images/misc/bathroom_icon.png',
-                            amenity: 'Bathroom'),
-                        AmenitiesGrid(
-                            icon: 'assets/images/misc/ac_icon.png',
-                            amenity: 'A/C'),
-                        AmenitiesGrid(
-                            icon: 'assets/images/misc/parking_icon.png',
-                            amenity: 'Parking'),
-                      ])
+                      CustomSpacer(flex: 1),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AmenitiesGrid(
+                                icon: 'assets/images/misc/E_fan_icon.png',
+                                amenity: 'Fan'),
+                            CustomSpacer(flex: 1, horizontal: true),
+                            AmenitiesGrid(
+                                icon: 'assets/images/misc/kitchen_icon.png',
+                                amenity: 'Kitchen'),
+                            CustomSpacer(flex: 1, horizontal: true),
+                            AmenitiesGrid(
+                              icon: 'assets/images/misc/toilet_icon.png',
+                              amenity: 'Toilet',
+                            ),
+                          ]),
+                      CustomSpacer(flex: 1),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AmenitiesGrid(
+                                icon: 'assets/images/misc/batR_icon.png',
+                                amenity: 'Bathroom'),
+                            CustomSpacer(flex: 1, horizontal: true),
+                            AmenitiesGrid(
+                                icon: 'assets/images/misc/Acc_icon.png',
+                                amenity: 'A/C'),
+                            CustomSpacer(flex: 1, horizontal: true),
+                            AmenitiesGrid(
+                                icon: 'assets/images/misc/C_park_icon.png',
+                                amenity: 'Parking'),
+                          ])
                     ])),
                 CustomSpacer(flex: 6),
                 CustomButton(
