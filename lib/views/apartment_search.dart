@@ -2,6 +2,7 @@
 
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/views/shared/shared.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +16,9 @@ class ApartmentSearchView extends StatefulWidget {
 }
 
 class _ApartmentSearchViewState extends State<ApartmentSearchView> {
+  
+  CollectionReference firestoreUsers =
+      FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +62,7 @@ class _ApartmentSearchViewState extends State<ApartmentSearchView> {
                         fontSize: 18.sp,
                       ),
                     ),
-                    CustomCarousel(images: 'images/apartments'),
+                    CustomCarousel(images: 'images/apartments', collection: firestoreUsers),
                   ],
                 ),
               ),
