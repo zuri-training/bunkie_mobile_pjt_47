@@ -87,7 +87,7 @@ class _SearchViewState extends State<SearchView> {
                     Column(
                       children: [
                         CustomSearchableDropdown(
-                          hintText: 'University', 
+                          hintText: 'Select University', 
                           items: Universities,
                           onChanged: (val) => setState(() => 
                             _selectedUniversity = val),
