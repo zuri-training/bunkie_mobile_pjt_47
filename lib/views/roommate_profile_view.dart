@@ -27,7 +27,6 @@ class RoommateProfileView extends StatefulWidget {
 }
 
 class _RoommateProfileViewState extends State<RoommateProfileView> {
-
   AuthService _authService = AuthService();
   User? loggedInUser;
 
@@ -125,25 +124,20 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                       ),
                       CustomSpacer(flex: 1),
                       Container(
-                        child: Column(
-                          children: [
-                            Text(
-                              widget.user['bio'] != "" && widget.user['bio'].length < 1 ?
-                              'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple'
+                          child: Column(children: [
+                        Text(
+                          widget.user['bio'] == "" || widget.user['bio'] == null
+                              ? 'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple'
                               : widget.user['bio'],
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.cabin(
-                                fontSize: 13.sp,
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                            CustomSpacer(flex: 2)
-                          ]
-                        )
-                        
-                        
-                      ),
+                          textAlign: TextAlign.justify,
+                          style: GoogleFonts.cabin(
+                            fontSize: 13.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        CustomSpacer(flex: 2)
+                      ])),
                       CustomSpacer(flex: 15),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.h),
@@ -180,9 +174,8 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                       Container(
                         alignment: Alignment.center,
                         child: CustomButton(
-                          text: 'Message',
-                          onPressed: () => createConversation(context)
-                        ),
+                            text: 'Message',
+                            onPressed: () => createConversation(context)),
                       ),
                     ],
                   ),
@@ -198,13 +191,14 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
 
   void createConversation(BuildContext context) {
     String convoID = Helpers.getConvoID(loggedInUser!.uid, widget.user['id']);
-    
+
     Navigator.of(context).push(MaterialPageRoute(
         builder: (BuildContext context) => ChatDetailView(
               uid: loggedInUser!.uid,
               contact: widget.user,
               convoID: convoID,
-              photoURL: widget.user['avatar'] ?? 'https://i.pravatar.cc/150?img=1',
+              photoURL:
+                  widget.user['avatar'] ?? 'https://i.pravatar.cc/150?img=1',
             )));
   }
 }
