@@ -29,7 +29,7 @@ class _SignUpViewState extends State<SignUpView> with WidgetsBindingObserver {
       email: _emailController.text, 
       password: _passwordController.text,
       firstName: _firstNameController.text,
-      lastName: _lastNameController.text
+      lastName: _lastNameController.text,
     ).then((value) {
       if (value != null) {
         locator<NavigationService>()
@@ -40,7 +40,9 @@ class _SignUpViewState extends State<SignUpView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWidget(builder: (context, size) {
+    return ResponsiveWidget(
+      onWillPop: () => locator<NavigationService>().goBack(),
+      builder: (context, size) {
       return Scaffold(
         body: SingleChildScrollView(
           child: Padding(
@@ -72,7 +74,7 @@ class _SignUpViewState extends State<SignUpView> with WidgetsBindingObserver {
                           child: CustomTextFormField(
                             hintText: 'First Name',
                             controller: _firstNameController,
-                            width: 150,
+                            width: 150.w,
                           ),
                         ),
                         CustomSpacer(flex: 2, horizontal: true),
@@ -80,13 +82,12 @@ class _SignUpViewState extends State<SignUpView> with WidgetsBindingObserver {
                           child: CustomTextFormField(
                             hintText: 'Last Name',
                             controller: _lastNameController,
-                            width: 150
+                            width: 150.w
                           ),
                         ),
                         
                       ],
                     ),
-                    
                     CustomSpacer(flex: 5),
                     CustomTextFormField(
                       hintText: 'Enter Email',
@@ -130,5 +131,13 @@ class _SignUpViewState extends State<SignUpView> with WidgetsBindingObserver {
         ),
       );
     });
+  }
+
+  void dispose() {
+    super.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _passwordController.dispose();
+    _emailController.dispose();
   }
 }

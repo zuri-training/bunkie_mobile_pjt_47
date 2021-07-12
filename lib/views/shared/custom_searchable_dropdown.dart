@@ -39,7 +39,7 @@ class _CustomSearchableDropdownState extends State<CustomSearchableDropdown> {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.lightGreen),
+          borderSide: BorderSide(color: Colors.green),
         )
       ),
       searchBoxDecoration: InputDecoration(

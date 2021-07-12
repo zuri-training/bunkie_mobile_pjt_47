@@ -1,9 +1,8 @@
-import 'package:bunkie/models/user.dart';
-import 'package:bunkie/services/auth_service.dart';
-import 'package:bunkie/services/firestore_service.dart';
-import 'package:bunkie/services/navigation_service.dart';
+import 'package:bunkie/services/services.dart';
 import 'package:bunkie/utils/constants.dart';
 import 'package:bunkie/utils/locator.dart';
+import 'package:bunkie/views/shared/custom_searchable_dropdown.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,55 +14,37 @@ class ProfileCreate extends StatefulWidget {
 }
 
 class _ProfileCreateState extends State<ProfileCreate> {
-  /// Temporary list to test out dropdown functionality.
-  /// To be replaced by backend data.
-  List _states = [
-    'Cross River',
-    'Akwa Ibom',
-    'Kaduna',
-    'Kano',
-    'Zamfara',
-    'Kogi',
-    'Kwara'
-  ];
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
-  ///
-  List _unis = [
-    'University of Port-Harcourt',
-    'University of Calabar',
-    'University of Abuja',
-    'University of Lagos',
-    'University of Uyo',
-  ];
+  var _selectedState;
+  var _selectedUni;
+  var _selectedLevel;
+  var _selectedFaculty;
 
-  AuthService _auth = AuthService();
-  FireStoreService _firestore = FireStoreService();
-
-  var _currentSelectedState;
-  var _currentSelectedUni;
-
-  int _groupValue = -1;
+  int _groupValue = 0;
 
   TextEditingController _controller = TextEditingController();
   TextEditingController _facultyController = TextEditingController();
-  TextEditingController _levelController = TextEditingController();
-  TextEditingController _religionController = TextEditingController();
-  TextEditingController _ethnicityController = TextEditingController();
   String filter = '';
 
-  createProfile() async {
-    if (_auth.currentUser() != null) {
-      await _firestore.createUser(CustomUser(
-          faculty: _facultyController.text,
-          level: _levelController.text,
-          religion: _religionController.text,
-          ethnicity: _ethnicityController.text,
-          gender: _groupValue == 0 ? 'Male' : 'Female',
-          university: _currentSelectedUni,
-          state: _currentSelectedState));
-    }
-  }
+  List<String> level = ['Pre-Degree', '100', '200', '300', '400', '500', '600'];
 
+  onSubmit() async {
+
+    if (_auth.currentUser != null) {
+      await DatabaseService.updateUserData({
+        'faculty': _facultyController.text.isEmpty ?
+          _selectedFaculty : _facultyController.text,
+        'level': _selectedLevel,
+        'university': _selectedUni,
+        'state': _selectedState,
+        'gender': _groupValue == 0 ? 'male' : 'female',
+        // 'avatar': 'gs://bunkie-54bf1.appspot.com/ggg$_image'
+      });
+    }
+    
+  }
+  
   @override
   void initState() {
     super.initState();
@@ -77,6 +58,7 @@ class _ProfileCreateState extends State<ProfileCreate> {
   void dispose() {
     super.dispose();
     _controller.dispose();
+    _facultyController.dispose();
   }
 
   @override
@@ -91,55 +73,98 @@ class _ProfileCreateState extends State<ProfileCreate> {
               'Profile',
               style: GoogleFonts.cabin(
                 fontSize: 20.sp,
-                color: Colors.black,
+                color: Colors.green,
               ),
             ),
           ),
           Padding(
             padding: EdgeInsets.only(right: 50.w, left: 50.w, top: 15.h),
             child: Text("Let's get to know you!",
-                style: GoogleFonts.cabin(color: Colors.black)),
+                style: GoogleFonts.cabin(color: Colors.green)),
           ),
           SizedBox(height: 20.h),
           Form(
               child: Column(
             children: [
-              /*Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'First Name',
-                                labelStyle: GoogleFonts.cabin(
-                                  fontSize: 14.sp,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.green)
-                                )
+              SizedBox(height: 10.h),
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 15.w,
+                  ),
+                  child: CustomSearchableDropdown(
+                      hintText: 'Select state',
+                      items: StatesInNigeria,
+                      onChanged: (newValue) =>
+                          setState(() => _selectedState = newValue))),
+              SizedBox(height: 10.h),
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 15.w,
+                  ),
+                  child: CustomSearchableDropdown(
+                      hintText: 'Select university',
+                      items: Universities,
+                      onChanged: (newValue) =>
+                          setState(() => _selectedUni = newValue))),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                child: FormField(
+                    // Dropdown
+                    builder: (FormFieldState<String> state) {
+                  return InputDecorator(
+                    decoration: InputDecoration(
+                        hintText: 'Select Faculty/School',
+                        hintStyle: GoogleFonts.cabin(fontSize: 14.sp),
+                        labelText: 'Faculty/School',
+                        labelStyle: GoogleFonts.cabin(
+                          fontSize: 14.sp,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.green),
+                        )),
+                    isEmpty: _selectedFaculty == '',
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                          value: _selectedFaculty,
+                          isDense: true,
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedFaculty = newValue.toString();
+                              state.didChange(newValue);
+                            });
+                          },
+                          items: Faculties.map((value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: GoogleFonts.cabin(),
                               ),
-                            )
+                            );
+                          }).toList()),
+                    ),
+                  );
+                }),
+              ),
+              _selectedFaculty == 'Others' ?
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 15.w,
+                  ),
+                  child: TextFormField(
+                      controller: _facultyController,
+                      decoration: InputDecoration(
+                          labelText: 'Please specify faculty',
+                          labelStyle: GoogleFonts.cabin(
+                            fontSize: 14.sp,
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Last Name',
-                                labelStyle: GoogleFonts.cabin(
-                                  fontSize: 14.sp,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.green)
-                                )
-                              )
-                            ),
-                          )
-                        ],
-                      ),*/
-              SizedBox(height: 10.h),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.green),
+                          ))),
+                ) : Container(),
+              SizedBox(height: _selectedFaculty == 'Others' ? 10.h : 0.h),
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: 15.w,
@@ -149,7 +174,9 @@ class _ProfileCreateState extends State<ProfileCreate> {
                     builder: (FormFieldState<String> state) {
                   return InputDecorator(
                     decoration: InputDecoration(
-                        labelText: 'State',
+                        hintText: 'Select Level',
+                        hintStyle: GoogleFonts.cabin(fontSize: 14.sp),
+                        labelText: 'Level',
                         labelStyle: GoogleFonts.cabin(
                           fontSize: 14.sp,
                         ),
@@ -157,18 +184,18 @@ class _ProfileCreateState extends State<ProfileCreate> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Colors.green),
                         )),
-                    isEmpty: _currentSelectedState == '',
+                    isEmpty: _selectedLevel == '',
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
-                          value: _currentSelectedState,
+                          value: _selectedLevel,
                           isDense: true,
                           onChanged: (newValue) {
                             setState(() {
-                              _currentSelectedState = newValue;
+                              _selectedLevel = newValue.toString();
                               state.didChange(newValue);
                             });
                           },
-                          items: _states.map((value) {
+                          items: level.map((value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(
@@ -180,108 +207,6 @@ class _ProfileCreateState extends State<ProfileCreate> {
                     ),
                   );
                 }),
-              ),
-              SizedBox(height: 10.h),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 15.w,
-                ),
-                child: FormField(
-                    // Dropdown
-                    builder: (FormFieldState<String> state) {
-                  return InputDecorator(
-                    decoration: InputDecoration(
-                        labelText: 'University',
-                        labelStyle: GoogleFonts.cabin(
-                          fontSize: 14.sp,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.green),
-                        )),
-                    isEmpty: _currentSelectedUni == '',
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                          value: _currentSelectedUni,
-                          isDense: true,
-                          onChanged: (newValue) {
-                            setState(() {
-                              _currentSelectedUni = newValue;
-                              state.didChange(newValue);
-                            });
-                          },
-                          items: _unis.map((value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: GoogleFonts.cabin(),
-                              ),
-                            );
-                          }).toList()),
-                    ),
-                  );
-                }),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-                child: TextFormField(
-                  controller: _facultyController,
-                  decoration: InputDecoration(
-                      labelText: 'Faculty',
-                      labelStyle: GoogleFonts.cabin(
-                        fontSize: 14.sp,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.green),
-                      )),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 15.w,
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Level',
-                      labelStyle: GoogleFonts.cabin(
-                        fontSize: 14.sp,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.green),
-                      )),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      labelText: 'Religion',
-                      labelStyle: GoogleFonts.cabin(
-                        fontSize: 14.sp,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.green),
-                      )),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 15.w,
-                ),
-                child: TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Ethnicity',
-                        labelStyle: GoogleFonts.cabin(
-                          fontSize: 14.sp,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.green),
-                        ))),
               ),
               SizedBox(height: 20.h),
             ],
@@ -313,7 +238,7 @@ class _ProfileCreateState extends State<ProfileCreate> {
             width: 200.w,
             child: ElevatedButton(
                 onPressed: () {
-                  createProfile();
+                  onSubmit();
                   locator<NavigationService>().pushNamed(SelectionViewRoute);
                 },
                 style: ButtonStyle(

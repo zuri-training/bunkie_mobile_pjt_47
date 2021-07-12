@@ -338,7 +338,10 @@ class _MenuViewState extends State<MenuView> {
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(horizontal: 10.w),
                                     child: GestureDetector(
-                                      onTap: () => _authService.signOut(),
+                                      onTap: () {
+                                        _authService.signOut();
+                                        locator<NavigationService>().popAndPushNamed(LoginViewRoute);
+                                      },
                                       child: Text(
                                         'Log out',
                                         textAlign: TextAlign.center,

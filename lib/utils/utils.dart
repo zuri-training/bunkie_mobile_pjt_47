@@ -7,3 +7,4 @@ export 'package:bunkie/utils/helpers.dart';
 export 'package:bunkie/utils/universities.dart';
 export 'package:bunkie/utils/states_in_nigeria.dart';
 export 'package:bunkie/utils/capitalize.dart';
+export 'package:bunkie/utils/faculties.dart';
