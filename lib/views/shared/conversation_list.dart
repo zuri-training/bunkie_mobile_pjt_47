@@ -46,8 +46,8 @@ class _ConversationListState extends State<ConversationList> {
                   child: Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          widget.imageUrl ?? 'https://i.pravatar.cc/150?img=1',
+                        backgroundImage: AssetImage(
+                          widget.imageUrl ?? 'assets/images/roommates/roommate1.jpeg',
                         ),
                         maxRadius: 26,
                       ),
@@ -110,7 +110,7 @@ class _ConversationListState extends State<ConversationList> {
               uid: widget.uid,
               contact: widget.contact,
               convoID: convoID,
-              photoURL: widget.imageUrl ?? 'https://i.pravatar.cc/150?img=1',
+              photoURL: widget.imageUrl ?? 'assets/images/roommates/roommate1.jpeg',
             )));
   }
 }

@@ -151,14 +151,16 @@ class _ChatPageViewState extends State<ChatPageView> {
                                     itemBuilder: (context, index) {
                                       var lastMsg =
                                           messageData[index]['lastMessage'];
+                                      print('LAST MESG: $lastMsg - ${lastMsg['idTo']}');
 
                                       // Add IDs of the two users in conversation to list
-                                      userIdsInConvo.addAll(
-                                          [lastMsg['idTo'], lastMsg['idFrom']]);
+                                      userIdsInConvo = [lastMsg['idTo'], lastMsg['idFrom']];
+                                      print(userIdsInConvo);
 
                                       allUsers.forEach((element) {
                                         if (element['id'] != _auth.currentUser()!.uid 
                                           && userIdsInConvo.contains(element['id'])) {
+                                          print('NAME: ${element['firstName']} ${element['id']}');
                                           name = element['firstName'];
                                           contact = element;
                                         }
