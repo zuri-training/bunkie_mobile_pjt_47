@@ -308,7 +308,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                                       width: 30,
                                       child: TextFormField(
                                         validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
-                                        controller: _ageController..text = userProfile['age'],
+                                        controller: _ageController..text = userProfile['age'] ?? "",
                                         decoration: InputDecoration(
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide:
@@ -411,7 +411,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                               CustomSpacer(flex: 2),
                               Container(
                                 child: TextFormField(
-                                  controller: _aboutYouController..text = userProfile['bio'],
+                                  controller: _aboutYouController..text = userProfile['bio'] ?? "",
                                   validator: (val) => val!.isEmpty ? 'Enter a valid text' : null,
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
