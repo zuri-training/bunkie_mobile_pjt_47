@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'models/user_presence.dart';
 import 'views/shared/dismiss_keyboard.dart';
 
 void main() {
@@ -55,6 +56,7 @@ class _BunkieAppState extends State<BunkieApp> {
             final FirebaseAuth _auth = FirebaseAuth.instance;
             if (_auth.currentUser != null) {
               print('User is registered');
+              UserPresence.rtDbAndLocalPresence(Firebase.app());
               _isLoggedIn = true;
             }
             _auth.authStateChanges().listen((User? user) {

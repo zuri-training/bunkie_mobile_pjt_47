@@ -34,7 +34,7 @@ class _EditProfileViewState extends State<EditProfileView> {
   String? filename;
 
   FirebaseAuth _auth = FirebaseAuth.instance;
-  FireStoreService _firestoreService = FireStoreService();
+  FirestoreService _firestoreService = FirestoreService();
 
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();

@@ -26,7 +26,7 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
             appBar: AppBar(
               title: Text(
                 'Interests and Lifestyle',
-                style: TextStyle(
+                style: GoogleFonts.cabin(
                   color: Colors.white,
                   fontSize: 18.sp,
                 ),
@@ -53,16 +53,16 @@ class _InterestsAndLifeStyleViewState extends State<InterestsAndLifeStyleView> {
               ),
               actions: [
                 Padding(
-                  padding: EdgeInsets.only(right: 20.w, top: 20.w),
+                  padding: EdgeInsets.only(right: 20.w, top: 20.h),
                   child: GestureDetector(
                     onTap: () {
                       locator<NavigationService>()
-                          .pushNamed(AmenitiesViewRoute);
+                          .pushReplacementNamed(AmenitiesViewRoute);
                     },
                     child: Text(
                       'Next',
-                      style: TextStyle(
-                        fontSize: 15,
+                      style: GoogleFonts.cabin(
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

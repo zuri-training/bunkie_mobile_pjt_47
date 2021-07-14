@@ -17,7 +17,7 @@ class LookingForApartmentView extends StatefulWidget {
 
 class _LookingForApartmentViewState extends State<LookingForApartmentView> {
   AuthService _authService = AuthService();
-  FireStoreService _fireStoreService = FireStoreService();
+  FirestoreService _firestoreService = FirestoreService();
   User? loggedInUser;
   String? firstname;
   @override
@@ -89,7 +89,7 @@ class _LookingForApartmentViewState extends State<LookingForApartmentView> {
                   ),
                   StreamBuilder(
                       stream:
-                          _fireStoreService.getUserFirstName(loggedInUser!.uid),
+                          _firestoreService.getUserFirstName(loggedInUser!.uid),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           log('User is null');

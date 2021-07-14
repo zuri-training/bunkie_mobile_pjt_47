@@ -39,9 +39,10 @@ class _SettingsViewState extends State<SettingsView> {
             appBar: AppBar(
                 title: Text(
                   'Settings',
-                  style: TextStyle(
+                  style: GoogleFonts.cabin(
                     color: Colors.white,
                     fontSize: 18.sp,
+                    fontWeight: FontWeight.w600
                            ),
                 ),
                 centerTitle: true,
@@ -124,7 +125,7 @@ class _SettingsViewState extends State<SettingsView> {
                                       child: Text(
                                         'Update Profile',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 17.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,
@@ -161,7 +162,7 @@ class _SettingsViewState extends State<SettingsView> {
                                       child: Text(
                                         'Verification',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 17.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,
@@ -192,13 +193,13 @@ class _SettingsViewState extends State<SettingsView> {
                                         EdgeInsets.symmetric(horizontal: 10.w),
                                     child: GestureDetector(
                                       onTap: () {
-                                        locator<NavigationService>().pushNamed(
+                                        locator<NavigationService>().pushReplacementNamed(
                                             RoommatePreferencesViewRoute);
                                       },
                                       child: Text(
                                         'Preferences, Interests & Lifestyle',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 17.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,
@@ -230,7 +231,7 @@ class _SettingsViewState extends State<SettingsView> {
                                     child: Text(
                                       'Privacy and Security',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: GoogleFonts.cabin(
                                         fontSize: 17.sp,
                                         color: Colors.green[800],
                                         fontWeight: FontWeight.bold,
@@ -266,7 +267,7 @@ class _SettingsViewState extends State<SettingsView> {
                                       child: Text(
                                         'Notification Settings',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 17.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,

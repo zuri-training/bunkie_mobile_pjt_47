@@ -5,7 +5,7 @@ import 'package:bunkie/models/user.dart';
 
 class AuthService{
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FireStoreService _fireStoreService = FireStoreService();
+  final FirestoreService _fireStoreService = FirestoreService();
   User? _currentUser;
 
   User? get activeUser => _currentUser;

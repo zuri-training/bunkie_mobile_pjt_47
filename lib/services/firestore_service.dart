@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:bunkie/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FireStoreService {
+class FirestoreService {
   final CollectionReference _users =
       FirebaseFirestore.instance.collection("users");
 

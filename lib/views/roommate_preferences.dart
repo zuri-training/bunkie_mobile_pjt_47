@@ -24,7 +24,7 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
             appBar: AppBar(
               title: Text(
                 'Preferences',
-                style: TextStyle(
+                style: GoogleFonts.cabin(
                   color: Colors.white,
                   fontSize: 18.sp,
                 ),
@@ -51,16 +51,16 @@ class _RoommatePreferencesViewState extends State<RoommatePreferencesView> {
               ),
               actions: [
                 Padding(
-                  padding: EdgeInsets.only(right: 20.w, top: 17.h),
+                  padding: EdgeInsets.only(right: 20.w, top: 20.h),
                   child: GestureDetector(
                     onTap: () {
                       locator<NavigationService>()
-                          .pushNamed(InterestsAndLifestyleViewRoute);
+                          .pushReplacementNamed(InterestsAndLifestyleViewRoute);
                     },
                     child: Text(
                       'Next',
-                      style: TextStyle(
-                        fontSize: 15.sp,
+                      style: GoogleFonts.cabin(
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

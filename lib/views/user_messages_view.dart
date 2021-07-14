@@ -357,7 +357,7 @@ class _UserMessagesViewState extends State<UserMessagesView> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         StreamBuilder(
-                                            stream: locator<FireStoreService>()
+                                            stream: locator<FirestoreService>()
                                                 .getUserFirstAndLastName(
                                                     loggedInUser!.uid),
                                             builder: (context,

@@ -26,7 +26,7 @@ class _FullNameStreamState extends State<FullNameStream> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: locator<FireStoreService>()
+        stream: locator<FirestoreService>()
             .getUserFirstAndLastName(widget.loggedInUser.uid),
         builder: (context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) {
