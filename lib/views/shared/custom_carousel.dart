@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/utils/utils.dart';
 import 'package:bunkie/views/shared/shared.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
 
   var _currentUserSelected;
   var allUsers;
+  String? imageUrl;
 
   AuthService _auth = AuthService();
 
@@ -105,6 +107,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
                     child: CarouselSlider.builder(
                       itemCount: allUsers.length,
                       itemBuilder: (ctx, index, realIdx) {
+                        imageUrl = allUsers[currentIndex]['avatar'] ?? _images[0];
                         return GestureDetector(
                             onTap: () {
                               setState(() => circleIndex = index);
@@ -115,7 +118,9 @@ class _CustomCarouselState extends State<CustomCarousel> {
                               child: CircleAvatar(
                                   minRadius: 50,
                                   maxRadius: 70,
-                                  backgroundImage: AssetImage(_images[0])),
+                                  backgroundImage: CachedNetworkImageProvider(
+                                    imageUrl!),
+                                )
                             ));
                       },
                       options: CarouselOptions(
@@ -153,7 +158,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
                                           borderRadius:
                                               BorderRadius.circular(15.0),
                                           image: DecorationImage(
-                                              image: AssetImage(_images[0]),
+                                              image: CachedNetworkImageProvider(imageUrl!),
                                               fit: BoxFit.cover)),
                                       child: Column(children: [
                                         CustomSpacer(flex: 2),

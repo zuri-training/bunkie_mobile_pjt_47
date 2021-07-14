@@ -37,9 +37,10 @@ class _AmenitiesViewState extends State<AmenitiesView> {
             appBar: AppBar(
               title: Text(
                 'Amenities',
-                style: TextStyle(
+                style: GoogleFonts.cabin(
                   color: Colors.white,
                   fontSize: 18.sp,
+                  fontWeight: FontWeight.w600
                 ),
               ),
               centerTitle: true,
@@ -63,15 +64,15 @@ class _AmenitiesViewState extends State<AmenitiesView> {
               ),
               actions: [
                 Padding(
-                  padding: EdgeInsets.only(right: 20.w, top: 20.w),
+                  padding: EdgeInsets.only(right: 20.w, top: 20.h),
                   child: GestureDetector(
                     onTap: () {
-                      locator<NavigationService>().pushNamed(SettingsViewRoute);
+                      locator<NavigationService>().pushReplacementNamed(SettingsViewRoute);
                     },
                     child: Text(
                       'Done',
-                      style: TextStyle(
-                        fontSize: 15,
+                      style: GoogleFonts.cabin(
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

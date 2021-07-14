@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
@@ -32,9 +33,10 @@ class _EditProfileViewState extends State<EditProfileView> {
   final _picker = ImagePicker();
   var _image = File('');
   String? filename;
+  String? downloadUrl;
 
   FirebaseAuth _auth = FirebaseAuth.instance;
-  FireStoreService _firestoreService = FireStoreService();
+  FirestoreService _firestoreService = FirestoreService();
 
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
@@ -48,6 +50,22 @@ class _EditProfileViewState extends State<EditProfileView> {
 
   onSubmit() async {
     validateForm();
+
+    try {
+          // Uploading the selected image
+          TaskSnapshot snapshot = await StorageService.storage.ref()
+          .child('avatars/${_auth.currentUser!.uid}/$filename')
+          .putFile(
+              _image,
+              SettableMetadata(
+                  customMetadata: {'uploadedBy': _auth.currentUser!.uid}));
+          
+          if (snapshot.state == TaskState.success) {
+            downloadUrl = await snapshot.ref.getDownloadURL();
+          }
+        } on FirebaseException catch (e) {
+          print(e);
+        }
 
     if (_auth.currentUser != null) {
       await DatabaseService.updateUserData({
@@ -64,7 +82,7 @@ class _EditProfileViewState extends State<EditProfileView> {
             : userProfile['university'],
         'state': _stateSelected ?? userProfile['state'],
         'age': _ageController.text,
-        // 'avatar': 'gs://bunkie-54bf1.appspot.com/ggg$_image'
+        'avatar': downloadUrl
       });
     }
   }
@@ -126,10 +144,10 @@ class _EditProfileViewState extends State<EditProfileView> {
               body: Form(
                 key: _formKey,
                 child: SingleChildScrollView(
-                    child: FutureBuilder(
-                        future:
-                            _firestoreService.getUser(_auth.currentUser!.uid),
-                        builder: (context, AsyncSnapshot snapshot) {
+                    child: StreamBuilder(
+                        stream:
+                          _firestoreService.getUser(_auth.currentUser!.uid),
+                          builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.hasData) {
                             userProfile = snapshot.data;
                           }
@@ -167,18 +185,19 @@ class _EditProfileViewState extends State<EditProfileView> {
                                                             width: 100.w,
                                                             height: 100.h,
                                                             decoration:
-                                                                BoxDecoration(
-                                                              border:
+                                                              BoxDecoration(
+                                                                border:
                                                                   Border.all(
-                                                                color: Color(
+                                                                    color: Color(
                                                                     0xffFDCF09),
-                                                              ),
-                                                              color: Colors
+                                                                  ),
+                                                                color: Colors
                                                                   .grey[200],
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          50),
+                                                                borderRadius:
+                                                                  BorderRadius.circular(50),
+                                                                image: DecorationImage(
+                                                                  image: CachedNetworkImageProvider(userProfile['avatar'])
+                                                                )
                                                             ))),
                                                 Positioned(
                                                   height: 100.h,
@@ -223,6 +242,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                                             children: [
                                               Expanded(
                                                 child: TextFormField(
+                                                  style: GoogleFonts.cabin(),
                                                   onChanged: (text) => {},
                                                   controller:
                                                       _firstNameController
@@ -257,6 +277,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                                                   flex: 4, horizontal: true),
                                               Expanded(
                                                 child: TextFormField(
+                                                  style: GoogleFonts.cabin(),
                                                   onChanged: (text) => {},
                                                   validator: (val) =>
                                                       val!.isEmpty
@@ -344,6 +365,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                                               Container(
                                                 width: 30,
                                                 child: TextFormField(
+                                                  style: GoogleFonts.openSans(),
                                                   validator: (val) =>
                                                       val!.isEmpty
                                                           ? 'Enter a valid text'
@@ -455,6 +477,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                                         CustomSpacer(flex: 2),
                                         Container(
                                           child: TextFormField(
+                                            style: GoogleFonts.cabin(),
                                             controller: _aboutYouController
                                               ..text = userProfile['bio'] ?? "",
                                             validator: (val) => val!.isEmpty
@@ -535,15 +558,7 @@ class _EditProfileViewState extends State<EditProfileView> {
 
         setState(() => filename = path.basename(pickedImage!.path));
 
-        try {
-          // Uploading the selected image
-          await StorageService.storage.ref(filename).putFile(
-              _image,
-              SettableMetadata(
-                  customMetadata: {'uploadedBy': _auth.currentUser!.uid}));
-        } on FirebaseException catch (e) {
-          print(e);
-        }
+        
       } else
         print('No image selected');
     } catch (err) {

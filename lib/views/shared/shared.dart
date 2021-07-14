@@ -9,4 +9,10 @@ export 'package:bunkie/views/shared/add_photos_column.dart';
 export 'package:bunkie/views/shared/custom_textField.dart';
 export 'package:bunkie/views/shared/navigation_bar.dart';
 export 'package:bunkie/views/shared/conversation_list.dart';
+export 'package:bunkie/views/shared/avatar_stream.dart';
+export 'package:bunkie/views/shared/conversation_list.dart';
+export 'package:bunkie/views/shared/full_name_stream.dart';
+export 'package:bunkie/views/shared/custom_carousel.dart';
+export 'package:bunkie/views/shared/custom_searchable_dropdown.dart';
+
 

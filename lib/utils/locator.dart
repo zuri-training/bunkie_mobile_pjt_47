@@ -6,5 +6,5 @@ GetIt locator = GetIt.instance;
 ///Registers dependencies
 void setupLocator() {
   locator.registerLazySingleton(() => NavigationService());
-  locator.registerLazySingleton(() => FireStoreService());
+  locator.registerLazySingleton(() => FirestoreService());
 }

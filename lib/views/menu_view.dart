@@ -39,7 +39,7 @@ class _MenuViewState extends State<MenuView> {
             appBar: AppBar(
                 title: Text(
                   'Menu',
-                  style: TextStyle(
+                  style: GoogleFonts.cabin(
                     color: Colors.white,
                     fontSize: 18.sp,
                   ),
@@ -76,11 +76,7 @@ class _MenuViewState extends State<MenuView> {
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: Row(
                               children: [
-                                CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      'assets/images/landing-page-background.jpg'),
-                                  radius: 25,
-                                ),
+                                AvatarStream(user: loggedInUser!),
                                 // CustomSpacer(flex: 0, horizontal: true),
                                 Container(
                                   alignment: Alignment.topLeft,
@@ -124,7 +120,7 @@ class _MenuViewState extends State<MenuView> {
                                       child: Text(
                                         'Home',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 17.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,
@@ -156,7 +152,7 @@ class _MenuViewState extends State<MenuView> {
                                     child: Text(
                                       'FAQs',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: GoogleFonts.cabin(
                                         fontSize: 17.sp,
                                         color: Colors.green[800],
                                         fontWeight: FontWeight.bold,
@@ -198,7 +194,7 @@ class _MenuViewState extends State<MenuView> {
                                       child: Text(
                                         'Help & Support',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 17.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,
@@ -241,7 +237,7 @@ class _MenuViewState extends State<MenuView> {
                                       child: Text(
                                         'Settings',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 17.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,
@@ -278,7 +274,7 @@ class _MenuViewState extends State<MenuView> {
                                       child: Text(
                                         'TurnOff Visibility',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 17.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,
@@ -310,7 +306,7 @@ class _MenuViewState extends State<MenuView> {
                                     child: Text(
                                       'Invite Friends',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: GoogleFonts.cabin(
                                         fontSize: 17.sp,
                                         color: Colors.green[800],
                                         fontWeight: FontWeight.bold,
@@ -345,7 +341,7 @@ class _MenuViewState extends State<MenuView> {
                                       child: Text(
                                         'Log out',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: GoogleFonts.cabin(
                                           fontSize: 17.sp,
                                           color: Colors.green[800],
                                           fontWeight: FontWeight.bold,
@@ -377,7 +373,7 @@ class _MenuViewState extends State<MenuView> {
                                     child: Text(
                                       'Delete Account',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: GoogleFonts.cabin(
                                         fontSize: 17.sp,
                                         color: Colors.green[800],
                                         fontWeight: FontWeight.bold,

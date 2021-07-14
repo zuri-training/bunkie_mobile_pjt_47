@@ -151,16 +151,16 @@ class _ChatPageViewState extends State<ChatPageView> {
                                     itemBuilder: (context, index) {
                                       var lastMsg =
                                           messageData[index]['lastMessage'];
-                                      print('LAST MESG: $lastMsg - ${lastMsg['idTo']}');
+                                      // print('LAST MESG: $lastMsg - ${lastMsg['idTo']}');
 
                                       // Add IDs of the two users in conversation to list
                                       userIdsInConvo = [lastMsg['idTo'], lastMsg['idFrom']];
-                                      print(userIdsInConvo);
+                                      // print(userIdsInConvo);
 
                                       allUsers.forEach((element) {
                                         if (element['id'] != _auth.currentUser()!.uid 
                                           && userIdsInConvo.contains(element['id'])) {
-                                          print('NAME: ${element['firstName']} ${element['id']}');
+                                          // print('NAME: ${element['firstName']} ${element['id']}');
                                           name = element['firstName'];
                                           contact = element;
                                         }
@@ -171,7 +171,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                                         messageContent: messageData[index]
                                                 ['lastMessage.content']
                                             .trim(),
-                                        // imageUrl: data[index]['photoURL'],
+                                        imageUrl: contact['avatar'],
                                         time: messageData[index]
                                             ['lastMessage.timestamp'] ,
                                         messageRead: (index == 0 || index == 3)

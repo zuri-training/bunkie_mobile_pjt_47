@@ -10,6 +10,8 @@ import 'shared/navigation_bar.dart';
 import 'shared/responsive_widget.dart';
 import 'package:bunkie/utils/utils.dart';
 
+import 'shared/shared.dart';
+
 class SelectionView extends StatefulWidget {
   @override
   _SelectionViewState createState() => _SelectionViewState();
@@ -57,11 +59,7 @@ class _SelectionViewState extends State<SelectionView> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CircleAvatar(
-                              backgroundImage: AssetImage(
-                                  'assets/images/landing-page-background.jpg'),
-                              radius: 25,
-                            ),
+                            AvatarStream(user: loggedInUser!),
                             GestureDetector(
                               onTap: () {
                                 locator<NavigationService>()
@@ -113,8 +111,9 @@ class _SelectionViewState extends State<SelectionView> {
                         ),
                         label: Text(
                           'I need a Roommate',
-                          style: TextStyle(
+                          style: GoogleFonts.cabin(
                             color: Colors.white,
+                            fontWeight: FontWeight.w600
                           ),
                         ),
 
@@ -144,7 +143,12 @@ class _SelectionViewState extends State<SelectionView> {
                           color: Colors.white,
                           size: 23.0,
                         ),
-                        label: Text('I need a Room'),
+                        label: Text(
+                          'I need a Room',
+                          style: GoogleFonts.cabin(
+                            fontWeight: FontWeight.w600
+                          ),
+                        ),
                         onPressed: () {
                           locator<NavigationService>()
                               .pushNamed(SearchRoomViewRoute);

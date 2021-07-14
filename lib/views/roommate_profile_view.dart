@@ -4,8 +4,8 @@ import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/services/services.dart';
 import 'package:bunkie/views/shared/custom_button.dart';
 import 'package:bunkie/views/shared/custom_spacer.dart';
-import 'package:bunkie/views/shared/full_name_stream.dart';
 import 'package:bunkie/views/shared/navigation_bar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -95,15 +95,15 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
-                        backgroundImage: AssetImage(
-                            'assets/images/landing-page-background.jpg'),
+                        backgroundImage: CachedNetworkImageProvider(
+                            widget.user['avatar'] ?? 'assets/images/landing-page-background.jpg'),
                         radius: 25,
                       ),
                       CustomSpacer(flex: 2),
                       Container(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            '${widget.user['firstName']} ${widget.user['lastName']}',
+                            '${capitalize(widget.user['firstName'])} ${capitalize(widget.user['lastName'])}',
                             style: GoogleFonts.cabin(
                                 textStyle: TextStyle(
                                     fontSize: 20.sp,
