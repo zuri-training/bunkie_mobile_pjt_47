@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:bunkie/views/shared/shared.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'shared/avatar_stream.dart';
 import 'shared/custom_spacer.dart';
 
 class SettingsView extends StatefulWidget {
@@ -18,6 +19,9 @@ class _SettingsViewState extends State<SettingsView> {
   AuthService _authService = AuthService();
   User? loggedInUser;
   String? lastname;
+
+  var user;
+  
   @override
   void initState() {
     loggedInUser = _authService.currentUser();
@@ -77,11 +81,7 @@ class _SettingsViewState extends State<SettingsView> {
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: Row(
                               children: [
-                                CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      'assets/images/landing-page-background.jpg'),
-                                  radius: 25,
-                                ),
+                                AvatarStream(user: loggedInUser!),
                                 CustomSpacer(flex: 0, horizontal: true),
                                 Container(
                                   alignment: Alignment.topLeft,

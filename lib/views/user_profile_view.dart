@@ -7,6 +7,7 @@ import 'package:bunkie/services/storage_service.dart';
 import 'package:bunkie/views/shared/custom_spacer.dart';
 import 'package:bunkie/views/shared/full_name_stream.dart';
 import 'package:bunkie/views/shared/navigation_bar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,9 @@ class _UserProfileViewState extends State<UserProfileView> {
   AuthService _authService = AuthService();
   User? loggedInUser;
   String? lastname;
+
+  var user;
+
   @override
   void initState() {
     loggedInUser = _authService.currentUser();
@@ -56,132 +60,141 @@ class _UserProfileViewState extends State<UserProfileView> {
             ),
           ),
           child: SafeArea(
-            child: Column(
-              children: [
-                CustomSpacer(flex: 2),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        alignment: Alignment.topLeft,
-                        child: GestureDetector(
-                          onTap: () {
-                            locator<NavigationService>().goBack();
-                          },
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                            size: 30.h,
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          locator<NavigationService>().pushNamed(MenuViewRoute);
-                        },
-                        child:
-                            Icon(Icons.menu, color: Colors.white, size: 30.h),
-                      ),
-                    ],
-                  ),
-                ),
-                CustomSpacer(flex: 2),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage(
-                            'assets/images/landing-page-background.jpg'),
-                        radius: 25,
-                      ),
-                      CustomSpacer(flex: 2),
-                      Container(
-                        alignment: Alignment.topLeft,
-
-                        child: FullNameStream(
-                          loggedInUser: loggedInUser!,
-                          style: GoogleFonts.cabin(
-                              textStyle: TextStyle(
-                                  fontSize: 20.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal)),
-                        ),
-
-                      ),
-                      CustomSpacer(flex: 2),
-                      Container(
-                        child: Text(
-                          'About:',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.cabin(
-                            fontSize: 13.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ),
-                      CustomSpacer(flex: 1),
-                      Container(
-                        child: Text(
-                          'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple',
-                          textAlign: TextAlign.justify,
-                          style: GoogleFonts.cabin(
-                            fontSize: 13.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ),
-                      CustomSpacer(flex: 15),
-                      Container(
-                          alignment: Alignment.topRight,
-                          child: GestureDetector(
-                            onTap: () => _showPicker(context),
-                            child: Icon(Icons.add_circle_outline,
-                                color: Colors.black, size: 30),
-                          )),
-                      CustomSpacer(flex: 5),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.h),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 120.h,
-                              width: 120.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/landing-page-background.jpg'),
-                                    fit: BoxFit.cover),
+            child: StreamBuilder(
+              stream: locator<FirestoreService>().getUser(loggedInUser!.uid),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  user = snapshot.data;
+                }
+                if (!snapshot.hasData) return Container();
+                return Column(
+                  children: [
+                    CustomSpacer(flex: 2),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            alignment: Alignment.topLeft,
+                            child: GestureDetector(
+                              onTap: () {
+                                locator<NavigationService>().goBack();
+                              },
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                                size: 30.h,
                               ),
                             ),
-                            CustomSpacer(flex: 4, horizontal: true),
-                            Container(
-                              height: 120.h,
-                              width: 120.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.0),
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/landing-page-background.jpg'),
-                                    fit: BoxFit.cover),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              locator<NavigationService>().pushNamed(MenuViewRoute);
+                            },
+                            child:
+                                Icon(Icons.menu, color: Colors.white, size: 30.h),
+                          ),
+                        ],
+                      ),
+                    ),
+                    CustomSpacer(flex: 2),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: CachedNetworkImageProvider(
+                                user['avatar']),
+                            radius: 25,
+                          ),
+                          CustomSpacer(flex: 2),
+                          Container(
+                            alignment: Alignment.topLeft,
+
+                            child: FullNameStream(
+                              loggedInUser: loggedInUser!,
+                              style: GoogleFonts.cabin(
+                                  textStyle: TextStyle(
+                                      fontSize: 20.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.normal)),
+                            ),
+
+                          ),
+                          CustomSpacer(flex: 2),
+                          Container(
+                            child: Text(
+                              'About:',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.cabin(
+                                fontSize: 13.sp,
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          CustomSpacer(flex: 1),
+                          Container(
+                            child: Text(
+                              user['bio'] ?? 'I am not complicated. As a matter of fact, i believe in the simplicity of all things and this enables me take life one step at a time while doing my best to keep everything simple',
+                              textAlign: TextAlign.justify,
+                              style: GoogleFonts.cabin(
+                                fontSize: 13.sp,
+                                color: Colors.white,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                          CustomSpacer(flex: 15),
+                          Container(
+                              alignment: Alignment.topRight,
+                              child: GestureDetector(
+                                onTap: () => _showPicker(context),
+                                child: Icon(Icons.add_circle_outline,
+                                    color: Colors.black, size: 30),
+                              )),
+                          CustomSpacer(flex: 5),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 120.h,
+                                  width: 120.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/landing-page-background.jpg'),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                                CustomSpacer(flex: 4, horizontal: true),
+                                Container(
+                                  height: 120.h,
+                                  width: 120.w,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                            'assets/images/landing-page-background.jpg'),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          CustomSpacer(flex: 6),
+                        ],
                       ),
-                      CustomSpacer(flex: 6),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+                    ),
+                  ],
+                );
+              }
+            )    
           ),
         ),
         bottomNavigationBar: BottomNavBar(),

@@ -171,7 +171,7 @@ class _ChatPageViewState extends State<ChatPageView> {
                                         messageContent: messageData[index]
                                                 ['lastMessage.content']
                                             .trim(),
-                                        // imageUrl: data[index]['photoURL'],
+                                        imageUrl: contact['avatar'],
                                         time: messageData[index]
                                             ['lastMessage.timestamp'] ,
                                         messageRead: (index == 0 || index == 3)

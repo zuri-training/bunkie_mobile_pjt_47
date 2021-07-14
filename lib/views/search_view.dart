@@ -2,6 +2,7 @@ import 'package:bunkie/services/navigation_service.dart';
 import 'package:bunkie/utils/utils.dart';
 import 'package:bunkie/views/shared/shared.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,6 +32,7 @@ class _SearchViewState extends State<SearchView> {
     searchQuery = FirebaseFirestore.instance.collection('users')
         .where('university', isEqualTo: _selectedUniversity)
         .where('gender', isEqualTo: _selectedGender)
+        .where('id', isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
         // .where('level', isGreaterThanOrEqualTo: _selectedLevel)
         // .where('age', isGreaterThanOrEqualTo: _splitAgeRange[0])
         // .where('age', isLessThanOrEqualTo: _splitAgeRange[1])

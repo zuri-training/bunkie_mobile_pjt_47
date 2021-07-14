@@ -31,6 +31,8 @@ class _CustomSearchableDropdownState extends State<CustomSearchableDropdown> {
   @override
   Widget build(BuildContext context) {
     return DropdownSearch(
+      dropdownSearchBaseStyle: GoogleFonts.cabin(),
+      searchBoxStyle: GoogleFonts.cabin(),
       autoFocusSearchBox: true,
       dropdownSearchDecoration: InputDecoration(
         labelText: 'Search...',
@@ -60,7 +62,6 @@ class _CustomSearchableDropdownState extends State<CustomSearchableDropdown> {
       items: widget.items,
       label: widget.hintText,
       onChanged: widget.onChanged,
-      // selectedItem: widget.items[0],
       validator: (String? item) {
         if (item == null) {
           return 'Required field';

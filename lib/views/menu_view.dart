@@ -76,11 +76,7 @@ class _MenuViewState extends State<MenuView> {
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: Row(
                               children: [
-                                CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      'assets/images/landing-page-background.jpg'),
-                                  radius: 25,
-                                ),
+                                AvatarStream(user: loggedInUser!),
                                 // CustomSpacer(flex: 0, horizontal: true),
                                 Container(
                                   alignment: Alignment.topLeft,

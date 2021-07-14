@@ -16,7 +16,7 @@ class FirestoreService {
     }
   }
 
-  Future<dynamic> getUser(String uid) async {
+  Stream<dynamic> getUser(String uid) async* {
     try {
       Map userMap = {};
       var userData =
@@ -32,7 +32,7 @@ class FirestoreService {
           print('Document does not exist on the database');
         }
       });
-      return userData;
+      yield userData;
     } catch (e) {
       print(e);
     }
