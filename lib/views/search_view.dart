@@ -32,7 +32,7 @@ class _SearchViewState extends State<SearchView> {
     searchQuery = FirebaseFirestore.instance.collection('users')
         .where('university', isEqualTo: _selectedUniversity)
         .where('gender', isEqualTo: _selectedGender)
-        .where('id', isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        // .where('id', isNotEqualTo: FirebaseAuth.instance.currentUser!.uid)
         // .where('level', isGreaterThanOrEqualTo: _selectedLevel)
         // .where('age', isGreaterThanOrEqualTo: _splitAgeRange[0])
         // .where('age', isLessThanOrEqualTo: _splitAgeRange[1])

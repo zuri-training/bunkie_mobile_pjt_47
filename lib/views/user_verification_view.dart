@@ -24,7 +24,7 @@ class _UserVerificationViewState extends State<UserVerificationView> {
         appBar: AppBar(
           title: Text(
             'Verification',
-            style: TextStyle(
+            style: GoogleFonts.cabin(
               color: Colors.white,
               fontSize: 18.sp,
             ),
@@ -66,7 +66,7 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                           child: Text(
                             'To ensure the safety of every bunkie, we advise that you verify your account. It is easy and secure.',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 12.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
@@ -183,7 +183,7 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                           child: Text(
                             'Verifying your identity would increase your chances of getting a roommate by 10x',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 12.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.normal,
@@ -200,7 +200,7 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                           child: Text(
                             'Basic Info',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 17.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -217,6 +217,7 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  style: GoogleFonts.cabin(),
                                   decoration: InputDecoration(
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -227,12 +228,15 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                                             color: Colors.lightGreen),
                                       ),
                                       labelText: 'First Name',
+                                      labelStyle: GoogleFonts.cabin(),
+                                      hintStyle: GoogleFonts.cabin(),
                                       hintText: 'First Name'),
                                 ),
                               ),
                               CustomSpacer(flex: 4, horizontal: true),
                               Expanded(
                                 child: TextFormField(
+                                  style: GoogleFonts.cabin(),
                                   decoration: InputDecoration(
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -243,6 +247,8 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                                             color: Colors.lightGreen),
                                       ),
                                       labelText: 'Last Name',
+                                      labelStyle: GoogleFonts.cabin(),
+                                      hintStyle: GoogleFonts.cabin(),
                                       hintText: 'Last Name'),
                                 ),
                               ),
@@ -259,6 +265,7 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                             children: [
                               Expanded(
                                 child: TextFormField(
+                                  style: GoogleFonts.cabin(),
                                   decoration: InputDecoration(
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -269,12 +276,15 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                                             color: Colors.lightGreen),
                                       ),
                                       labelText: 'Middle Name(optional)',
+                                      labelStyle: GoogleFonts.cabin(),
+                                      hintStyle: GoogleFonts.cabin(),
                                       hintText: 'Middle Name'),
                                 ),
                               ),
                               CustomSpacer(flex: 4, horizontal: true),
                               Expanded(
                                 child: TextFormField(
+                                  style: GoogleFonts.cabin(),
                                   decoration: InputDecoration(
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -289,6 +299,8 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                                         icon: Icon(Icons.arrow_drop_down),
                                       ),
                                       labelText: 'Date of Birth',
+                                      labelStyle: GoogleFonts.cabin(),
+                                      hintStyle: GoogleFonts.cabin(),
                                       hintText: 'dd/mm/yyyy'),
                                 ),
                               ),
@@ -304,7 +316,7 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                           child: Text(
                             'Address',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: GoogleFonts.cabin(
                               fontSize: 15.sp,
                               color: Colors.black,
                               fontWeight: FontWeight.w300,
@@ -317,6 +329,7 @@ class _UserVerificationViewState extends State<UserVerificationView> {
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: Container(
                           child: TextFormField(
+                            style: GoogleFonts.cabin(),
                             decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                 borderSide:

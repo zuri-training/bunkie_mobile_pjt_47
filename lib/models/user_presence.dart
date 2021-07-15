@@ -30,12 +30,12 @@ class UserPresence {
     
     var isOfflineForFirestore = {
       'state': 'offline',
-      'last_changed': ServerValue.timestamp
+      'last_changed': DateTime.now().millisecondsSinceEpoch
     };
 
     var isOnlineForFirestore = {
       'state': 'online',
-      'last_changed': ServerValue.timestamp
+      'last_changed': DateTime.now().millisecondsSinceEpoch
     };
 
     db
