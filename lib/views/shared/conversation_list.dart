@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bunkie/utils/helpers.dart';
@@ -11,7 +12,7 @@ import '../chat_detail.dart';
 class ConversationList extends StatefulWidget {
   String name;
   String? messageContent;
-  String? imageUrl;
+  String imageUrl;
   String? time;
   bool messageRead;
   String uid;
@@ -22,7 +23,7 @@ class ConversationList extends StatefulWidget {
   ConversationList(
       {required this.name,
       this.messageContent,
-      this.imageUrl,
+      this.imageUrl: "",
       this.time,
       required this.messageRead,
       required this.uid,
@@ -46,9 +47,10 @@ class _ConversationListState extends State<ConversationList> {
                   child: Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: AssetImage(
-                          widget.imageUrl ?? 'assets/images/roommates/roommate1.jpeg',
+                        foregroundImage: CachedNetworkImageProvider(
+                          widget.imageUrl,
                         ),
+                        backgroundImage: AssetImage('assets/images/roommates/roommate1.jpeg'),
                         maxRadius: 26,
                       ),
                       SizedBox(width: 16.w),
@@ -110,7 +112,7 @@ class _ConversationListState extends State<ConversationList> {
               uid: widget.uid,
               contact: widget.contact,
               convoID: convoID,
-              photoURL: widget.imageUrl ?? 'assets/images/roommates/roommate1.jpeg',
+              photoURL: widget.imageUrl,
             )));
   }
 }

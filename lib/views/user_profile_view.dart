@@ -105,8 +105,9 @@ class _UserProfileViewState extends State<UserProfileView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CircleAvatar(
-                            backgroundImage: CachedNetworkImageProvider(
+                            foregroundImage: CachedNetworkImageProvider(
                                 user['avatar']),
+                            backgroundImage: AssetImage('assets/images/roommates/roommate1.jpeg'),
                             radius: 25,
                           ),
                           CustomSpacer(flex: 2),

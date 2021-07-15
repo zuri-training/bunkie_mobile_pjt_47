@@ -95,8 +95,9 @@ class _RoommateProfileViewState extends State<RoommateProfileView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CircleAvatar(
-                        backgroundImage: CachedNetworkImageProvider(
-                            widget.user['avatar'] ?? 'assets/images/landing-page-background.jpg'),
+                        foregroundImage: CachedNetworkImageProvider(
+                            widget.user['avatar']),
+                        backgroundImage: AssetImage('assets/images/roommates/roommate1.jpeg'),
                         radius: 25,
                       ),
                       CustomSpacer(flex: 2),

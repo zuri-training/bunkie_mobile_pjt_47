@@ -128,7 +128,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
                               child: CircleAvatar(
                                   minRadius: 50,
                                   maxRadius: 70,
-                                  backgroundImage: CachedNetworkImageProvider(
+                                  foregroundImage: CachedNetworkImageProvider(
                                     circleImageUrl!),
                                 )
                             ));

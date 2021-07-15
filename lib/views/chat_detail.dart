@@ -1,4 +1,5 @@
 import 'package:bunkie/utils/utils.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -71,7 +72,8 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                     ),
                     SizedBox(width: 2),
                     CircleAvatar(
-                      backgroundImage: AssetImage(photoURL),
+                      foregroundImage: CachedNetworkImageProvider(photoURL),
+                      backgroundImage: AssetImage('assets/images/roommates/roommate1.jpeg'),
                       maxRadius: 20,
                     ),
                     SizedBox(width: 12.w),
