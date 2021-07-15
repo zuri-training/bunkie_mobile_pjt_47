@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/utils/utils.dart';
@@ -87,7 +88,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
         stream: widget.collection.snapshots(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasError) {
-            print('ERROR: ${snapshot.error}');
+            log('ERROR: ${snapshot.error}');
             return Center(
                 child: Text(
               'Something went wrong!',
@@ -116,8 +117,6 @@ class _CustomCarouselState extends State<CustomCarousel> {
                             allUsers[realIdx]['avatar'] == "" 
                           ? placeholder
                           : allUsers[realIdx]['avatar'];
-
-                          print('REAL: $realIdx $circleIndex');
 
                         return GestureDetector(
                             onTap: () {
@@ -154,7 +153,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
                             itemCount: allUsers.length,
                             itemBuilder: (ctx, index, realIdx) {
                               _currentUserSelected = allUsers[currentIndex];
-                              
+
                               imageUrl = 
                                 allUsers[realIdx]['avatar'] == null || 
                                 allUsers[realIdx]['avatar'] == "" 
