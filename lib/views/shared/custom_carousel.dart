@@ -110,17 +110,14 @@ class _CustomCarouselState extends State<CustomCarousel> {
                     child: CarouselSlider.builder(
                       itemCount: allUsers.length,
                       itemBuilder: (ctx, index, realIdx) {
-                        imageUrl = 
-                            allUsers[currentIndex]['avatar'] == null || 
-                            allUsers[currentIndex]['avatar'] == "" 
-                          ? placeholder
-                          : allUsers[currentIndex]['avatar'];
 
                         circleImageUrl = 
-                            allUsers[circleIndex]['avatar'] == null || 
-                            allUsers[circleIndex]['avatar'] == "" 
+                            allUsers[realIdx]['avatar'] == null || 
+                            allUsers[realIdx]['avatar'] == "" 
                           ? placeholder
-                          : allUsers[circleIndex]['avatar'];
+                          : allUsers[realIdx]['avatar'];
+
+                          print('REAL: $realIdx $circleIndex');
 
                         return GestureDetector(
                             onTap: () {
@@ -157,6 +154,12 @@ class _CustomCarouselState extends State<CustomCarousel> {
                             itemCount: allUsers.length,
                             itemBuilder: (ctx, index, realIdx) {
                               _currentUserSelected = allUsers[currentIndex];
+                              
+                              imageUrl = 
+                                allUsers[realIdx]['avatar'] == null || 
+                                allUsers[realIdx]['avatar'] == "" 
+                              ? placeholder
+                              : allUsers[realIdx]['avatar'];
                               return GestureDetector(
                                   onVerticalDragEnd: (DragEndDetails details) {
                                     int sensitivity = 1;
