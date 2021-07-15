@@ -31,9 +31,10 @@ class _AvatarStreamState extends State<AvatarStream> {
         if (!snapshot.hasData) return Container();
         var user = snapshot.data;
         return CircleAvatar(
-          backgroundImage: CachedNetworkImageProvider(
-            user['avatar'] ?? 'assets/images/landing-page-background.jpg'
+          foregroundImage: CachedNetworkImageProvider(
+            user['avatar']
           ),
+          backgroundImage: AssetImage('assets/images/landing-page-background.jpg'),
           radius: widget.radius ?? 25,
         );
       },
