@@ -73,7 +73,7 @@ class _ChatDetailViewState extends State<ChatDetailView> {
                     SizedBox(width: 2),
                     CircleAvatar(
                       foregroundImage: CachedNetworkImageProvider(photoURL),
-                      backgroundImage: AssetImage('assets/images/roommates/roommate1.jpeg'),
+                      backgroundImage: AssetImage('assets/images/user.jpeg'),
                       maxRadius: 20,
                     ),
                     SizedBox(width: 12.w),

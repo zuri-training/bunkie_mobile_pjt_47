@@ -50,7 +50,7 @@ class _ConversationListState extends State<ConversationList> {
                         foregroundImage: CachedNetworkImageProvider(
                           widget.imageUrl,
                         ),
-                        backgroundImage: AssetImage('assets/images/roommates/roommate1.jpeg'),
+                        backgroundImage: AssetImage('assets/images/user.jpeg'),
                         maxRadius: 26,
                       ),
                       SizedBox(width: 16.w),
