@@ -40,6 +40,8 @@ class _CustomCarouselState extends State<CustomCarousel> {
   var _currentUserSelected;
   var allUsers;
   String? imageUrl;
+  String? circleImageUrl;
+  String placeholder = "https://firebasestorage.googleapis.com/v0/b/bunkie-54bf1.appspot.com/o/avatars%2F4tmU15HOf0a1Rebs1wT6wZU2XoY2%2Fscaled_image_picker1103595624.png?alt=media&token=b9dbada7-fbbc-4769-99ca-2bba17aa398d";
 
   AuthService _auth = AuthService();
 
@@ -85,6 +87,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
         stream: widget.collection.snapshots(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasError) {
+            print('ERROR: ${snapshot.error}');
             return Center(
                 child: Text(
               'Something went wrong!',
@@ -107,7 +110,18 @@ class _CustomCarouselState extends State<CustomCarousel> {
                     child: CarouselSlider.builder(
                       itemCount: allUsers.length,
                       itemBuilder: (ctx, index, realIdx) {
-                        imageUrl = allUsers[currentIndex]['avatar'] ?? _images[0];
+                        imageUrl = 
+                            allUsers[currentIndex]['avatar'] == null || 
+                            allUsers[currentIndex]['avatar'] == "" 
+                          ? placeholder
+                          : allUsers[currentIndex]['avatar'];
+
+                        circleImageUrl = 
+                            allUsers[circleIndex]['avatar'] == null || 
+                            allUsers[circleIndex]['avatar'] == "" 
+                          ? placeholder
+                          : allUsers[circleIndex]['avatar'];
+
                         return GestureDetector(
                             onTap: () {
                               setState(() => circleIndex = index);
@@ -119,7 +133,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
                                   minRadius: 50,
                                   maxRadius: 70,
                                   backgroundImage: CachedNetworkImageProvider(
-                                    imageUrl!),
+                                    circleImageUrl!),
                                 )
                             ));
                       },
