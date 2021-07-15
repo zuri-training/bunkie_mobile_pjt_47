@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bunkie/services/auth_service.dart';
 import 'package:bunkie/utils/utils.dart';
@@ -87,7 +88,7 @@ class _CustomCarouselState extends State<CustomCarousel> {
         stream: widget.collection.snapshots(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasError) {
-            print('ERROR: ${snapshot.error}');
+            log('ERROR: ${snapshot.error}');
             return Center(
                 child: Text(
               'Something went wrong!',
@@ -110,17 +111,12 @@ class _CustomCarouselState extends State<CustomCarousel> {
                     child: CarouselSlider.builder(
                       itemCount: allUsers.length,
                       itemBuilder: (ctx, index, realIdx) {
-                        imageUrl = 
-                            allUsers[currentIndex]['avatar'] == null || 
-                            allUsers[currentIndex]['avatar'] == "" 
-                          ? placeholder
-                          : allUsers[currentIndex]['avatar'];
 
                         circleImageUrl = 
-                            allUsers[circleIndex]['avatar'] == null || 
-                            allUsers[circleIndex]['avatar'] == "" 
+                            allUsers[realIdx]['avatar'] == null || 
+                            allUsers[realIdx]['avatar'] == "" 
                           ? placeholder
-                          : allUsers[circleIndex]['avatar'];
+                          : allUsers[realIdx]['avatar'];
 
                         return GestureDetector(
                             onTap: () {
@@ -157,6 +153,12 @@ class _CustomCarouselState extends State<CustomCarousel> {
                             itemCount: allUsers.length,
                             itemBuilder: (ctx, index, realIdx) {
                               _currentUserSelected = allUsers[currentIndex];
+
+                              imageUrl = 
+                                allUsers[realIdx]['avatar'] == null || 
+                                allUsers[realIdx]['avatar'] == "" 
+                              ? placeholder
+                              : allUsers[realIdx]['avatar'];
                               return GestureDetector(
                                   onVerticalDragEnd: (DragEndDetails details) {
                                     int sensitivity = 1;
