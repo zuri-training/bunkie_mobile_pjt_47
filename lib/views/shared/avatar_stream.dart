@@ -34,7 +34,7 @@ class _AvatarStreamState extends State<AvatarStream> {
           foregroundImage: CachedNetworkImageProvider(
             user['avatar']
           ),
-          backgroundImage: AssetImage('assets/images/landing-page-background.jpg'),
+          backgroundImage: AssetImage('assets/images/user.jpeg'),
           radius: widget.radius ?? 25,
         );
       },

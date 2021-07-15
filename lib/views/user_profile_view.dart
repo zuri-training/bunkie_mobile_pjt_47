@@ -107,7 +107,7 @@ class _UserProfileViewState extends State<UserProfileView> {
                           CircleAvatar(
                             foregroundImage: CachedNetworkImageProvider(
                                 user['avatar']),
-                            backgroundImage: AssetImage('assets/images/roommates/roommate1.jpeg'),
+                            backgroundImage: AssetImage('assets/images/user.jpeg'),
                             radius: 25,
                           ),
                           CustomSpacer(flex: 2),
